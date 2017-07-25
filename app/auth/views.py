@@ -1,8 +1,7 @@
 from . import auth
 from .forms import RegistrationForm, LoginForm
 from flask import render_template
-
-
+from app import mongo
 
 # @auth.route('/register')
 # def register_page():
@@ -14,7 +13,7 @@ def login_page():
     # username = None
     form = LoginForm()
     if form.validate_on_submit():
-        print("SUBMISSION ASDHASDLHAS JASKD SD")
+        user = mongo.db.users.find_one({'name' : form.lg_username.data })
     else:
         print("not validated")
     return render_template('login.html', form=form)
