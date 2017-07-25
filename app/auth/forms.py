@@ -8,10 +8,13 @@ class LoginForm(Form):
     username = TextField('lg_username', validators=[DataRequired()])
 
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login_page():
     username = None
     form = LoginForm()
     return render_template('login.html', form=form)
+
+
 
 
