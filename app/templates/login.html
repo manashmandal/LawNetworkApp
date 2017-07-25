@@ -18,10 +18,10 @@
 	<div class="logo">login</div>
 	<!-- Main Form -->
 	<div class="login-form-1">
-		<form id="login-form" class="text-left">
-            {{ form.csrf }}
+		<form id="login-form" class="text-left"  method="post">
 			<div class="login-form-main-message"></div>
 			<div class="main-login-form">
+				{{ form.csrf_token }}
 				<div class="login-group">
 					<div class="form-group">
 						<label for="lg_username" class="sr-only">Username</label>
