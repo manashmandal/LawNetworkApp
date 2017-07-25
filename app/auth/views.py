@@ -5,6 +5,6 @@ from app import mongo
 
 
 
-@auth.route('/register')
-def register_page():
-    return render_template('register.html', title='Register')
+# @auth.route('/register')
+# def register_page():
+#     return render_template('register.html', title='Register')
