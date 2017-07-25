@@ -9,7 +9,7 @@ def index():
 
 @app.route('/extend')
 def extend():
-    return render_template('extend.html', title='EXTEND BIATCH')
+    return render_template('extend.html', title='Extension')
 
 
 if __name__ == '__main__':

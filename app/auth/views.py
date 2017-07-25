@@ -1,12 +1,12 @@
 from . import auth
 from flask import render_template
 from config import config
+from app import mongo
 
 
 @auth.route('/login')
 def login_page():
-    conf = config['development']
-    print(conf.DB_NAME)
+    print(mongo.db.users.find_one({'id' : 1}))
     return render_template('login.html', title='Login')
 
 
