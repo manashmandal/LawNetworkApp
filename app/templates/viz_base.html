@@ -75,7 +75,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-default" role="navigation" id="lawSearchNavBar">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -126,7 +126,7 @@
     {% endblock %}
 
 
-    <footer class="footer">
+    <footer class="footer" id="theFooter">
       <div class="container">
         <p class="text-muted"><a href="{{ url_for('main.index') }}">Homepage</a>  | <a href="{{ url_for('main.about') }}">About</a> |
             <a href="#">Log Out</a></p>

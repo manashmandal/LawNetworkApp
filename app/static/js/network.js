@@ -36,7 +36,14 @@ $(document).ready(function(){
         let window_height = $(window).height();
         let window_width = $(window).width();
 
+        let footer_height = $("#theFooter").height();
+
+        let navbar_height = $("#lawSearchNavBar").height();
+
         console.log("window height: " + window_height);
+        console.log("Footer height: " + footer_height);
+
+        $("#mynetwork").css('height', window_height - footer_height - navbar_height);
   });
 });
   
