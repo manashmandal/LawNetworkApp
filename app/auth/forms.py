@@ -5,7 +5,7 @@ from flask import render_template
 from . import auth
 
 class LoginForm(Form):
-    username = StringField('lg_username', validators=[DataRequired()])
+    lg_username = StringField(_name='lg_username', validators=[DataRequired()])
 
 
 
