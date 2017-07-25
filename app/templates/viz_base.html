@@ -63,6 +63,10 @@
         .container .text-muted {
           margin: 20px 0;
         }
+
+        .text-muted {
+            color: black;
+        }
     </style>
     {% endblock %}
 
@@ -74,17 +78,11 @@
 
     {% endblock %}
 
-    <div class="container">
-      <div class="page-header">
-        <h1>Sticky footer</h1>
-      </div>
-      <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.</p>
-      <p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.</p>
-    </div>
 
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
+        <p class="text-muted"><a href="{{ url_for('main.index') }}">Homepage</a>  | <a href="{{ url_for('main.about') }}">About</a> |
+            <a href="#">Log Out</a></p>
       </div>
     </footer>
 </body>
