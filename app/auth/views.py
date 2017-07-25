@@ -11,15 +11,14 @@ def login_page():
     # username = None
     form = LoginForm()
     if form.validate_on_submit():
-        print("Validated on submit")
         user = mongo.db.users.find_one({'username' : form.lg_username.data })
         the_user = load_user(user['username'])
         print(user)
         if user is not None and User.validate_login(user['password'], form.lg_password.data):
-            print("GOT THE USER")
             login_user(the_user)
             return redirect(request.args.get('next') or url_for('main.index'))
     return render_template('login.html', form=form)
+
 
 
 # Logout

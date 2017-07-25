@@ -22,4 +22,7 @@ def create_app(config_name):
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
+    from .viz import viz as viz_blueprint
+    app.register_blueprint(viz_blueprint)
+
     return app
