@@ -26,9 +26,15 @@ body {
   padding: 10px;
   font-family: 'Varela Round';
 }
+
+p {
+
+    color: #000000;
+
+}
 /*=== 2. Anchor Link ===*/
 a {
-  color: #aaaaaa;
+  color: #3F51B5;
   transition: all ease-in-out 200ms;
 }
 a:hover {
@@ -57,7 +63,8 @@ a:hover {
   box-shadow: 0 0 0;
   border-radius: 0;
   background: transparent;
-  color: #555555;
+  /*color: #555555;*/
+  color: #000000;
   padding: 7px 0;
   font-weight: bold;
   height:auto;
@@ -283,6 +290,7 @@ label:hover:before {
 .logo {
   padding: 15px 0;
   font-size: 25px;
-  color: #aaaaaa;
+  /*color: #aaaaaa;*/
+  color: #000000;
   font-weight: bold;
 }
