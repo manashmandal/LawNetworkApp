@@ -1,28 +1,30 @@
 {% extends 'viz_base.html' %}
 
-
-
 {% block body %}
 
 <div class="container-fluid">
 <div class="row">
-    <div class="col-sm-3 col-md-3" style="float: right;">
+    <div class="col-sm-3 col-md-3" style="float: right;" id="amendmentPanel">
         <div class="panel panel-danger">
         <div class="panel-heading">
             <h3 class="panel-title">Amendments</h3>
         </div>
-        <div class="panel-body" id="amendmentViz">
-            Panel content
+        <div class="panel-body" id="amendmentPanelBody">
+            <div class="container" style="max-width: 90%;">
+                <div id="amendmentViz">
+                    <!-- Amendment D3 Viz Goes here  -->
+                </div>
+            </div>
         </div>
         </div>
    </div>
 
-   <div class="col-sm-3 col-md-3" style="float: left;">
+   <div class="col-sm-3 col-md-3" style="float: left;" id="searchResultPanel">
         <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">Search Result</h3>
         </div>
-        <div class="panel-body" id="edgeDetail">
+        <div class="panel-body" id="searchResultPanelBody">
             Panel content
         </div>
         </div>
@@ -33,22 +35,21 @@
 
    </div>
 </div>
-</div>
 
 <div class="row">
-   <div class="col-sm-3 col-md-3" style="float: right;">
+   <div class="col-sm-3 col-md-3" style="float: right;" id="edgeDetailPanel">
         <div class="panel panel-success">
         <div class="panel-heading">
             <h3 class="panel-title">Edge Detail</h3>
         </div>
-        <div class="panel-body" id="edgeDetail">
+        <div class="panel-body" id="edgeDetailPanelBody">
             Panel content
         </div>
         </div>
    </div>
 
 </div>
-
+</div>
 
 
 {% endblock %}

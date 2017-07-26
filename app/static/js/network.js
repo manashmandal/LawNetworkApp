@@ -42,13 +42,16 @@ $(document).ready(function(){
         let window_width = $(window).width();
 
         let footer_height = $("#theFooter").height();
-
         let navbar_height = $("#lawSearchNavBar").height();
 
-        console.log("window height: " + window_height);
-        console.log("Footer height: " + footer_height);
+        let amendment_panel_height = $("#amendmentPanel").height();
+        let cleareance = 50;
+
+        let edge_panel_margin_top = cleareance - (window_height - (navbar_height + amendment_panel_height));
+
 
         $("#mynetwork").css('height', window_height - footer_height - navbar_height);
+        $("#edgeDetailPanel").css('margin-top', "" + (edge_panel_margin_top) + 'px');
         
         // Redraws the network 
         setTimeout(drawNetwork(), 1000);
