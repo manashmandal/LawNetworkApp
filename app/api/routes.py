@@ -4,6 +4,7 @@ from flask_login import login_required
 from flask import request
 from ..backend.search import get_edge_detail
 import json
+from flask import jsonify
 
 # INNER_LAW_NETWORK = mongo.db.network # This network collection contains the relationship between named entities and sections
 # LAW_NETWORK = "" # Outer law network, which cites which one
@@ -37,17 +38,20 @@ def get_law_detial():
 def get_law_text():
     pass
 
-@api.route('/api/connection_details', methods=['GET'])
-def get_connection_details():
+@api.route('/api/edge_detail', methods=['GET'])
+def get_connection_detail():
     source_id = int(request.args.get('s'))
     destination_id = int(request.args.get('d'))
+    detail = mongo.db.edge_detail.find_one({'source' : source_id, 'destination' : destination_id})
 
-    edge_detail = get_edge_detail(source_id, destination_id)
+    if detail != None:
+        return jsonify({
+            'detail' : detail['details']
+        })
 
-    print(edge_detail)
-
-    return json.dumps(edge_detail)
-
+    return jsonify({
+        'error' : 'No Details Found'
+    })
 
 
 
