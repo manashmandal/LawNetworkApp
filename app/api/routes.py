@@ -5,6 +5,7 @@ from flask import request
 from ..backend.search import get_edge_detail
 import json
 from flask import jsonify
+from flask_api import status
 
 # INNER_LAW_NETWORK = mongo.db.network # This network collection contains the relationship between named entities and sections
 # LAW_NETWORK = "" # Outer law network, which cites which one
@@ -49,9 +50,9 @@ def get_connection_detail():
             'detail' : detail['details']
         })
 
-    return jsonify({
-        'error' : 'No Details Found'
-    })
+    error = {"error" : "connection does not exists"}
+
+    return jsonify(error), status.HTTP_404_NOT_FOUND
 
 
 
