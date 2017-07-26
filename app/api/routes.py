@@ -2,6 +2,8 @@ from app import mongo
 from . import api
 from flask_login import login_required
 from flask import request
+from ..backend.search import get_edge_detail
+import json
 
 # INNER_LAW_NETWORK = mongo.db.network # This network collection contains the relationship between named entities and sections
 # LAW_NETWORK = "" # Outer law network, which cites which one
@@ -34,4 +36,18 @@ def get_law_detial():
 @api.route('/api/law_text', methods=['GET'])
 def get_law_text():
     pass
+
+@api.route('/api/connection_details', methods=['GET'])
+def get_connection_details():
+    source_id = int(request.args.get('s'))
+    destination_id = int(request.args.get('d'))
+
+    edge_detail = get_edge_detail(source_id, destination_id)
+
+    print(edge_detail)
+
+    return json.dumps(edge_detail)
+
+
+
 

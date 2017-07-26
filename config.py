@@ -6,7 +6,7 @@ class Config:
     WTF_CSRF_ENABLED = True
     SECRET_KEY = "hello"
 
-    MONGO_DBNAME = "lawviz"
+    MONGO_DBNAME = "law"
     MONGO_HOST = "localhost"
     MONGO_PORT = 27017
 
