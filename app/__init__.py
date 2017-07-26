@@ -25,4 +25,7 @@ def create_app(config_name):
     from .viz import viz as viz_blueprint
     app.register_blueprint(viz_blueprint)
 
+    from .api import api as api_blueprint
+    app.register_blueprint(api_blueprint)
+
     return app

@@ -53,26 +53,9 @@
 
 $(document).ready(function(){
     resizeComponents();
-     drawNetwork();
-     
-
+    drawNetwork();
 
     $(window).resize(function(){
-        // update current window height and width
-        // let window_height = $(window).height();
-        // let window_width = $(window).width();
-
-        // let footer_height = $("#theFooter").height();
-        // let navbar_height = $("#lawSearchNavBar").height();
-
-        // let amendment_panel_height = $("#amendmentPanel").height();
-        // let cleareance = 50;
-
-        // let edge_panel_margin_top = cleareance - (window_height - (navbar_height + amendment_panel_height));
-
-
-        // $("#mynetwork").css('height', window_height - footer_height - navbar_height);
-        // $("#edgeDetailPanel").css('margin-top', "" + (edge_panel_margin_top) + 'px');
         
         // Redraws the network 
         setTimeout(drawNetwork(), 1000);
