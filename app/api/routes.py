@@ -2,7 +2,7 @@ from app import mongo
 from . import api
 from flask_login import login_required
 from flask import request
-from ..backend.search import _search
+from ..backend.search import _search, build_main_network_connection
 import json
 from flask import jsonify
 from flask_api import status
@@ -62,9 +62,11 @@ def search_law():
     exclude_unigram = bool(int(request.args.get('exclude_unigram', default=True)))
 
     laws = _search(str(query), only_ngram_search=ngram, exclude_unigram=exclude_unigram)
+    outer_network = build_main_network_connection(laws)
 
     return jsonify({
-        'laws' : laws
+        'laws' : laws,
+        'network' : outer_network
     })
 
 
