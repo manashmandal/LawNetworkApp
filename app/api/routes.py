@@ -2,7 +2,7 @@ from app import mongo
 from . import api
 from flask_login import login_required
 from flask import request
-from ..backend.search import get_edge_detail
+from ..backend.search import _search
 import json
 from flask import jsonify
 from flask_api import status
@@ -50,9 +50,22 @@ def get_connection_detail():
             'detail' : detail['details']
         })
 
-    error = {"error" : "connection does not exists"}
+    error = {"error" : "connection does not exist"}
 
     return jsonify(error), status.HTTP_404_NOT_FOUND
+
+
+@api.route('/api/search_law', methods=['GET'])
+def search_law():
+    query = request.args.get('q')
+    ngram = bool(int(request.args.get('ngram', default=False)))
+    exclude_unigram = bool(int(request.args.get('exclude_unigram', default=True)))
+
+    laws = _search(str(query), only_ngram_search=ngram, exclude_unigram=exclude_unigram)
+
+    return jsonify({
+        'laws' : laws
+    })
 
 
 
