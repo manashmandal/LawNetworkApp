@@ -1,0 +1,57 @@
+.enable-scrolling {
+    overflow-y: scroll;
+}
+
+
+
+#mynetwork {
+            border: 1px solid black;
+        }
+        /*
+        #scrollIt {
+            height: 50px;
+            width: 50px;
+            overflow-y: scroll;mama
+        }
+        */
+
+        /* Sticky Footer Css */
+        /* Sticky footer styles
+        -------------------------------------------------- */
+        html {
+          position: relative;
+          min-height: 100%;
+          margin-right: 10px;
+          margin-left: 10px;
+          overflow: hidden;
+        }
+        body {
+          /* Margin bottom by footer height */
+          margin-bottom: 60px;
+        }
+        .footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          /* Set the fixed height of the footer here */
+          height: 60px;
+          background-color: #f5f5f5;
+        }
+
+
+        /* Custom page CSS
+        -------------------------------------------------- */
+        /* Not required for template or sticky footer method. */
+
+        .container {
+          width: auto;
+          max-width: 680px;
+          padding: 0 15px;
+        }
+        .container .text-muted {
+          margin: 20px 0;
+        }
+
+        .text-muted {
+            color: black;
+        }

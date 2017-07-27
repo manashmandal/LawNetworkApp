@@ -57,6 +57,9 @@ $(document).ready(function(){
 
 
     $("#searchButton").click(function(event){
+        var data;
+        let searchStarted = true;
+
         event.preventDefault();
         // console.log("Default action prevented");
         $("#loadingIcon").addClass("loading");
@@ -76,8 +79,15 @@ $(document).ready(function(){
             exclude_unigram: _exclude_unigram
         }, function(data){
             console.log(data);
+            data = data;
+            searchStarted = false;
             $("#loadingIcon").removeClass("loading");
         });
+
+        // If search ends populate the result pane with law titles with links
+        if (searchStarted === false){
+            console.log("Search ended");
+        }
 
         console.log(search_keywords);
     });
