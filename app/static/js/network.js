@@ -26,34 +26,39 @@ function updateComponentMeasurements(){
 }
 
 
-function drawNetwork(){
-    // create an array with nodes
-    var nodes = new vis.DataSet([
-        {id: 1, label: 'Node 1'},
-        {id: 2, label: 'Node 2'},
-        {id: 3, label: 'Node 3'},
-        {id: 4, label: 'Node 4'},
-        {id: 5, label: 'Node 5'}
-    ]);
+// function drawNetwork(){
+//     // create an array with nodes
+//     var nodes = new vis.DataSet([
+//         {id: 1, label: 'Node 1'},
+//         {id: 2, label: 'Node 2'},
+//         {id: 3, label: 'Node 3'},
+//         {id: 4, label: 'Node 4'},
+//         {id: 5, label: 'Node 5'}
+//     ]);
 
-    // create an array with edges
-    var edges = new vis.DataSet([
-        {from: 1, to: 3},
-        {from: 1, to: 2},
-        {from: 2, to: 4},
-        {from: 2, to: 5},
-        {from: 3, to: 3}
-    ]);
+//     // create an array with edges
+//     var edges = new vis.DataSet([
+//         {from: 1, to: 3},
+//         {from: 1, to: 2},
+//         {from: 2, to: 4},
+//         {from: 2, to: 5},
+//         {from: 3, to: 3}
+//     ]);
 
-    // create a network
-    var container = document.getElementById('mynetwork');
-    var data = {
-        nodes: nodes,
-        edges: edges
-    };
-    var options = {};
-    var network = new vis.Network(container, data, options);
-  }
+//     // create a network
+//     var container = document.getElementById('mynetwork');
+//     var data = {
+//         nodes: nodes,
+//         edges: edges
+//     };
+//     var options = {};
+//     var network = new vis.Network(container, data, options);
+//   }
+
+
+
+
+
 
 
   // Component Size Calculation
@@ -91,44 +96,25 @@ var startLoading = function(){
 
 var loadLawTitles = function(data){
 
-
-    console.log("BEFORE HEIGHT: " + $("#searchResultPanel").height());
-
     // Emptying the panel body
     $("#searchResultPanelBody").empty();
 
     // Adding unordered list
     $("#searchResultPanelBody").append("<ul></ul>");
 
+    // For debugging purpose
     loaded_data = data;
 
     for (var i = 0; i < data.laws.length; i++){
         $("#searchResultPanelBody").append("<li id=" + data.laws[i] + ">" +  "<b>" + data.laws[i] + "</b> - <i>" + data.id_title_map[data.laws[i]] + "</i>");
     }
 
-    // for (var i = 0; i < data['laws'].length; i++){
-    //     let law_id = data['laws'][i]
-    //     $.getJSON($SCRIPT_ROOT + '/api/law_detail', {
-    //         id: law_id,
-    //         key: 'title'
-    //     }, function(res){
-    //         // Adding the details
-    //         $("#searchResultPanelBody").append("<li id=" + res['law_id'] + ">" +  "<b>" + res['law_id'] + "</b> - <i>" + res['title'] + "</i>");
-    //     });
-    // }
+    drawNetwork(data);
 
-    console.log("LOOP ENDS");
-
-
-    // console.log("AFTER HEIGHT: " + $("#searchResultPanel").height());
-    console.log("HEIGHT:  " + search_result_panel_height);
-
-
-    // Check height of the search panel body and take action according to the height 
 }
 
 $(document).ready(function(){
-    drawNetwork();
+    // drawNetwork();
 
     // Clears input text
     $("#clearButton").click(function(event){
@@ -170,7 +156,7 @@ $(document).ready(function(){
 
     $(window).resize(function(){
         // Redraws the network 
-        setTimeout(drawNetwork(), 1000);
+        // setTimeout(drawNetwork(), 1000);
         // resizeComponents();
   });
 });

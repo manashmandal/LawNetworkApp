@@ -80,7 +80,6 @@
         </form>
     </div>
 
-
   </div><!-- /.navbar-collapse -->
 </nav>
 
@@ -111,6 +110,7 @@
 <script type="text/javascript">
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}
 </script>
+<script src="{{ url_for('static', filename='js/visjsnetwork.js') }}"></script>
 <script src="{{ url_for('static', filename='js/network.js') }}"></script>
 {% endblock %}
 
