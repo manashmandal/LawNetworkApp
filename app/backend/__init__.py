@@ -6,4 +6,4 @@ import numpy as np
 nlp = spacy.load('en')
 stemmer = PorterStemmer()
 
-LAW_COUNT = 704
+LAW_COUNT = 705

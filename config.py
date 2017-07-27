@@ -10,11 +10,8 @@ class Config:
     MONGO_HOST = "localhost"
     MONGO_PORT = 27017
 
-    DB_NAME = "lawviz"
-    PORT = 27017
-    HOST = 'localhost'
-    DATABASE = MongoClient(HOST, PORT)[DB_NAME]
-    USERS_COLLECTION = DATABASE.users
+
+    TEMPLATES_AUTO_RELOAD = True
 
     @staticmethod
     def init_app(app):

@@ -55,6 +55,11 @@ $(document).ready(function(){
     resizeComponents();
     drawNetwork();
 
+    $("#searchButton").click(function(event){
+        event.preventDefault();
+        console.log("Default action prevented");
+    });
+
     $(window).resize(function(){
         
         // Redraws the network 

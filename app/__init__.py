@@ -13,6 +13,7 @@ def create_app(config_name):
     app = FlaskAPI(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
+    app.jinja_env.auto_reload = True
 
     # Initializing the addons
     mongo.init_app(app, config_prefix='MONGO')

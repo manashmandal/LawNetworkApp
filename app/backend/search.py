@@ -18,7 +18,7 @@ def _search(text, only_ngram_search=True, exclude_unigram=True):
     filtered_text = " ".join([stemmer.stem(t.lower_) for t in text if t.is_alpha])
 
 
-    print(filtered_text)
+    # print(filtered_text)
 
     # Make a spacy doc
     text_doc = nlp(u'' + filtered_text)
@@ -109,9 +109,9 @@ def search_database(text, ngram_search=True, delimiter='_'):
 
 
 # Input list of laws [See the implementation in optimized network builder ipynb]
-# TODO: add an option to remove self citation
-# TODO: if details don't exist remove the connection
-def build_main_network_connection(search_result):
+# TODO: add an option to remove self citation [option : exclude_self_cite]
+# TODO: if details don't exist remove the connection [option : exclude_non_detail]
+def build_main_network_connection(search_result, exclude_self_cite=False, exclude_non_detail=False):
     list_connections = []
     for sr in search_result:
         law = mongo.db.citations.find_one({'node' : sr})
