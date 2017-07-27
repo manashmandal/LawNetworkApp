@@ -1,12 +1,27 @@
 {% extends 'viz_base.html' %}
 
+{% block customcss %}
+
+<style>
+
+
+#searchResultPanelBody{
+    height: 350px;
+    max-height: 350px;
+    overflow: auto;
+}
+
+</style>
+
+{% endblock %}
+
 {% block body %}
 
 <div class="row">
 <!-- Search Result and Viz -->
   <div class="col-md-9">
       <!-- Search Result  -->
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title">Search Result</h3>
@@ -17,7 +32,7 @@
     </div>
 
     <!-- Viz  -->
-    <div class="col-md-9">
+    <div class="col-md-8">
         <div id="mynetwork" style="height: 100%;">
 
         </div>
