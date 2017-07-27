@@ -2,15 +2,13 @@
     overflow-y: scroll;
 }
 
-#searchResultPanel {
-   min-height: 10%; 
-   max-height: 10%;
-}
 
 
 
 #mynetwork {
             border: 1px solid black;
+            height: 400px;
+
         }
         /*
         #scrollIt {
@@ -23,13 +21,13 @@
         /* Sticky Footer Css */
         /* Sticky footer styles
         -------------------------------------------------- */
-        html {
+         html {
           position: relative;
           min-height: 100%;
           margin-right: 10px;
           margin-left: 10px;
           overflow: hidden;
-        }
+        } 
         body {
           /* Margin bottom by footer height */
           margin-bottom: 60px;
