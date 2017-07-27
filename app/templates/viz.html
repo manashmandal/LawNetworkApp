@@ -2,55 +2,56 @@
 
 {% block body %}
 
-<div class="container-fluid">
 <div class="row">
-    <div class="col-sm-3 col-md-3" style="float: right;" id="amendmentPanel">
-        <div class="panel panel-danger">
-        <div class="panel-heading">
-            <h3 class="panel-title">Amendments</h3>
-        </div>
-        <div class="panel-body" id="amendmentPanelBody">
-            <div class="container" style="max-width: 90%;">
-                <div id="amendmentViz">
-                    <!-- Amendment D3 Viz Goes here  -->
-                </div>
+<!-- Search Result and Viz -->
+  <div class="col-md-9">
+      <!-- Search Result  -->
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Search Result</h3>
+            </div>
+                <div class="panel-body" id="searchResultPanelBody">  
             </div>
         </div>
-        </div>
-   </div>
+    </div>
 
-   <div class="col-sm-3 col-md-3" style="float: left;" id="searchResultPanel">
-        <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3 class="panel-title">Search Result</h3>
-        </div>
-        <div class="panel-body" id="searchResultPanelBody">
-            
+    <!-- Viz  -->
+    <div class="col-md-9">
+        <div id="mynetwork" style="height: 100%;">
 
         </div>
+    </div>
+  </div>
+
+  <!-- Amendment and Edge Detail  -->
+  <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                    <div class="panel panel-success" id="edgeDetailPanel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Connection Details</h3>
+                        </div>
+                            <div class="panel-body" id="edgeDetailPanelBody">  
+                        </div>
+                    </div>
+            </div>
         </div>
-   </div>
-
-
-   <div class="col-sm-6 col-md-6" id="mynetwork">
-
-   </div>
+        <div class="row">
+            <div class="col-md-12">
+                    <div class="panel panel-primary" id="amendmentPanel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Amendments</h3>
+                        </div>
+                            <div class="panel-body" id="amendmentPanelBody">  
+                        </div>
+                    </div>
+            </div>
+        </div>
+  </div>
 </div>
 
-<div class="row">
-   <div class="col-sm-3 col-md-3" style="float: right;" id="edgeDetailPanel">
-        <div class="panel panel-success">
-        <div class="panel-heading">
-            <h3 class="panel-title">Edge Detail</h3>
-        </div>
-        <div class="panel-body" id="edgeDetailPanelBody">
-            Panel content
-        </div>
-        </div>
-   </div>
 
-</div>
-</div>
 
 
 {% endblock %}

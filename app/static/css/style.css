@@ -2,6 +2,11 @@
     overflow-y: scroll;
 }
 
+#searchResultPanel {
+   min-height: 10%; 
+   max-height: 10%;
+}
+
 
 
 #mynetwork {

@@ -1,5 +1,29 @@
+// Global variables
+var window_height;
+var window_width; 
 
-  function drawNetwork(){
+var footer_height;
+var navbar_height;
+
+var amendment_panel_height;
+
+var search_result_panel_height;
+
+
+function updateComponentMeasurements(){
+    window_height = $(window).height();
+    window_width = $(window).width();
+
+    footer_height = $("#theFooter").height();
+    navbar_height = $("#lawSearchNavBar").height();
+
+    search_result_panel_height = $("#searchResultPanel").height() + $("#searchResultPanelBody").height();
+
+    amendment_panel_height = $("#amendmentPanel").height();
+}
+
+
+function drawNetwork(){
     // create an array with nodes
     var nodes = new vis.DataSet([
         {id: 1, label: 'Node 1'},
@@ -31,19 +55,23 @@
 
   // Component Size Calculation
   function resizeComponents(){
-        let window_height = $(window).height();
-        let window_width = $(window).width();
+        let wh = $(window).height();
+        let ww = $(window).width();
 
-        let footer_height = $("#theFooter").height();
-        let navbar_height = $("#lawSearchNavBar").height();
+        //Footer height 
+        let fh = $("#theFooter").height();
 
-        let amendment_panel_height = $("#amendmentPanel").height();
+        // Navbar height
+        let nh = $("#lawSearchNavBar").height();
+
+        // Amendment panel height
+        let aph = $("#amendmentPanel").height();
         let cleareance = 50;
 
-        let edge_panel_margin_top =  2 * cleareance - (window_height - (navbar_height + amendment_panel_height));
+        let edge_panel_margin_top =  2 * cleareance - (wh - (nh + aph));
 
 
-        $("#mynetwork").css('height',  window_height - cleareance - footer_height - navbar_height);
+        $("#mynetwork").css('height',  wh - cleareance - fh - nh);
         $("#edgeDetailPanel").css('margin-top', "" + (edge_panel_margin_top) + 'px');
   }
 
@@ -60,6 +88,9 @@ var startLoading = function(){
 
 var loadLawTitles = function(data){
 
+
+    console.log("BEFORE HEIGHT: " + $("#searchResultPanel").height());
+
     // Emptying the panel body
     $("#searchResultPanelBody").empty();
 
@@ -72,21 +103,29 @@ var loadLawTitles = function(data){
             id: law_id,
             key: 'title'
         }, function(res){
-            console.log("ID: " + res['law_id'] + " || TITLE: " + res['title']);
             // Adding the details
             $("#searchResultPanelBody").append("<li id=" + res['law_id'] + ">" +  "<b>" + res['law_id'] + "</b> - <i>" + res['title'] + "</i>");
         });
     }
+
+    console.log("LOOP ENDS");
+
+
+    // console.log("AFTER HEIGHT: " + $("#searchResultPanel").height());
+    console.log("HEIGHT:  " + search_result_panel_height);
+
+
+    // Check height of the search panel body and take action according to the height 
 }
 
 $(document).ready(function(){
-    resizeComponents();
     drawNetwork();
 
     // Clears input text
     $("#clearButton").click(function(event){
         event.preventDefault();
         $("#keywordSearchInput").val("");
+        $("#searchResultPanelBody").empty();
     });
 
 
@@ -114,16 +153,16 @@ $(document).ready(function(){
         }, function(data){
             loadLawTitles(data);
         })
-        .then(loadingDone);
+        .then(loadingDone)
+        .then(updateComponentMeasurements);
 
         console.log(search_keywords);
     });
 
     $(window).resize(function(){
-        
         // Redraws the network 
         setTimeout(drawNetwork(), 1000);
-        resizeComponents();
+        // resizeComponents();
   });
 });
   
