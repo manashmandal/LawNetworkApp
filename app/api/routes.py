@@ -7,6 +7,7 @@ from ..backend.search import _search, build_main_network_connection
 import json
 from flask import jsonify
 from flask_api import status
+import time
 
 # INNER_LAW_NETWORK = mongo.db.network # This network collection contains the relationship between named entities and sections
 # LAW_NETWORK = "" # Outer law network, which cites which one
@@ -63,12 +64,13 @@ def get_law_detail():
     try:
         idx = AVAILABLE_LAW_KEYS[key]
     except KeyError:
-        return {"error" : "you entered an invalid key", "valid_keys" : AVAILABLE_LAW_KEYS.keys() }
+        return {"error" : "you entered an invalid key", "valid_keys" : list(AVAILABLE_LAW_KEYS.keys()) }
 
     if law_id > 0 and law_id < LAW_COUNT:
         detail = mongo.db.laws.find_one({'law_id' : law_id })
         return jsonify({
-            key : detail[key]
+            key : detail[key],
+            'law_id' : law_id
         })
     
     else:
@@ -111,6 +113,23 @@ def search_law():
         'network' : outer_network
     })
 
+
+# API for test purpose
+@api.route('/api/test', methods=['GET'])
+def testapi():
+    count = int(request.args.get('count', 5))
+    begin_time = time.time()
+    for i in range(1, count +1):
+        id = i % 704 + 1
+        
+        print(id)
+        q = mongo.db.laws.find_one({'law_id' : id})
+        # print(q['title'])
+    end_time = time.time()
+
+    return {
+        "time_taken" : end_time - begin_time
+    }
 
 
 

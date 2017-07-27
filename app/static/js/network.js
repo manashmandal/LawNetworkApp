@@ -28,6 +28,8 @@
     var network = new vis.Network(container, data, options);
   }
 
+
+  // Component Size Calculation
   function resizeComponents(){
         let window_height = $(window).height();
         let window_width = $(window).width();
@@ -48,8 +50,34 @@
 //  resizeComponents();
 
 
+var loadingDone = function(){
+    $("#loadingIcon").removeClass("loading");
+}
 
-  // ------------- Component Size Calculations ------------------- //
+var startLoading = function(){
+    $("#loadingIcon").addClass("loading");
+}
+
+var loadLawTitles = function(data){
+
+    // Emptying the panel body
+    $("#searchResultPanelBody").empty();
+
+    // Adding unordered list
+    $("#searchResultPanelBody").append("<ul></ul>");
+
+    for (var i = 0; i < data['laws'].length; i++){
+        let law_id = data['laws'][i]
+        $.getJSON($SCRIPT_ROOT + '/api/law_detail', {
+            id: law_id,
+            key: 'title'
+        }, function(res){
+            console.log("ID: " + res['law_id'] + " || TITLE: " + res['title']);
+            // Adding the details
+            $("#searchResultPanelBody").append("<li id=" + res['law_id'] + ">" +  "<b>" + res['law_id'] + "</b> - <i>" + res['title'] + "</i>");
+        });
+    }
+}
 
 $(document).ready(function(){
     resizeComponents();
@@ -63,12 +91,11 @@ $(document).ready(function(){
 
 
     $("#searchButton").click(function(event){
-        var data;
-        let searchStarted = true;
+        
 
         event.preventDefault();
         // console.log("Default action prevented");
-        $("#loadingIcon").addClass("loading");
+        
 
         // Send Jquery request for searching
         let search_keywords = $("#keywordSearchInput").val();
@@ -77,23 +104,17 @@ $(document).ready(function(){
         let _ngram = $("#excludeSingleKeywordCheckBox").prop('checked') ? 1 : 0;
         let _exclude_unigram = $("#phraseOnlyCheckBox").prop('checked') ? 1 : 0;
         
-
+        // Set loading 
+        startLoading();
         // Requests for network data 
         $.getJSON($SCRIPT_ROOT + "/api/search_law", {
             q: search_keywords,
             ngram: _ngram,
             exclude_unigram: _exclude_unigram
         }, function(data){
-            console.log(data);
-            data = data;
-            searchStarted = false;
-            $("#loadingIcon").removeClass("loading");
-        });
-
-        // If search ends populate the result pane with law titles with links
-        if (searchStarted === false){
-            console.log("Search ended");
-        }
+            loadLawTitles(data);
+        })
+        .then(loadingDone);
 
         console.log(search_keywords);
     });

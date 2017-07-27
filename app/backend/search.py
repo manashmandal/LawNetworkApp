@@ -80,7 +80,7 @@ def _search(text, only_ngram_search=True, exclude_unigram=True):
             # DEBUG_MSG
             # print("ALL KEY SEARCH: {}".format(all_key_search))
 
-    return list(set(_ids))
+    return sorted(list(set(_ids)))
 
 
 
