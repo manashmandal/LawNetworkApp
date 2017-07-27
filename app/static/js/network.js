@@ -38,10 +38,10 @@
         let amendment_panel_height = $("#amendmentPanel").height();
         let cleareance = 50;
 
-        let edge_panel_margin_top = cleareance - (window_height - (navbar_height + amendment_panel_height));
+        let edge_panel_margin_top =  2 * cleareance - (window_height - (navbar_height + amendment_panel_height));
 
 
-        $("#mynetwork").css('height', window_height - footer_height - navbar_height);
+        $("#mynetwork").css('height',  window_height - cleareance - footer_height - navbar_height);
         $("#edgeDetailPanel").css('margin-top', "" + (edge_panel_margin_top) + 'px');
   }
 
@@ -59,6 +59,7 @@ $(document).ready(function(){
     $("#searchButton").click(function(event){
         event.preventDefault();
         // console.log("Default action prevented");
+        $("#loadingIcon").addClass("loading");
 
         // Send Jquery request for searching
         let search_keywords = $("#keywordSearchInput").val();
@@ -75,6 +76,7 @@ $(document).ready(function(){
             exclude_unigram: _exclude_unigram
         }, function(data){
             console.log(data);
+            $("#loadingIcon").removeClass("loading");
         });
 
         console.log(search_keywords);

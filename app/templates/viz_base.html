@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/vis-network.min.css') }}">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/loading.css') }}">
         <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}"> -->
     {% endblock %}
 
@@ -104,7 +105,7 @@
                             Exclude Single Keyword
             </label>
         </a>
-        </li>
+    </li>
 
 
     </ul>
@@ -115,9 +116,12 @@
             <div class="input-group-btn">
                 <button id="searchButton" class="btn btn-success" style="width: 50px; margin-left: 20px;" type="submit"><i class="fa fa-search"></i></button>
             </div>
+            <div class="" id="loadingIcon"></div>
         </div>
         </form>
     </div>
+
+
   </div><!-- /.navbar-collapse -->
 </nav>
 
