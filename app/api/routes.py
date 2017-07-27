@@ -1,4 +1,5 @@
 from app import mongo
+# from . import api, AVAILABLE_LAW_KEYS, LAW_COUNT
 from . import api
 from flask_login import login_required
 from flask import request
@@ -11,6 +12,19 @@ from flask_api import status
 # LAW_NETWORK = "" # Outer law network, which cites which one
 # LAWS = mongo.db.laws # Containes the law texts
 # USERS = mongo.db.users
+
+LAW_COUNT = 705
+
+AVAILABLE_LAW_KEYS = {
+        "amendments" : 1,
+        "subtitle" : 2,
+        "title" : 3,
+        "chapters" : 4,
+        "volume" : 5,
+        "section_details" : 6,
+        "date" : 7,
+        "preamble" : 8 
+} 
 
 
 # Returns the connection [Main Connection]
@@ -29,9 +43,37 @@ def get_amendment_detail():
 
 
 # Inner law details, connection between entities and sections 
+"""
+Available Keys:
+    1. amendments
+    2. subtitle
+    3. title
+    4. chapters
+    5. volume
+    6. section_details
+    7. date
+    8. preamble
+"""
 @api.route('/api/law_detail', methods=['GET'])
-def get_law_detial():
-    pass
+def get_law_detail():
+    law_id = int(request.args.get('id'))
+    key = str(request.args.get('key', default="title"))
+
+    # Checking key validity
+    try:
+        idx = AVAILABLE_LAW_KEYS[key]
+    except KeyError:
+        return {"error" : "you entered an invalid key", "valid_keys" : AVAILABLE_LAW_KEYS.keys() }
+
+    if law_id > 0 and law_id < LAW_COUNT:
+        detail = mongo.db.laws.find_one({'law_id' : law_id })
+        return jsonify({
+            key : detail[key]
+        })
+    
+    else:
+        return {"error" : "the law doesn't exist currently"}
+
 
 
 # Returns law text in a formatted manner 
@@ -68,6 +110,8 @@ def search_law():
         'laws' : laws,
         'network' : outer_network
     })
+
+
 
 
 
