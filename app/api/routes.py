@@ -108,9 +108,12 @@ def search_law():
     laws = _search(str(query), only_ngram_search=ngram, exclude_unigram=exclude_unigram)
     outer_network = build_main_network_connection(laws)
 
+    id_title_map = { id : mongo.db.laws.find_one({'law_id' : id})['title'] for id in laws }
+
     return jsonify({
         'laws' : laws,
-        'network' : outer_network
+        'network' : outer_network,
+        'id_title_map' : id_title_map
     })
 
 

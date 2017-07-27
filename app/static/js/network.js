@@ -10,6 +10,9 @@ var amendment_panel_height;
 var search_result_panel_height;
 
 
+var loaded_data;
+
+
 function updateComponentMeasurements(){
     window_height = $(window).height();
     window_width = $(window).width();
@@ -97,16 +100,22 @@ var loadLawTitles = function(data){
     // Adding unordered list
     $("#searchResultPanelBody").append("<ul></ul>");
 
-    for (var i = 0; i < data['laws'].length; i++){
-        let law_id = data['laws'][i]
-        $.getJSON($SCRIPT_ROOT + '/api/law_detail', {
-            id: law_id,
-            key: 'title'
-        }, function(res){
-            // Adding the details
-            $("#searchResultPanelBody").append("<li id=" + res['law_id'] + ">" +  "<b>" + res['law_id'] + "</b> - <i>" + res['title'] + "</i>");
-        });
+    loaded_data = data;
+
+    for (var i = 0; i < data.laws.length; i++){
+        $("#searchResultPanelBody").append("<li id=" + data.laws[i] + ">" +  "<b>" + data.laws[i] + "</b> - <i>" + data.id_title_map[data.laws[i]] + "</i>");
     }
+
+    // for (var i = 0; i < data['laws'].length; i++){
+    //     let law_id = data['laws'][i]
+    //     $.getJSON($SCRIPT_ROOT + '/api/law_detail', {
+    //         id: law_id,
+    //         key: 'title'
+    //     }, function(res){
+    //         // Adding the details
+    //         $("#searchResultPanelBody").append("<li id=" + res['law_id'] + ">" +  "<b>" + res['law_id'] + "</b> - <i>" + res['title'] + "</i>");
+    //     });
+    // }
 
     console.log("LOOP ENDS");
 
