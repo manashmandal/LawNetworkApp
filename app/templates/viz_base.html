@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://use.fontawesome.com/ca028002b4.js"></script>
     {% block css %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-paper.min.css') }}">
@@ -60,12 +61,15 @@
 
 
     </ul>
-    <div class="col-sm-3 col-md-3">
+    <div class="col-sm-4 col-md-4">
         <form class="navbar-form" role="search">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" id="keywordSearchInput">
+            <input type="text" class="form-control" placeholder="Enter Keywords Here" id="keywordSearchInput">
             <div class="input-group-btn">
                 <button id="searchButton" class="btn btn-success" style="width: 50px; margin-left: 20px;" type="submit"><i class="fa fa-search"></i></button>
+                <button id="clearButton" class="btn btn-primary" style="width: 50px; margin-left: 20px;" type="submit">
+                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                </button>
             </div>
             <div class="" id="loadingIcon"></div>
         </div>

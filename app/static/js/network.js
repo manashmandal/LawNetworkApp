@@ -55,6 +55,12 @@ $(document).ready(function(){
     resizeComponents();
     drawNetwork();
 
+    // Clears input text
+    $("#clearButton").click(function(event){
+        event.preventDefault();
+        $("#keywordSearchInput").val("");
+    });
+
 
     $("#searchButton").click(function(event){
         var data;
