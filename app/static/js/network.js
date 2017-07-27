@@ -55,9 +55,29 @@ $(document).ready(function(){
     resizeComponents();
     drawNetwork();
 
+
     $("#searchButton").click(function(event){
         event.preventDefault();
-        console.log("Default action prevented");
+        // console.log("Default action prevented");
+
+        // Send Jquery request for searching
+        let search_keywords = $("#keywordSearchInput").val();
+
+        // Additional parameters
+        let _ngram = $("#excludeSingleKeywordCheckBox").prop('checked') ? 1 : 0;
+        let _exclude_unigram = $("#phraseOnlyCheckBox").prop('checked') ? 1 : 0;
+        
+
+        // Requests for network data 
+        $.getJSON($SCRIPT_ROOT + "/api/search_law", {
+            q: search_keywords,
+            ngram: _ngram,
+            exclude_unigram: _exclude_unigram
+        }, function(data){
+            console.log(data);
+        });
+
+        console.log(search_keywords);
     });
 
     $(window).resize(function(){
