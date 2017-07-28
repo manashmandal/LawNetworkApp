@@ -76,9 +76,9 @@ var loadLawTitles = function(data){
         $("#searchResultPanelBody").append("<li id=" + data.laws[i] + ">" +  "<b>" + data.laws[i] + "</b> - <i>" + data.id_title_map[data.laws[i]] + "</i>");
     }
 
-    drawNetwork(data);
+    drawNetwork(data, loadingDone);
 
-    loadingDone();
+    // loadingDone();
 }
 
 $(document).ready(function(){

@@ -4,7 +4,7 @@ var all_edges;
 var all_edge_ids = [];
 
 //TODO: Optimize
-function drawNetwork (data){
+function drawNetwork (data, stopLoading){
 
     let nodes = [];
     let edges = [];
@@ -78,22 +78,16 @@ function drawNetwork (data){
 
     var network = new vis.Network(container, _data, options);
 
-    console.log("ALL EDGE ID");
-    console.log(all_edge_ids);
+    // Loading done
+    // stopLoading();
 
-    // On Double click reset it 
-    network.on('selectNode', function(params){
+    network.on('stabilized', function(){
+        stopLoading();
+    });
 
-        let remaining_ids = _.difference(
-            all_edge_ids, params.edges
-        )
-
-        console.log("REMAINING EDGES");
-        console.log(remaining_ids);        
-        
-        // Add less opacity
-        for (var i = 0; i < remaining_ids.length; i++){
-            let connected_edge = _edges.get(remaining_ids[i]);
+     // Add less opacity
+        for (var i = 0; i < all_edge_ids.length; i++){
+            let connected_edge = _edges.get(all_edge_ids[i]);
             try {
                 connected_edge.color = {color : 'rgba(255, 0, 0, 0.1)'};
                 _edges.update(connected_edge);
@@ -101,5 +95,29 @@ function drawNetwork (data){
                 console.log(error);
             }
         }
+
+    console.log("ALL EDGE ID");
+    console.log(all_edge_ids);
+
+    // On Double click reset it 
+    network.on('selectNode', function(params){
+
+        // let remaining_ids = _.difference(
+        //     all_edge_ids, params.edges
+        // )
+
+        // console.log("REMAINING EDGES");
+        // console.log(remaining_ids);        
+        
+        // // Add less opacity
+        // for (var i = 0; i < remaining_ids.length; i++){
+        //     let connected_edge = _edges.get(remaining_ids[i]);
+        //     try {
+        //         connected_edge.color = {color : 'rgba(255, 0, 0, 0.1)'};
+        //         _edges.update(connected_edge);
+        //     } catch(error){
+        //         console.log(error);
+        //     }
+        // }
     });
 }
