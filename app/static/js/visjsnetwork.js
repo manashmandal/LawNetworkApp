@@ -1,8 +1,3 @@
-
-var connected_edges;
-var all_edges;
-var all_edge_ids = [];
-
 //TODO: Optimize
 function drawNetwork (data, stopLoading){
 
@@ -14,21 +9,14 @@ function drawNetwork (data, stopLoading){
     }
 
     for (var i = 0; i < data.network.length; i++){
-        edges.push({from : data.network[i].from, to : data.network[i].to });
+        edges.push({from : data.network[i].from, to : data.network[i].to, color: { color : 'rgba(255, 0, 0, 0.1)'} });
     }
 
     // Create data
 
-
     let _nodes = new vis.DataSet(nodes);
     let _edges = new vis.DataSet(edges);
 
-    all_edges = _edges;
-
-    // Getting all data
-    for (key in all_edges._data){
-        all_edge_ids.push(key);
-    }
 
     var container = document.getElementById("mynetwork");
 
@@ -69,39 +57,31 @@ function drawNetwork (data, stopLoading){
         }
         };
 
-    // var options = {
-    //     nodes: {
-    //         shape: 'dot',
-    //         size: 15
-    //     }
-    // };
 
     var network = new vis.Network(container, _data, options);
 
-    // Loading done
-    // stopLoading();
 
     network.on('stabilized', function(){
         stopLoading();
     });
 
-     // Add less opacity
-        for (var i = 0; i < all_edge_ids.length; i++){
-            let connected_edge = _edges.get(all_edge_ids[i]);
-            try {
-                connected_edge.color = {color : 'rgba(255, 0, 0, 0.1)'};
-                _edges.update(connected_edge);
-            } catch(error){
-                console.log(error);
-            }
-        }
-
-    console.log("ALL EDGE ID");
-    console.log(all_edge_ids);
-
     // On Double click reset it 
     network.on('selectNode', function(params){
+        
+        // Send request to get connected nodes
+        $.getJSON($SCRIPT_ROOT + '/api/connected_laws', {
+            id: params.nodes[0]
+        }).done(function(json){
+            // Now highlight the search results from the connected law ids
+            
 
+            // console.log(json.connections);
+        });
+
+
+
+        console.log(params);
+        console.log(this);
         // let remaining_ids = _.difference(
         //     all_edge_ids, params.edges
         // )

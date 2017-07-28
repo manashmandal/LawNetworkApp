@@ -78,6 +78,20 @@ def get_law_detail():
 
 
 
+# Returns the connected nodes
+@api.route('/api/connected_laws', methods=['GET']) 
+def get_connected_laws():
+    law_id = int(request.args.get('id'))
+    connections = mongo.db.citations.find_one({'node' : law_id})['links']
+    print("CONNECTIONS")
+    print(connections)
+    
+    return jsonify({
+        'source' : law_id,
+        'connections' : connections
+    })
+
+
 # Returns law text in a formatted manner 
 @api.route('/api/law_text', methods=['GET'])
 def get_law_text():
