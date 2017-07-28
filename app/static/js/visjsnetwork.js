@@ -1,6 +1,8 @@
 //TODO: Optimize
 // check if same node was clicked twice
 
+var selected_law;
+
 function drawNetwork (data, stopLoading){
 
     let nodes = [];
@@ -75,18 +77,20 @@ function drawNetwork (data, stopLoading){
             $("#lawModalTitle").text(data.id_title_map[params.nodes[0]]);
             
 
+            selected_law = params.nodes[0];
 
             // Get law text
             $.getJSON($SCRIPT_ROOT + '/api/law_detail/all', {id: params.nodes[0]}).done(function(response){
-                $("#volume").append('<span class="label label-default" style="margin-right: 10px;">Volume</span>' + response.detail.volume);
+                $("#volume").append('<span class="label label-success" style="margin-right: 10px;">Volume</span>' + response.detail.volume);
                 $("#preamble").append('<span class="label label-primary" style="margin-right: 10px;">Preamble</span>' + response.detail.preamble);
 
-                console.log(response.detail.section_details);
+
                 for (key in response.detail.section_details){
                     $("#sectionTableBody").prepend("<tr><td>" + key + "</td><td>" + response.detail.section_details[key].trim() +"</td></tr>")
                 }
 
                 $("#lawModal").modal('toggle');
+
             });
             
 
@@ -99,6 +103,27 @@ function drawNetwork (data, stopLoading){
         $("#volume").empty();
         $("#preamble").empty();
         $("#sectionTableBody").empty();
+    });
+
+
+
+    $("#lawModal").on('show.bs.modal', function(){
+        console.log("MODAL OPENED");
+        
+        
+        $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail', {id: selected_law}).done(function(inner_response){
+                    // Draw the inner network
+                    
+                    // console.log(inner_response);
+
+                    // Show the modal
+                    // $("#lawModal").modal('toggle');
+
+            console.log(inner_response);
+
+            drawInnerNetwork();
+                    
+        });
     });
     
 

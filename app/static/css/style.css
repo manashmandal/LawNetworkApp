@@ -3,6 +3,7 @@
 }
 
 
+
 #resultList li {
   margin-bottom: 2px;
 }
@@ -11,6 +12,19 @@
   margin-left: -25px;
 }
 
+
+  .modal {
+    overflow: hidden;
+}
+.modal .modal-body {
+    max-height: 500px;
+    min-height: 200px;
+    overflow: auto;
+}
+
+.modal .modal-fixed {
+    position: fixed;
+}  
 
 #lawModal .modal-dialog  {width:80%;}
 

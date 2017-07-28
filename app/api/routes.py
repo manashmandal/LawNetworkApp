@@ -42,6 +42,17 @@ def get_amendment_detail():
     pass
 
 
+# Law Inner Details
+@api.route('/api/law_inner_detail', methods=['GET'])
+def get_law_inner_detail():
+    _id = int(request.args.get('id', 344))
+    inner_details = mongo.db.network.find_one({'law_id' : _id})
+    return jsonify({
+        'nodes' : inner_details['nodes'],
+        'edges' : inner_details['edges'],
+        'id' : _id
+    })
+
 
 # Inner law details, connection between entities and sections 
 """

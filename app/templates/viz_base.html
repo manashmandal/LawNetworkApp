@@ -110,7 +110,10 @@
 <script type="text/javascript">
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}
 </script>
+<script src="https://d3plus.org/js/d3.js"></script>
+<script src="https://d3plus.org/js/d3plus.js"></script>
 <script src="{{ url_for('static', filename='js/underscore.js') }}"></script>
+<script src="{{ url_for('static', filename='js/innernetwork.js') }}"></script>
 <script src="{{ url_for('static', filename='js/visjsnetwork.js') }}"></script>
 <script src="{{ url_for('static', filename='js/network.js') }}"></script>
 {% endblock %}
