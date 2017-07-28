@@ -73,8 +73,24 @@ function drawNetwork (data, stopLoading){
         // If clicked on a law or not
         if (params.nodes.length > 0){
             $("#lawModalTitle").text(data.id_title_map[params.nodes[0]]);
-            $("#lawModal").modal('toggle');
+            
+
+
+            // Get law text
+            $.getJSON($SCRIPT_ROOT + '/api/law_detail/all', {id: params.nodes[0]}).done(function(response){
+                $("#volume").append('<span class="label label-default" style="margin-right: 10px;">Volume</span>' + response.detail.volume);
+
+                $("#lawModal").modal('toggle');
+            });
+            
+
         }
+    });
+
+    $("#lawModal").on('hide.bs.modal', function(){
+        
+        // Empty texts
+        $("#volume").empty();
     });
     
 
