@@ -67,13 +67,21 @@ function drawNetwork (data, stopLoading){
 
     // On Double click reset it 
     network.on('selectNode', function(params){
+
+        // Remove previous highlight
+        $("#resultList>li").removeClass('highlight');
+        
         
         // Send request to get connected nodes
         $.getJSON($SCRIPT_ROOT + '/api/connected_laws', {
             id: params.nodes[0]
         }).done(function(json){
             // Now highlight the search results from the connected law ids
-            
+            console.log("CONNECTIONS: " + json.connections);
+
+            _.each(json.connections, function(connected_node_id){
+                $("#" + connected_node_id).addClass("highlight");
+            });
 
             // console.log(json.connections);
         });

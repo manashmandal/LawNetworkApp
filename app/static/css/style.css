@@ -3,8 +3,16 @@
 }
 
 
+#resultList li {
+  margin-bottom: 2px;
+}
+
+#resultList {
+  margin-left: -25px;
+}
+
   .highlight {
-    display: inline;
+    /* display: inline; */
     background: #3F51B5;
     color: #fff;
     padding:  0.25em;

@@ -67,14 +67,15 @@ var loadLawTitles = function(data){
     $("#searchResultPanelBody").empty();
 
     // Adding unordered list
-    $("#searchResultPanelBody").append("<ul></ul>");
+    $("#searchResultPanelBody").append("<ul id='resultList'></ul>");
 
     // For debugging purpose
     loaded_data = data;
 
     for (var i = 0; i < data.laws.length; i++){
-        $("#searchResultPanelBody").append("<li id=" + data.laws[i] + ">" +  "<b>" + data.laws[i] + "</b> - <i>" + data.id_title_map[data.laws[i]] + "</i>");
+        $("#resultList").append("<li id=" + data.laws[i] + ">" +  "<b>" + data.laws[i] + "</b> - <i>" + data.id_title_map[data.laws[i]] + "</i>");
     }
+
 
     drawNetwork(data, loadingDone);
 
