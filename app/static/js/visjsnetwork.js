@@ -108,23 +108,34 @@ function drawNetwork (data, stopLoading){
 
 
 
-    $("#lawModal").on('show.bs.modal', function(){
-        console.log("MODAL OPENED");
+    // $("#lawModal").on('show.bs.modal', function(){
+    //     console.log("MODAL OPENED");
         
         
-        // $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail', {id: selected_law}).done(function(inner_response){
-        //             // Draw the inner network
+    //     $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail', {id: selected_law}).done(function(inner_response){
+    //                 // Draw the inner network
                     
-        //             // console.log(inner_response);
+    //                 // console.log(inner_response);
 
-        //             // Show the modal
-        //             // $("#lawModal").modal('toggle');
+    //                 // Show the modal
+    //                 // $("#lawModal").modal('toggle');
 
-        //     // console.log(inner_response);
+    //         // console.log(inner_response);
 
             
-        drawInnerNetwork();
+    //     drawInnerNetwork();
+    // });
+
+    $("#lawModal").on('show.bs.modal', function(){
+        $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail', {
+            id: selected_law
+        }).done(function(inner_response){
+            drawInnerNetwork(inner_response);
+            console.log("Drew inner law network");
+        });
     });
+
+    
     
 
     // On Double click reset it 
