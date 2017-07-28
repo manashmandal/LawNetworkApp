@@ -103,6 +103,7 @@ function drawNetwork (data, stopLoading){
         $("#volume").empty();
         $("#preamble").empty();
         $("#sectionTableBody").empty();
+        $("#viz").empty();
     });
 
 
@@ -111,19 +112,18 @@ function drawNetwork (data, stopLoading){
         console.log("MODAL OPENED");
         
         
-        $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail', {id: selected_law}).done(function(inner_response){
-                    // Draw the inner network
+        // $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail', {id: selected_law}).done(function(inner_response){
+        //             // Draw the inner network
                     
-                    // console.log(inner_response);
+        //             // console.log(inner_response);
 
-                    // Show the modal
-                    // $("#lawModal").modal('toggle');
+        //             // Show the modal
+        //             // $("#lawModal").modal('toggle');
 
-            console.log(inner_response);
+        //     // console.log(inner_response);
 
-            drawInnerNetwork();
-                    
-        });
+            
+        drawInnerNetwork();
     });
     
 
