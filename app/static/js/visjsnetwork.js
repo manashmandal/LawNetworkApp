@@ -79,6 +79,12 @@ function drawNetwork (data, stopLoading){
             // Get law text
             $.getJSON($SCRIPT_ROOT + '/api/law_detail/all', {id: params.nodes[0]}).done(function(response){
                 $("#volume").append('<span class="label label-default" style="margin-right: 10px;">Volume</span>' + response.detail.volume);
+                $("#preamble").append('<span class="label label-primary" style="margin-right: 10px;">Preamble</span>' + response.detail.preamble);
+
+                console.log(response.detail.section_details);
+                for (key in response.detail.section_details){
+                    $("#sectionTableBody").prepend("<tr><td>" + key + "</td><td>" + response.detail.section_details[key].trim() +"</td></tr>")
+                }
 
                 $("#lawModal").modal('toggle');
             });
@@ -91,6 +97,8 @@ function drawNetwork (data, stopLoading){
         
         // Empty texts
         $("#volume").empty();
+        $("#preamble").empty();
+        $("#sectionTableBody").empty();
     });
     
 
