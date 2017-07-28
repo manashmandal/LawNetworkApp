@@ -94,8 +94,12 @@ function drawNetwork (data){
         // Add less opacity
         for (var i = 0; i < remaining_ids.length; i++){
             let connected_edge = _edges.get(remaining_ids[i]);
-            connected_edge.color = {color : 'rgba(255, 0, 0, 0.1)'};
-            _edges.update(connected_edge);
+            try {
+                connected_edge.color = {color : 'rgba(255, 0, 0, 0.1)'};
+                _edges.update(connected_edge);
+            } catch(error){
+                console.log(error);
+            }
         }
     });
 }
