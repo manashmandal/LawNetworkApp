@@ -1,4 +1,8 @@
 //TODO: Optimize
+// check if same node was clicked twice
+var clicked_node_id = undefined;
+
+
 function drawNetwork (data, stopLoading){
 
     let nodes = [];
@@ -65,8 +69,15 @@ function drawNetwork (data, stopLoading){
         stopLoading();
     });
 
+    // On Double click initiate a modal to show the law text and inner graph 
+    network.on('doubleClick', function(params){
+        console.log(params);
+    });
+    
+
     // On Double click reset it 
     network.on('selectNode', function(params){
+
 
         // Remove previous highlight
         $("#resultList>li").removeClass('highlight');
@@ -77,7 +88,6 @@ function drawNetwork (data, stopLoading){
             id: params.nodes[0]
         }).done(function(json){
             // Now highlight the search results from the connected law ids
-            console.log("CONNECTIONS: " + json.connections);
 
             _.each(json.connections, function(connected_node_id){
                 $("#" + connected_node_id).addClass("highlight");
@@ -86,26 +96,5 @@ function drawNetwork (data, stopLoading){
             // console.log(json.connections);
         });
 
-
-
-        console.log(params);
-        console.log(this);
-        // let remaining_ids = _.difference(
-        //     all_edge_ids, params.edges
-        // )
-
-        // console.log("REMAINING EDGES");
-        // console.log(remaining_ids);        
-        
-        // // Add less opacity
-        // for (var i = 0; i < remaining_ids.length; i++){
-        //     let connected_edge = _edges.get(remaining_ids[i]);
-        //     try {
-        //         connected_edge.color = {color : 'rgba(255, 0, 0, 0.1)'};
-        //         _edges.update(connected_edge);
-        //     } catch(error){
-        //         console.log(error);
-        //     }
-        // }
     });
 }
