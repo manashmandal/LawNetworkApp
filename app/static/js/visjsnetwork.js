@@ -1,7 +1,5 @@
 //TODO: Optimize
 // check if same node was clicked twice
-var clicked_node_id = undefined;
-
 
 function drawNetwork (data, stopLoading){
 

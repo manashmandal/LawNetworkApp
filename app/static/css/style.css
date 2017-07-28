@@ -11,6 +11,9 @@
   margin-left: -25px;
 }
 
+
+#lawModal .modal-dialog  {width:80%;}
+
   .highlight {
     /* display: inline; */
     background: #3F51B5;
