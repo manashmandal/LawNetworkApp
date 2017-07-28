@@ -12,8 +12,11 @@
   margin-left: -25px;
 }
 
+#viz {
+  border: 1px dashed grey;
+}
 
-  .modal {
+.modal {
     overflow: hidden;
 }
 .modal .modal-body {
