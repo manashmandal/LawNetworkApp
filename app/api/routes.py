@@ -77,15 +77,31 @@ def get_law_detail():
         return {"error" : "the law doesn't exist currently"}
 
 
+# Get all detail 
+@api.route('/api/law_detail/all', methods=['GET'])
+def get_all_law_detail():
+    law_id = int(request.args.get('id'))
+
+    # Checking key validity
+    if law_id > 0 and law_id < LAW_COUNT:
+        detail = mongo.db.laws.find_one({'law_id' : law_id })
+        detail['_id'] = law_id
+        return jsonify({
+            'detail' : detail,
+            'law_id' : law_id
+        })
+    
+    else:
+        return {"error" : "the law doesn't exist currently"}
+
+
 
 # Returns the connected nodes
 @api.route('/api/connected_laws', methods=['GET']) 
 def get_connected_laws():
     law_id = int(request.args.get('id'))
     connections = mongo.db.citations.find_one({'node' : law_id})['links']
-    print("CONNECTIONS")
-    print(connections)
-    
+
     return jsonify({
         'source' : law_id,
         'connections' : connections
@@ -105,6 +121,8 @@ def get_connection_detail():
 
     if detail != None:
         return jsonify({
+            'source' : source_id,
+            'destination' : destination_id,
             'detail' : detail['details']
         })
 
@@ -129,6 +147,7 @@ def search_law():
         'network' : outer_network,
         'id_title_map' : id_title_map
     })
+
 
 
 # API for test purpose

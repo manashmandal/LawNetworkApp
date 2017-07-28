@@ -88,14 +88,17 @@ $(document).ready(function(){
     // Clears input text
     $("#clearButton").click(function(event){
         event.preventDefault();
+        // Empty keyword search bar
         $("#keywordSearchInput").val("");
+        // Empty Search result panel body
         $("#searchResultPanelBody").empty();
+        // Empty Visualization 
+        $("#mynetwork").empty();
     });
 
 
     $("#searchButton").click(function(event){
-        
-
+    
         event.preventDefault();
         // console.log("Default action prevented");
         
@@ -121,10 +124,9 @@ $(document).ready(function(){
         console.log(search_keywords);
     });
 
+    // TODO: Handle resizing to fit the viz browser window
     $(window).resize(function(){
-        // Redraws the network 
-        // setTimeout(drawNetwork(), 1000);
-        // resizeComponents();
-  });
+
+    });
 });
   
