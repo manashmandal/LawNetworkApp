@@ -1,23 +1,38 @@
 // Draws inner network
-
+// Entity-Phrase network 
 function drawInnerNetwork(_data){
 
-  console.log(_data);
+  var entity_phrase_nodes = [];
+  var entity_phrase_edges = [];
+  
+
+
+  console.log("Entity Nodes");
+  console.log(entity_nodes);
+
+  console.log("Phrase nodes");
+  console.log(phrase_nodes);
+
+  console.log("Section Nodes");
+  console.log(section_nodes);
+
+
+
   // create some nodes
       var nodes = [
-        {id: 1, label: 'Node in\nthe center', shape: 'text', font:{strokeWidth:4}},
-        {id: 2, label: 'Node\nwith\nmultiple\nlines', shape: 'circle'},
-        {id: 3, label: 'This is a lot of text\nbut luckily we can spread\nover multiple lines', shape: 'database'},
-        {id: 4, label: 'This is text\non multiple lines', shape: 'box'},
-        {id: 5, label: 'Little text', shape: 'ellipse'}
+        {id: 1, label: 'Government', shape: 'text', font:{strokeWidth:4}},
+        {id: 2, label: 'Receipt Custody', shape: 'text', font:{strokeWidth:4}},
+        {id: 3, label: 'Prosecution of\nAccountants and\sureties', shape: 'text', font:{strokeWidth:4}},
+        {id: 4, label: 'Public Accountant',shape: 'text', font:{strokeWidth:4}},
+        {id: 5, label: 'Lands Belonging',shape: 'text', font:{strokeWidth:4}}
       ];
 
       // create some edges
       var edges = [
-        {from: 1, to: 2, color: 'red', width: 3, length: 200}, // individual length definition is possible
-        {from: 1, to: 3, dashes:true, width: 1, length: 200},
-        {from: 1, to: 4, width: 1, length: 200, label:'I\'m an edge!'},
-        {from: 1, to: 5, arrows:'to', width: 3, length: 200, label:'arrows\nare cool'}
+        {from: 1, to: 2, width: 3, length: 200}, // individual length definition is possible
+        {from: 1, to: 3, width: 1, length: 200},
+        {from: 1, to: 4, width: 1, length: 200, label:''},
+        {from: 1, to: 5, arrows:'to', width: 3, length: 200, label:''}
       ];
 
       // create a network

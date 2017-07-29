@@ -43,9 +43,43 @@ def get_amendment_detail():
 
 
 # Law Inner Details
+"""
+Types: 
+1. Phrase <-> Section : ps/sp
+2. Phrase <-> Entity : pe/ep
+3. Entity <-> Section : es/se
+"""
 @api.route('/api/law_inner_detail', methods=['GET'])
 def get_law_inner_detail():
     _id = int(request.args.get('id', 344))
+    _type = str(request.args.get('type', 'ps'))
+
+    # If Phrase <-> Section Network is needed
+    if _type == 'ps' or _type == 'sp':
+        pass
+
+    # If Entity <-> Section Network is Needed
+    elif _type == 'pe' or _type == 'ep':
+        details = mongo.db.network.find_one({'law_id' : _id})
+
+
+        # edges = [
+        #     {'from' : e['from'], 'to' : e['to'] } for e in details['edges'] if e['title'] == 'Organization'  
+        # ]
+
+        for d in details['edges']:
+            if (len(d['title']) < 15):
+                # print(d['title'])
+                edges.append({'from' : d['from'], 'to' : d['to']})
+
+
+        print(edges)
+    
+    # ends_to = len([e['to'] for e in edges])
+    # begins_from = len([e['from'] for e in edges])
+
+    # print("CONNECTIONS BEGINS FROM {} NODES AND ENDS TO {} AND TOTAL CONNECTION {}".format(begins_from, ends_to, len(edges)))
+
     inner_details = mongo.db.network.find_one({'law_id' : _id})
     return jsonify({
         'nodes' : inner_details['nodes'],
