@@ -3,7 +3,7 @@ from app import mongo
 from . import api
 from flask_login import login_required
 from flask import request
-from ..backend.search import _search, build_main_network_connection
+from ..backend.search import (_search, build_main_network_connection, make_section_entity_network)
 import json
 from flask import jsonify
 from flask_api import status
@@ -49,6 +49,18 @@ Types:
 2. Phrase <-> Entity : pe/ep
 3. Entity <-> Section : es/se
 """
+@api.route('/api/law_inner_detail/phrase_entity', methods=['GET'])
+def get_phrase_entity_network():
+    _id = int(request.args.get('id', 344))
+    nodes, edges = make_section_entity_network(_id)
+    print("NODES : {}".format(nodes))
+    return jsonify({
+        'id' : _id,
+        'nodes' : nodes,
+        'edges' : edges
+    })
+
+
 @api.route('/api/law_inner_detail', methods=['GET'])
 def get_law_inner_detail():
     _id = int(request.args.get('id', 344))
@@ -62,15 +74,31 @@ def get_law_inner_detail():
     elif _type == 'pe' or _type == 'ep':
         details = mongo.db.network.find_one({'law_id' : _id})
 
-
+        edges = []
+        nodes = []
         # edges = [
         #     {'from' : e['from'], 'to' : e['to'] } for e in details['edges'] if e['title'] == 'Organization'  
         # ]
+        from_nodes = []
+        to_nodes = []
 
         for d in details['edges']:
             if (len(d['title']) < 15):
                 # print(d['title'])
                 edges.append({'from' : d['from'], 'to' : d['to']})
+                from_nodes.append(d['from'])
+                to_nodes.append(d['to'])
+                nodes.append(d['from'])
+                nodes.append(d['to'])
+
+
+        print("NODE COUNT : {}".format(len(list(set(nodes)))))
+
+        return jsonify({
+            'connection-type' : 'phrase-entity',
+            'edges' : edges,
+            'nodes' : details['nodes']
+        })
 
 
         print(edges)
