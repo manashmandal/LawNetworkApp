@@ -3,7 +3,7 @@ from app import mongo
 from . import api
 from flask_login import login_required
 from flask import request
-from ..backend.search import (_search, build_main_network_connection, make_section_entity_network)
+from ..backend.search import (_search, build_main_network_connection, make_section_entity_network, calc_amendment)
 import json
 from flask import jsonify
 from flask_api import status
@@ -39,7 +39,12 @@ def get_law_connection():
 # Amendment data
 @api.route('/api/amendments', methods=['GET'])
 def get_amendment_detail():
-    pass
+    _id = int(request.args.get('id', 1))
+    amendments = calc_amendment(_id)
+    return jsonify({
+        'id' : _id,
+        'amendments' : amendments
+    })
 
 
 # Law Inner Details
