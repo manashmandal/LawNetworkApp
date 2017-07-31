@@ -3,6 +3,8 @@
 
 var selected_law;
 
+var _edges_;
+
 function drawNetwork (data, stopLoading){
 
     let nodes = [];
@@ -20,6 +22,8 @@ function drawNetwork (data, stopLoading){
 
     let _nodes = new vis.DataSet(nodes);
     let _edges = new vis.DataSet(edges);
+    _edges_ = _edges;
+
 
 
     var container = document.getElementById("mynetwork");
@@ -105,27 +109,9 @@ function drawNetwork (data, stopLoading){
         $("#sectionTableBody").empty();
         $("#viz").empty();
         $("#amendmentPanelBody").empty();
+        $("#edgeDetailPanelBody").empty();
     });
 
-
-
-    // $("#lawModal").on('show.bs.modal', function(){
-    //     console.log("MODAL OPENED");
-        
-        
-    //     $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail', {id: selected_law}).done(function(inner_response){
-    //                 // Draw the inner network
-                    
-    //                 // console.log(inner_response);
-
-    //                 // Show the modal
-    //                 // $("#lawModal").modal('toggle');
-
-    //         // console.log(inner_response);
-
-            
-    //     drawInnerNetwork();
-    // });
 
     $("#lawModal").on('show.bs.modal', function(){
         $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail', {
@@ -136,6 +122,30 @@ function drawNetwork (data, stopLoading){
         });
     });
 
+
+    // Edge click show why it is connected 
+    // Add the text to edgeDetailsPanelBody
+    network.on('selectEdge', function(params){
+        // console.log(params);
+        console.log(params);
+
+        let selected_edge = _edges.get(params.edges[0]);
+
+        
+
+        // console.log("Selected edge");
+        // console.log(selected_edge);
+
+        // Now requesting the details from database
+        $.getJSON($SCRIPT_ROOT + '/api/edge_detail',
+            {s : "" + selected_edge.from , d: "" + selected_edge.to}
+        ).done(function(response){
+            console.log(response);
+            $("#edgeDetailPanelBody").append("<p>" + response.detail[0].section_title + "</p>");
+        });
+
+
+    });
     
     
 
@@ -168,11 +178,8 @@ function drawNetwork (data, stopLoading){
             var amendment_data = [];
             
             for (key in response.amendments){
-                console.log(key);
                 amendment_data.push({'year' : +key, 'name' : response.title  ,'count' : response.amendments[key]});
             }
-
-            console.log(amendment_data);
 
             var visualization = d3plus.viz()
             .container("#amendmentPanelBody")
