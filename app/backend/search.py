@@ -258,7 +258,8 @@ def make_section_entity_network(_id):
 
 # Calculates amendments
 def calc_amendment(_id):
-    amendments = mongo.db.laws.find_one({'law_id' : _id})['amendments']
+    the_law = mongo.db.laws.find_one({'law_id' : _id})
+    amendments = the_law['amendments']
     count_dict = {}
     for amendment in amendments:
         for token in amendment.split():
@@ -270,4 +271,4 @@ def calc_amendment(_id):
     if count_dict == None:
         return None
     else:
-        return count_dict
+        return count_dict, the_law['title']

@@ -162,38 +162,62 @@ function drawNetwork (data, stopLoading){
             // console.log(json.connections);
         });
 
-            // Get amendment and draw a network
-         var d = [
-                {"year": 1991, "name":"alpha", "value": 15},
-                {"year": 1991, "name":"beta", "value": 10},
-                {"year": 1991, "name":"gamma", "value": 5},
-                {"year": 1991, "name":"delta", "value": 50},
-                {"year": 1992, "name":"alpha", "value": 20},
-                {"year": 1992, "name":"beta", "value": 10},
-                {"year": 1992, "name":"gamma", "value": 10},
-                {"year": 1992, "name":"delta", "value": 43},
-                {"year": 1993, "name":"alpha", "value": 30},
-                {"year": 1993, "name":"beta", "value": 40},
-                {"year": 1993, "name":"gamma", "value": 20},
-                {"year": 1993, "name":"delta", "value": 17},
-                {"year": 1994, "name":"alpha", "value": 60},
-                {"year": 1994, "name":"beta", "value": 60},
-                {"year": 1994, "name":"gamma", "value": 25},
-                {"year": 1994, "name":"delta", "value": 32}
-            ];
+        // Get amendment data
+        $.getJSON("/api/amendments", {id: params.nodes[0]}).done(function(response){
+            var amendment_data = [];
+            
+            for (key in response.amendments){
+                console.log(key);
+                amendment_data.push({'year' : +key, 'name' : response.title  ,'count' : response.amendments[key]});
+            }
 
-        console.log(d);
+            console.log(amendment_data);
 
-        var visualization = d3plus.viz()
+            var visualization = d3plus.viz()
             .container("#amendmentPanelBody")
-            .data(d)
+            .data(amendment_data)
             .type("bar")
             .id("name")
             .x("year")
             .height(400)
             .width(300)
-            .y("value")
+            .y("count")
             .draw();
+
+        });
+
+        //     // Get amendment and draw a network
+        //  var d = [
+        //         {"year": 1991, "name":"alpha", "value": 15},
+        //         {"year": 1991, "name":"beta", "value": 10},
+        //         {"year": 1991, "name":"gamma", "value": 5},
+        //         {"year": 1991, "name":"delta", "value": 50},
+        //         {"year": 1992, "name":"alpha", "value": 20},
+        //         {"year": 1992, "name":"beta", "value": 10},
+        //         {"year": 1992, "name":"gamma", "value": 10},
+        //         {"year": 1992, "name":"delta", "value": 43},
+        //         {"year": 1993, "name":"alpha", "value": 30},
+        //         {"year": 1993, "name":"beta", "value": 40},
+        //         {"year": 1993, "name":"gamma", "value": 20},
+        //         {"year": 1993, "name":"delta", "value": 17},
+        //         {"year": 1994, "name":"alpha", "value": 60},
+        //         {"year": 1994, "name":"beta", "value": 60},
+        //         {"year": 1994, "name":"gamma", "value": 25},
+        //         {"year": 1994, "name":"delta", "value": 32}
+        //     ];
+
+        // console.log(d);
+
+        // var visualization = d3plus.viz()
+        //     .container("#amendmentPanelBody")
+        //     .data(d)
+        //     .type("bar")
+        //     .id("name")
+        //     .x("year")
+        //     .height(400)
+        //     .width(300)
+        //     .y("value")
+        //     .draw();
     
 
 
