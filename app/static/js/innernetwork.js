@@ -7,15 +7,6 @@ function drawInnerNetwork(_data){
   
 
 
-  console.log("Entity Nodes");
-  console.log(entity_nodes);
-
-  console.log("Phrase nodes");
-  console.log(phrase_nodes);
-
-  console.log("Section Nodes");
-  console.log(section_nodes);
-
 
 
   // create some nodes

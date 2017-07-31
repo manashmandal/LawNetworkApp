@@ -104,6 +104,7 @@ function drawNetwork (data, stopLoading){
         $("#preamble").empty();
         $("#sectionTableBody").empty();
         $("#viz").empty();
+        $("#amendmentPanelBody").empty();
     });
 
 
@@ -141,6 +142,8 @@ function drawNetwork (data, stopLoading){
     // On Double click reset it 
     network.on('selectNode', function(params){
 
+        $("#amendmentPanelBody").empty();
+
 
         // Remove previous highlight
         $("#resultList>li").removeClass('highlight');
@@ -158,6 +161,41 @@ function drawNetwork (data, stopLoading){
 
             // console.log(json.connections);
         });
+
+            // Get amendment and draw a network
+         var d = [
+                {"year": 1991, "name":"alpha", "value": 15},
+                {"year": 1991, "name":"beta", "value": 10},
+                {"year": 1991, "name":"gamma", "value": 5},
+                {"year": 1991, "name":"delta", "value": 50},
+                {"year": 1992, "name":"alpha", "value": 20},
+                {"year": 1992, "name":"beta", "value": 10},
+                {"year": 1992, "name":"gamma", "value": 10},
+                {"year": 1992, "name":"delta", "value": 43},
+                {"year": 1993, "name":"alpha", "value": 30},
+                {"year": 1993, "name":"beta", "value": 40},
+                {"year": 1993, "name":"gamma", "value": 20},
+                {"year": 1993, "name":"delta", "value": 17},
+                {"year": 1994, "name":"alpha", "value": 60},
+                {"year": 1994, "name":"beta", "value": 60},
+                {"year": 1994, "name":"gamma", "value": 25},
+                {"year": 1994, "name":"delta", "value": 32}
+            ];
+
+        console.log(d);
+
+        var visualization = d3plus.viz()
+            .container("#amendmentPanelBody")
+            .data(d)
+            .type("bar")
+            .id("name")
+            .x("year")
+            .height(400)
+            .width(300)
+            .y("value")
+            .draw();
+    
+
 
     });
 }
