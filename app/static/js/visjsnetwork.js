@@ -141,7 +141,12 @@ function drawNetwork (data, stopLoading){
             {s : "" + selected_edge.from , d: "" + selected_edge.to}
         ).done(function(response){
             console.log(response);
-            $("#edgeDetailPanelBody").append("<p>" + response.detail[0].section_title + "</p>");
+            // Needs edit here
+            // $("#edgeDetailPanelBody").append("<p>" + response.detail[0].section_title + "</p>");
+            console.log(response.detail);
+            response.detail.forEach(function(dat){
+                $("#edgeDetailPanelBody").prepend("<h5>" + dat.section_title + "</h5>");
+            })
         });
 
 
