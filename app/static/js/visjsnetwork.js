@@ -5,6 +5,8 @@ var selected_law;
 
 var _edges_;
 
+var _net;
+
 function drawNetwork (data, stopLoading){
 
     let nodes = [];
@@ -73,6 +75,13 @@ function drawNetwork (data, stopLoading){
         stopLoading();
     });
 
+    _net = network;
+
+    // Stabilize the network after two seconds
+    setTimeout(function(){
+        network.stopSimulation();
+    }, 2000);
+
     // On Double click initiate a modal to show the law text and inner graph 
     network.on('doubleClick', function(params){
         console.log(params);
@@ -123,6 +132,8 @@ function drawNetwork (data, stopLoading){
     });
 
 
+
+
     // Edge click show why it is connected 
     // Add the text to edgeDetailsPanelBody
     network.on('selectEdge', function(params){
@@ -145,10 +156,10 @@ function drawNetwork (data, stopLoading){
             // $("#edgeDetailPanelBody").append("<p>" + response.detail[0].section_title + "</p>");
             console.log(response.detail);
             response.detail.forEach(function(dat){
-                $("#edgeDetailPanelBody").prepend("<h5>" + dat.section_title + "</h5>");
+                $("#edgeDetailPanelBody").prepend("<p>" + dat.section_detail + "</p>");
+                $("#edgeDetailPanelBody").prepend("<p><b>" + dat.section_title + "</b></p>");
             })
         });
-
 
     });
     
@@ -186,14 +197,16 @@ function drawNetwork (data, stopLoading){
                 amendment_data.push({'year' : +key, 'name' : response.title  ,'count' : response.amendments[key]});
             }
 
+            var amendment_viz_height = $(window).height() -  $("#bs-example-navbar-collapse-1").height() - $("#edgeDetailPanelBody").height() - $("#theFooter").height() - 300;
+
             var visualization = d3plus.viz()
             .container("#amendmentPanelBody")
             .data(amendment_data)
             .type("line")
             .id("name")
             .x("year")
-            .height(400)
-            .width(300)
+            .height(amendment_viz_height)
+            .width(400)
             .y("count")
             .draw();
         });
