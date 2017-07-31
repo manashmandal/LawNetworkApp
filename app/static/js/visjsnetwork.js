@@ -3,11 +3,10 @@
 
 var selected_law;
 
-var _edges_;
-
-var _net;
 
 function drawNetwork (data, stopLoading){
+
+    $("#edgeDetailPanelBody").empty();
 
     let nodes = [];
     let edges = [];
@@ -24,7 +23,6 @@ function drawNetwork (data, stopLoading){
 
     let _nodes = new vis.DataSet(nodes);
     let _edges = new vis.DataSet(edges);
-    _edges_ = _edges;
 
 
 
@@ -75,7 +73,6 @@ function drawNetwork (data, stopLoading){
         stopLoading();
     });
 
-    _net = network;
 
     // Stabilize the network after two seconds
     setTimeout(function(){
@@ -94,6 +91,7 @@ function drawNetwork (data, stopLoading){
 
             // Get law text
             $.getJSON($SCRIPT_ROOT + '/api/law_detail/all', {id: params.nodes[0]}).done(function(response){
+
                 $("#volume").append('<span class="label label-success" style="margin-right: 10px;">Volume</span>' + response.detail.volume);
                 $("#preamble").append('<span class="label label-primary" style="margin-right: 10px;">Preamble</span>' + response.detail.preamble);
 
@@ -151,9 +149,21 @@ function drawNetwork (data, stopLoading){
         $.getJSON($SCRIPT_ROOT + '/api/edge_detail',
             {s : "" + selected_edge.from , d: "" + selected_edge.to}
         ).done(function(response){
+
+            // Remove previous highlight
+            $("#resultList>li").removeClass('highlight');
+
+            
+
+            $("#connectionDetailsTitle").empty();
             console.log(response);
             // Needs edit here
             // $("#edgeDetailPanelBody").append("<p>" + response.detail[0].section_title + "</p>");
+            $("#connectionDetailsTitle").append("Connection between : <b>" + selected_edge.from + "</b> and <b>" + selected_edge.to + "</b>");
+
+            $("#" + selected_edge.from).addClass("highlight");
+            $("#" + selected_edge.to).addClass("highlight");
+
             console.log(response.detail);
             response.detail.forEach(function(dat){
                 $("#edgeDetailPanelBody").prepend("<p>" + dat.section_detail + "</p>");
@@ -201,7 +211,7 @@ function drawNetwork (data, stopLoading){
 
             console.log(amendment_data);
 
-
+            $("#amendmentPanelTitle").text("Showing Amendments of law : " + params.nodes[0]);
 
             var visualization = d3plus.viz()
             .container("#amendmentPanelBody")

@@ -94,6 +94,14 @@ $(document).ready(function(){
         $("#searchResultPanelBody").empty();
         // Empty Visualization 
         $("#mynetwork").empty();
+
+        $("#searchResultPanelBody").empty();
+        $("#amendmentPanelBody").empty();
+        $("#edgeDetailPanelBody").empty();
+
+        $("#searchResultPanelBody").append("<h3>Search Result Will Be Shown Here </br> <b>Enter Keywords in the Search Area to Begin</b></h3>");
+        $("#amendmentPanelBody").append("<h3>Amendment Visualization Plot, When and How Many times. <b>Click On A Node to View</b>");
+        $("#edgeDetailPanelBody").append("<h3>The section that connects two laws will be shown here</h3>");
     });
 
 
