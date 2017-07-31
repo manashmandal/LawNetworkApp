@@ -197,7 +197,6 @@ function drawNetwork (data, stopLoading){
                 amendment_data.push({'year' : +key, 'name' : response.title  ,'count' : response.amendments[key]});
             }
 
-            var amendment_viz_height = $(window).height() -  $("#bs-example-navbar-collapse-1").height() - $("#edgeDetailPanelBody").height() - $("#theFooter").height() - 300;
 
             var visualization = d3plus.viz()
             .container("#amendmentPanelBody")
@@ -205,12 +204,13 @@ function drawNetwork (data, stopLoading){
             .type("line")
             .id("name")
             .x("year")
-            .height(amendment_viz_height)
-            .width(400)
             .y("count")
             .draw();
         });
 
 
     });
+
+
+    
 }

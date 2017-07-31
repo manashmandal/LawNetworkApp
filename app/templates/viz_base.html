@@ -28,7 +28,7 @@
 <body>
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" id="top">
 
 <nav class="navbar navbar-default" role="navigation" id="lawSearchNavBar">
   <!-- Brand and toggle get grouped for better mobile display -->
@@ -107,6 +107,8 @@
 <!--<script src="{{ url_for('static', filename='js/script.js') }}"></script>-->
 <script type="text/javascript">
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}
+
+
 </script>
 
 
@@ -122,7 +124,31 @@
 <script src="{{ url_for('static', filename='js/visjsnetwork.js') }}"></script>
 <script src="{{ url_for('static', filename='js/network.js') }}"></script>
 
+<script>
+// window resize problem
+    $(document).ready(function(){
+        console.log("READY");
+        resizeComps();
+    });
 
+    function resizeComps(){
+        let top = $("#top").height();
+        let bottom = $("#theFooter").height();
+        let clearance = 120;
+
+        let height = $(window).height() - top - bottom - clearance;
+
+        $("#searchResultPanelBody").css('height', height / 2 + 'px');
+        $("#amendmentPanelBody").css('height', height / 2 + 'px');
+        $("#edgeDetailPanelBody").css('height', height);
+        $("#mynetwork").css('height', height);
+
+    }
+
+    $(window).on('resize', function(){
+        resizeComps();
+    });
+</script>
 
 {% endblock %}
 
