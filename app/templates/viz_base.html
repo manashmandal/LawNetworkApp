@@ -138,10 +138,13 @@
 
         let height = $(window).height() - top - clearance;
 
-        $("#searchResultPanelBody").css('height', height / 2 + 'px');
-        $("#amendmentPanelBody").css('height', height / 2 + 'px');
+
+
+        $("#searchResultPanelBody").css('height', height / 2 - 25 + 'px');
+        $("#amendmentPanelBody").css('height', height / 2 + 25 + 'px');
         $("#edgeDetailPanelBody").css('height', height);
         $("#mynetwork").css('height', height);
+        $("body").css('max-height', $(window).height() - 200 + "px");
 
     }
 
