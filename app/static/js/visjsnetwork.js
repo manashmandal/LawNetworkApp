@@ -192,10 +192,15 @@ function drawNetwork (data, stopLoading){
         // Get amendment data
         $.getJSON("/api/amendments", {id: params.nodes[0]}).done(function(response){
             var amendment_data = [];
+
+            
             
             for (key in response.amendments){
                 amendment_data.push({'year' : +key, 'name' : response.title  ,'count' : response.amendments[key]});
             }
+
+            console.log(amendment_data);
+
 
 
             var visualization = d3plus.viz()
@@ -204,6 +209,7 @@ function drawNetwork (data, stopLoading){
             .type("line")
             .id("name")
             .x("year")
+            .height($("#amendmentPanelBody").height())
             .y("count")
             .draw();
         });

@@ -90,12 +90,12 @@
     {% endblock %}
 
 
-    <footer class="footer" id="theFooter">
+    <!-- <footer class="footer" id="theFooter">
       <div class="container">
         <p class="text-muted"><a href="{{ url_for('main.index') }}">Homepage</a>  | <a href="{{ url_for('main.about') }}">About</a> |
             <a href="#">Log Out</a></p>
       </div>
-    </footer>
+    </footer> -->
 </body>
 
 <!-- Js Files  -->
@@ -133,10 +133,10 @@
 
     function resizeComps(){
         let top = $("#top").height();
-        let bottom = $("#theFooter").height();
+        
         let clearance = 120;
 
-        let height = $(window).height() - top - bottom - clearance;
+        let height = $(window).height() - top - clearance;
 
         $("#searchResultPanelBody").css('height', height / 2 + 'px');
         $("#amendmentPanelBody").css('height', height / 2 + 'px');
