@@ -44,7 +44,12 @@ function drawInnerNetwork(_data){
         let node = nodes.get(params.nodes[0]);
         console.log(node.label);
 
-        $(".context").unmark().mark(node.label);
+       
+
+        $(".context").unmark().mark(node.label, {
+          "accuracy" : "exactly",
+          "separateWordSearch" : false
+        });
 
       });
 }
