@@ -82,9 +82,14 @@ function drawNetwork (data, stopLoading){
     // On Double click initiate a modal to show the law text and inner graph 
     network.on('doubleClick', function(params){
         console.log(params);
+        
+
         // If clicked on a law or not
         if (params.nodes.length > 0){
             $("#lawModalTitle").text(data.id_title_map[params.nodes[0]]);
+            
+            //
+            startLoading();
             
 
             selected_law = params.nodes[0];
@@ -125,6 +130,7 @@ function drawNetwork (data, stopLoading){
         }).done(function(inner_response){
             drawInnerNetwork(inner_response);
             console.log("Drew inner law network");
+            loadingDone();
         });
     });
 
