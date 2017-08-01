@@ -135,40 +135,31 @@ function drawNetwork (data, stopLoading){
     // Edge click show why it is connected 
     // Add the text to edgeDetailsPanelBody
     network.on('selectEdge', function(params){
-        // console.log(params);
-        console.log(params);
+        $("#edgeDetailPanelBody").empty();
+        $("#edgeDetailPanel").removeClass('panel-warning').addClass('panel-success');
+     
 
         let selected_edge = _edges.get(params.edges[0]);
-
-        
-
-        // console.log("Selected edge");
-        // console.log(selected_edge);
 
         // Now requesting the details from database
         $.getJSON($SCRIPT_ROOT + '/api/edge_detail',
             {s : "" + selected_edge.from , d: "" + selected_edge.to}
         ).done(function(response){
 
-            // Remove previous highlight
-            $("#resultList>li").removeClass('highlight');
-
-            
-
             $("#connectionDetailsTitle").empty();
-            console.log(response);
-            // Needs edit here
-            // $("#edgeDetailPanelBody").append("<p>" + response.detail[0].section_title + "</p>");
             $("#connectionDetailsTitle").append("Connection between : <b>" + selected_edge.from + "</b> and <b>" + selected_edge.to + "</b>");
 
-            $("#" + selected_edge.from).addClass("highlight");
-            $("#" + selected_edge.to).addClass("highlight");
-
-            console.log(response.detail);
             response.detail.forEach(function(dat){
                 $("#edgeDetailPanelBody").prepend("<p>" + dat.section_detail + "</p>");
                 $("#edgeDetailPanelBody").prepend("<p><b>" + dat.section_title + "</b></p>");
-            })
+            });
+            
+        }).fail(function(){
+            $("#edgeDetailPanelBody").empty();
+            $("#connectionDetailsTitle").empty();
+            $("#edgeDetailPanel").removeClass('panel-success').addClass('panel-warning');
+            $("#edgeDetailPanelBody").append("<div class='alert alert-danger'>Connection Details Not Found!</div>");
+            $("#connectionDetailsTitle").append("Connection between : <b>" + selected_edge.from + "</b> and <b>" + selected_edge.to + "</b> <i>NOT FOUND</i>");
         });
 
     });
