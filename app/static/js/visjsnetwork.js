@@ -109,7 +109,6 @@ function drawNetwork (data, stopLoading){
     });
 
     $("#lawModal").on('hide.bs.modal', function(){
-        
         // Empty texts
         $("#volume").empty();
         $("#preamble").empty();
@@ -128,7 +127,6 @@ function drawNetwork (data, stopLoading){
             console.log("Drew inner law network");
         });
     });
-
 
 
 
@@ -171,7 +169,6 @@ function drawNetwork (data, stopLoading){
 
         $("#amendmentPanelBody").empty();
 
-
         // Remove previous highlight
         $("#resultList>li").removeClass('highlight');
         
@@ -182,12 +179,10 @@ function drawNetwork (data, stopLoading){
             id: params.nodes[0]
         }).done(function(json){
             // Now highlight the search results from the connected law ids
-
             _.each(json.connections, function(connected_node_id){
                 $("#" + connected_node_id).addClass("highlight");
             });
 
-            // console.log(json.connections);
         });
 
         // Get amendment data
@@ -195,12 +190,10 @@ function drawNetwork (data, stopLoading){
             var amendment_data = [];
 
             
-            
             for (key in response.amendments){
                 amendment_data.push({'year' : +key, 'name' : response.title  ,'count' : response.amendments[key]});
             }
 
-            console.log(amendment_data);
 
             $("#amendmentPanelTitle").text("Showing Amendments of law : " + params.nodes[0]);
 

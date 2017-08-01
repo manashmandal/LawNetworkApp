@@ -221,6 +221,10 @@ def search_law():
 
     id_title_map = { id : mongo.db.laws.find_one({'law_id' : id})['title'] for id in laws }
 
+
+    if (len(laws) == 0):
+        return {"error" : "Nothing found"}, status.HTTP_404_NOT_FOUND
+
     return jsonify({
         'laws' : laws,
         'network' : outer_network,

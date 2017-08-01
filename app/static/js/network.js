@@ -1,56 +1,3 @@
-// Global variables
-var window_height;
-var window_width; 
-
-var footer_height;
-var navbar_height;
-
-var amendment_panel_height;
-
-var search_result_panel_height;
-
-
-var loaded_data;
-
-
-function updateComponentMeasurements(){
-    window_height = $(window).height();
-    window_width = $(window).width();
-
-    footer_height = $("#theFooter").height();
-    navbar_height = $("#lawSearchNavBar").height();
-
-    search_result_panel_height = $("#searchResultPanel").height() + $("#searchResultPanelBody").height();
-
-    amendment_panel_height = $("#amendmentPanel").height();
-}
-
-
-
-
-  // Component Size Calculation
-  function resizeComponents(){
-        let wh = $(window).height();
-        let ww = $(window).width();
-
-        //Footer height 
-        let fh = $("#theFooter").height();
-
-        // Navbar height
-        let nh = $("#lawSearchNavBar").height();
-
-        // Amendment panel height
-        let aph = $("#amendmentPanel").height();
-        let cleareance = 50;
-
-        let edge_panel_margin_top =  2 * cleareance - (wh - (nh + aph));
-
-
-        $("#mynetwork").css('height',  wh - cleareance - fh - nh);
-        $("#edgeDetailPanel").css('margin-top', "" + (edge_panel_margin_top) + 'px');
-  }
-
-//  resizeComponents();
 
 
 var loadingDone = function(){
@@ -61,7 +8,7 @@ var startLoading = function(){
     $("#loadingIcon").addClass("loading");
 }
 
-var loadLawTitles = function(data){
+var loadLawTitlesAndDrawNetwork = function(data){
 
     // Emptying the panel body
     $("#searchResultPanelBody").empty();
@@ -119,17 +66,21 @@ $(document).ready(function(){
         let _exclude_unigram = $("#phraseOnlyCheckBox").prop('checked') ? 1 : 0;
         
         // Set loading 
-        startLoading();
-        // Requests for network data 
+        startLoading()
+
         $.getJSON($SCRIPT_ROOT + "/api/search_law", {
             q: search_keywords,
             ngram: _ngram,
             exclude_unigram: _exclude_unigram
-        }, function(data){
-            loadLawTitles(data);
+        }).done(function(response){
+            $("#mynetwork").empty();
+            loadLawTitlesAndDrawNetwork(response);
+        }).fail(function(){
+            loadingDone();
+            $("#mynetwork").empty();
+            $("#mynetwork").append("<div class='alert alert-warning'><h3 class='text-center'>Nothing Found!</h3></div>");
         });
 
-        console.log(search_keywords);
     });
 
     // TODO: Handle resizing to fit the viz browser window
