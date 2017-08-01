@@ -26,6 +26,9 @@ function drawInnerNetwork(_data){
         {from: 1, to: 5, arrows:'to', width: 3, length: 200, label:''}
       ];
 
+      nodes = new vis.DataSet(nodes);
+      edges = new vis.DataSet(edges);
+
       // create a network
       var container = document.getElementById('viz');
       var data = {
@@ -34,4 +37,14 @@ function drawInnerNetwork(_data){
       };
       var options = {};
       var network = new vis.Network(container, data, options);
+
+      network.on('selectNode', function(params){
+        $(".context").unmark();
+        console.log("Clicked on a node");
+        let node = nodes.get(params.nodes[0]);
+        console.log(node.label);
+
+        $(".context").unmark().mark(node.label);
+
+      });
 }

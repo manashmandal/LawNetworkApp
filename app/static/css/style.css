@@ -49,6 +49,15 @@
     box-shadow: 5px 0 0 #004D40, -5px 0 0 #004D40;
   }
 
+  .highlight-keyword {
+    background: #3F51B5;
+    color: #fff;
+    padding:  0.25em;
+    padding-left: 3px;
+    padding-right: 5px;
+    box-shadow: 1px 0 0 #004D40, -1px 0 0 #004D40;
+  }
+
 
 #mynetwork {
             border: 1px solid black;
