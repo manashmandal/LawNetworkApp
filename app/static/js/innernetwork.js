@@ -41,14 +41,15 @@ function drawInnerNetwork(_data){
         }
         };
 
-        
+
         _.each(_data.edges, function(e){
           entity_phrase_edges.push({from: e.from, to : e.to, length: 50, color: {color: 'rgba(0, 255, 0, 0.3)'}});
-        })
+        });
+
 
         _.each(_data.nodes, function(n){
           entity_phrase_nodes.push({id: n.id, shape: 'text', label: n.label, font: {strokeWidth: 5}});
-        })
+        });
 
         
         entity_phrase_edges = new vis.DataSet(entity_phrase_edges);
@@ -97,8 +98,11 @@ function drawInnerNetwork(_data){
 
 
         $(".context").unmark().mark(node.label, {
-          "accuracy" : "exactly",
-          "separateWordSearch" : false
+          "accuracy" : {
+            "value" : "exactly",
+            "limiters" : [",", ".", ";"]
+          },
+          "separateWordSearch" : false,
         });
 
       });
