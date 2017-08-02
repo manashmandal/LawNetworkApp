@@ -31,5 +31,15 @@ def logout():
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register_page():
-    registrationForm = RegistrationForm()
-    return render_template('register.html', form=registrationForm)
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        reg_username = form.reg_username.data
+        reg_password = form.reg_password.data
+        reg_password_confirm = form.reg_password_confirm.data
+        reg_email = form.reg_email.data
+
+        print("USERNAME : " + reg_username)
+        if (reg_password == reg_password_confirm):
+            print("PAssword matched")
+            return redirect(request.args.get('next') or url_for('main.index'))
+    return render_template('register.html', form=form)
