@@ -1,3 +1,6 @@
+const ENTITY_TYPE = 1;
+const SECTION_TYPE = 2;
+
 // Draws inner network
 // Entity-Phrase network 
 function drawInnerNetwork(_data){
@@ -49,9 +52,9 @@ function drawInnerNetwork(_data){
 
         _.each(_data.nodes, function(n){
           if (n.type === "entity"){
-            entity_phrase_nodes.push({id: n.id, shape: 'text', label: n.label, font: {strokeWidth: 5}});
+            entity_phrase_nodes.push({id: n.id, type: ENTITY_TYPE , shape: 'text', label: n.label, font: {strokeWidth: 5}});
           } else{
-            entity_phrase_nodes.push({id: n.id, label: "" + n.id, title: n.label})
+            entity_phrase_nodes.push({id: n.id, type: SECTION_TYPE ,label: "" + n.id, title: n.label})
           }
         });
 
@@ -59,26 +62,6 @@ function drawInnerNetwork(_data){
         entity_phrase_edges = new vis.DataSet(entity_phrase_edges);
         entity_phrase_nodes = new vis.DataSet(entity_phrase_nodes);
 
-
-  // // create some nodes
-  //     var nodes = [
-  //       {id: 1, label: 'Government', shape: 'text', font:{strokeWidth:4}},
-  //       {id: 2, label: 'Receipt Custody', shape: 'text', font:{strokeWidth:4}},
-  //       {id: 3, label: 'Prosecution of\nAccountants and\sureties', shape: 'text', font:{strokeWidth:4}},
-  //       {id: 4, label: 'Public Accountant',shape: 'text', font:{strokeWidth:4}},
-  //       {id: 5, label: 'Lands Belonging',shape: 'text', font:{strokeWidth:4}}
-  //     ];
-
-  //     // create some edges
-  //     var edges = [
-  //       {from: 1, to: 2, width: 3, length: 200}, // individual length definition is possible
-  //       {from: 1, to: 3, width: 1, length: 200},
-  //       {from: 1, to: 4, width: 1, length: 200, label:''},
-  //       {from: 1, to: 5, arrows:'to', width: 3, length: 200, label:''}
-  //     ];
-
-  //     nodes = new vis.DataSet(nodes);
-  //     edges = new vis.DataSet(edges);
 
       // create a network
       var container = document.getElementById('viz');
@@ -100,14 +83,23 @@ function drawInnerNetwork(_data){
         let node = entity_phrase_nodes.get(params.nodes[0]);
         console.log(node.label);
 
-
-        $(".context").unmark().mark(node.label, {
-          "accuracy" : {
-            "value" : "exactly",
-            "limiters" : [",", ".", ";"]
-          },
-          "separateWordSearch" : false,
-        });
+        if (node.type === ENTITY_TYPE){
+          $(".context").unmark().mark(node.label, {
+            "accuracy" : {
+              "value" : "exactly",
+              "limiters" : [",", ".", ";"]
+            },
+            "separateWordSearch" : false,
+          });
+        } else {
+          $(".context").unmark().mark(node.title, {
+            "accuracy" : {
+              "value" : "exactly",
+              "limiters" : [",", ".", ";"]
+            },
+            "separateWordSearch" : false,
+          });
+        }
 
       });
 }
