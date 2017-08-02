@@ -52,7 +52,7 @@
 {% with messages = get_flashed_messages() %}
 	{% if messages %}
 		{% for message in messages %}
-			{% if 'matched' in message %}
+			{% if 'matched' or 'successfully' in message %}
 			<div class="alert text-center alert-success" id="flashmessage">
 				{{ message }}
 			</div>

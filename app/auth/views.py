@@ -9,36 +9,44 @@ from ..viz import viz
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login_page():
-
-    # username = None
     form = LoginForm()
-    if request.method == 'POST':
-        print("GOT POST")
-        if form.validate_on_submit():
-            user = mongo.db.users.find_one({'username' : form.lg_username.data })
-            
-            try:
-                the_user = load_user(user['username'])
-                password = user['password']
-
-                if (password == form.lg_password.data):
-                    flash("Password matched!")
-                    login_user(the_user)
-                    if (not current_user.is_authenticated):
-                        return redirect(url_for('auth.login_page'))
-                    else:
-                        return redirect(url_for('viz.visualization'))
-
-                print(user)
-            except:
-                # if user is not None and User.validate_login(user['password'], form.lg_password.data):
-                #     login_user(the_user)
-                #     return redirect(request.args.get('next') or url_for('main.index'))
-                # else:
-                flash("Username Or Password didn't match")
-                return redirect(request.args.get('next') or url_for('auth.login_page'))
-
+    if form.validate_on_submit():
+        user = mongo.db.users.find_one({'username' : form.lg_username.data})
+        if user is not None and form.lg_password == user['password']:
+            login_user(user)
+            return redirect(request.args.get('next') or url_for('main.index'))
+        flash("Invalid username or password")
     return render_template('login.html', form=form)
+
+    # # username = None
+    # form = LoginForm()
+    # if request.method == 'POST':
+    #     print("GOT POST")
+    #     if form.validate_on_submit():
+    #         user = mongo.db.users.find_one({'username' : form.lg_username.data })
+            
+    #         try:
+    #             the_user = load_user(user['username'])
+    #             password = user['password']
+
+    #             if (password == form.lg_password.data):
+    #                 flash("Password matched!")
+    #                 login_user(the_user)
+    #                 if (not current_user.is_authenticated):
+    #                     return redirect(url_for('auth.login_page'))
+    #                 else:
+    #                     return redirect(url_for('viz.visualization'))
+
+    #             print(user)
+    #         except:
+    #             # if user is not None and User.validate_login(user['password'], form.lg_password.data):
+    #             #     login_user(the_user)
+    #             #     return redirect(request.args.get('next') or url_for('main.index'))
+    #             # else:
+    #             flash("Username Or Password didn't match")
+    #             return redirect(request.args.get('next') or url_for('auth.login_page'))
+
+    # return render_template('login.html', form=form)
 
 
 
@@ -47,6 +55,7 @@ def login_page():
 @login_required
 def logout():
     logout_user()
+    flash("Logged out successfully")
     return redirect(url_for('main.index'))
 
 
