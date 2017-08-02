@@ -43,12 +43,16 @@ function drawInnerNetwork(_data){
 
 
         _.each(_data.edges, function(e){
-          entity_phrase_edges.push({from: e.from, to : e.to, length: 50, color: {color: 'rgba(0, 255, 0, 0.3)'}});
+          entity_phrase_edges.push({from: e.from, to : e.to, length: 50, color: {color: 'rgba(0, 220, 0, 0.3)'}});
         });
 
 
         _.each(_data.nodes, function(n){
-          entity_phrase_nodes.push({id: n.id, shape: 'text', label: n.label, font: {strokeWidth: 5}});
+          if (n.type === "entity"){
+            entity_phrase_nodes.push({id: n.id, shape: 'text', label: n.label, font: {strokeWidth: 5}});
+          } else{
+            entity_phrase_nodes.push({id: n.id, label: "" + n.id, title: n.label})
+          }
         });
 
         
