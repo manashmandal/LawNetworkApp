@@ -4,24 +4,37 @@ from flask import (render_template, redirect, request, url_for, flash)
 from app import mongo
 from app.models import User, load_user
 from flask_login import (login_user, login_required, logout_user)
+from ..viz import views
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login_page():
+
     # username = None
     form = LoginForm()
-    if form.validate_on_submit():
-        user = mongo.db.users.find_one({'username' : form.lg_username.data })
-        try:
-            the_user = load_user(user['username'])
-            print(user)
-        except:
-            # if user is not None and User.validate_login(user['password'], form.lg_password.data):
-            #     login_user(the_user)
-            #     return redirect(request.args.get('next') or url_for('main.index'))
-            # else:
-            flash("Username Or Password didn't match")
-        return redirect(url_for('auth.login_page'))
+    if request.method == 'POST':
+        print("GOT POST")
+        if form.validate_on_submit():
+            user = mongo.db.users.find_one({'username' : form.lg_username.data })
+            
+            try:
+                the_user = load_user(user['username'])
+                password = user['password']
+
+                if (password == form.lg_password.data):
+                    flash("Password matched!")
+                    login_user(the_user)
+                    return redirect(url_for('auth.login_page'))
+
+                print(user)
+            except:
+                # if user is not None and User.validate_login(user['password'], form.lg_password.data):
+                #     login_user(the_user)
+                #     return redirect(request.args.get('next') or url_for('main.index'))
+                # else:
+                flash("Username Or Password didn't match")
+                return redirect(request.args.get('next') or url_for('auth.login_page'))
+
     return render_template('login.html', form=form)
 
 
