@@ -12,8 +12,9 @@ def login_page():
     form = LoginForm()
     if form.validate_on_submit():
         user = mongo.db.users.find_one({'username' : form.lg_username.data})
-        if user is not None and form.lg_password == user['password']:
-            login_user(user)
+        if user is not None and form.lg_password.data == user['password']:
+            the_user = load_user(user['username'])
+            login_user(the_user)
             return redirect(request.args.get('next') or url_for('main.index'))
         flash("Invalid username or password")
     return render_template('login.html', form=form)
@@ -56,7 +57,7 @@ def login_page():
 def logout():
     logout_user()
     flash("Logged out successfully")
-    return redirect(url_for('main.index'))
+    return render_template('main.about')
 
 
 @auth.route('/register', methods=['GET', 'POST'])
