@@ -12,7 +12,6 @@
 {% block body %}
 
 
-
 <!-- LOGIN FORM -->
 <div class="text-center">
 	<div class="logo">login</div>
@@ -47,6 +46,18 @@
 		</form>
 	</div>
 	<!-- end:Main Form -->
+</div>
+
+<div class="container">
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		{% for message in messages %}
+			<div class="alert text-center alert-danger">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endif %}
+{% endwith %}
 </div>
 
 {% endblock %}
