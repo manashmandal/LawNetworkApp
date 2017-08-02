@@ -21,36 +21,6 @@ def login_page():
         flash("Invalid username or password")
     return render_template('login.html', form=form)
 
-    # # username = None
-    # form = LoginForm()
-    # if request.method == 'POST':
-    #     print("GOT POST")
-    #     if form.validate_on_submit():
-    #         user = mongo.db.users.find_one({'username' : form.lg_username.data })
-            
-    #         try:
-    #             the_user = load_user(user['username'])
-    #             password = user['password']
-
-    #             if (password == form.lg_password.data):
-    #                 flash("Password matched!")
-    #                 login_user(the_user)
-    #                 if (not current_user.is_authenticated):
-    #                     return redirect(url_for('auth.login_page'))
-    #                 else:
-    #                     return redirect(url_for('viz.visualization'))
-
-    #             print(user)
-    #         except:
-    #             # if user is not None and User.validate_login(user['password'], form.lg_password.data):
-    #             #     login_user(the_user)
-    #             #     return redirect(request.args.get('next') or url_for('main.index'))
-    #             # else:
-    #             flash("Username Or Password didn't match")
-    #             return redirect(request.args.get('next') or url_for('auth.login_page'))
-
-    # return render_template('login.html', form=form)
-
 
 
 # Logout
@@ -71,22 +41,36 @@ def register_page():
         reg_password = form.reg_password.data
         reg_password_confirm = form.reg_password_confirm.data
         reg_email = form.reg_email.data
-        print("USERNAME : " + reg_username)
 
-        # Check the password if matched
-        ## TODO: If not matched show a flash message
-        if (reg_password == reg_password_confirm):
-            print("PAssword matched")
-            return redirect(request.args.get('next') or url_for('main.index'))
+        # Check if the username exists or not 
+        user = mongo.db.users.find_one({'username' : reg_username })
 
-        # If password matches then check for username if it exists or not
-        if (mongo.db.users.find_one({'username' : reg_username}) != None):
-            # TODO: Show flash message that users exists
-            print("USER EXISTS")
-            return redirect(url_for('auth.register_page'))
-        else:
-            print("Checking for username")
-            print(mongo.db.users.find_one({'username' : reg_username}))
+        if user is None and reg_password == reg_password_confirm:
+            res = mongo.db.users.insert_one({'username' : reg_username, 'password' : reg_password, 'email' : reg_email })
 
-
+            if res.acknowledged == True:
+                flash("Registered successfully ! Now Login With Your Username and Password")
+                return redirect(url_for('auth.login_page'))
+        
+        flash("Invalid operation ! Username already exists")
     return render_template('register.html', form=form)
+
+    #     print("USERNAME : " + reg_username)
+
+    #     # Check the password if matched
+    #     ## TODO: If not matched show a flash message
+    #     if (reg_password == reg_password_confirm):
+    #         print("PAssword matched")
+    #         return redirect(request.args.get('next') or url_for('main.index'))
+
+    #     # If password matches then check for username if it exists or not
+    #     if (mongo.db.users.find_one({'username' : reg_username}) != None):
+    #         # TODO: Show flash message that users exists
+    #         print("USER EXISTS")
+    #         return redirect(url_for('auth.register_page'))
+    #     else:
+    #         print("Checking for username")
+    #         print(mongo.db.users.find_one({'username' : reg_username}))
+
+
+    # return render_template('register.html', form=form)

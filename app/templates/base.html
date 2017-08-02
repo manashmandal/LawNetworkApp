@@ -88,14 +88,17 @@
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         {% for message in messages %}
-          {% if 'matched' or 'successfully' in message %}
-          <div class="alert text-center alert-success" id="flashmessage">
-            {{ message }}
+          {% if 'Invalid' in message %}
+            <div class="alert text-center alert-danger" id="flashmessage">
+              {{ message }}
           </div>
-          {% else %}
-          <div class="alert text-center alert-danger" id="flashmessage">
-            {{ message }}
+          {% endif %}
+
+          {% if 'successfully' in message %}
+            <div class="alert text-center alert-success" id="flashmessage">
+              {{ message }}
           </div>
+
           {% endif %}
         {% endfor %}
       {% endif %}
