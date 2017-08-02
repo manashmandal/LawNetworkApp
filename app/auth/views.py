@@ -3,8 +3,8 @@ from .forms import RegistrationForm, LoginForm
 from flask import (render_template, redirect, request, url_for, flash)
 from app import mongo
 from app.models import User, load_user
-from flask_login import (login_user, login_required, logout_user)
-from ..viz import views
+from flask_login import (login_user, login_required, logout_user, current_user)
+from ..viz import viz
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -24,7 +24,10 @@ def login_page():
                 if (password == form.lg_password.data):
                     flash("Password matched!")
                     login_user(the_user)
-                    return redirect(url_for('auth.login_page'))
+                    if (not current_user.is_authenticated):
+                        return redirect(url_for('auth.login_page'))
+                    else:
+                        return redirect(url_for('viz.visualization'))
 
                 print(user)
             except:
