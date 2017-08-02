@@ -48,23 +48,7 @@
 	<!-- end:Main Form -->
 </div>
 
-<div class="container">
-{% with messages = get_flashed_messages() %}
-	{% if messages %}
-		{% for message in messages %}
-			{% if 'matched' in message %}
-			<div class="alert text-center alert-success" id="flashmessage">
-				{{ message }}
-			</div>
-			{% else %}
-			<div class="alert text-center alert-danger" id="flashmessage">
-				{{ message }}
-			</div>
-			{% endif %}
-		{% endfor %}
-	{% endif %}
-{% endwith %}
-</div>
+
 
 
 {% endblock %}

@@ -5,7 +5,7 @@ from app import mongo
 from app.models import User, load_user
 from flask_login import (login_user, login_required, logout_user, current_user)
 from ..viz import viz
-
+from ..main import main
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login_page():
@@ -15,7 +15,9 @@ def login_page():
         if user is not None and form.lg_password.data == user['password']:
             the_user = load_user(user['username'])
             login_user(the_user)
-            return redirect(request.args.get('next') or url_for('main.index'))
+            flash("Logged in successfully")
+            return render_template('about.html')
+
         flash("Invalid username or password")
     return render_template('login.html', form=form)
 
@@ -57,7 +59,7 @@ def login_page():
 def logout():
     logout_user()
     flash("Logged out successfully")
-    return render_template('main.about')
+    return render_template('about.html')
 
 
 @auth.route('/register', methods=['GET', 'POST'])
