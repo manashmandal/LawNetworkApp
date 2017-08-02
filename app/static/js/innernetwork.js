@@ -46,7 +46,7 @@ function drawInnerNetwork(_data){
 
 
         _.each(_data.edges, function(e){
-          entity_phrase_edges.push({from: e.from, to : e.to, length: 50, color: {color: 'rgba(0, 220, 0, 0.3)'}});
+          entity_phrase_edges.push({from: e.from, to : e.to, length: 150, color: {color: 'rgba(0, 220, 0, 0.3)'}});
         });
 
 
