@@ -1,4 +1,6 @@
+// </Manash>
 
+// Loads Ttile and Draws The Network
 
 var loadingDone = function(){
     $("#loadingIcon").removeClass("loading");
@@ -8,6 +10,8 @@ var startLoading = function(){
     $("#loadingIcon").addClass("loading");
 }
 
+
+// 
 var loadLawTitlesAndDrawNetwork = function(data){
 
     // Emptying the panel body
@@ -16,6 +20,9 @@ var loadLawTitlesAndDrawNetwork = function(data){
     // Adding unordered list
     $("#searchResultPanelBody").append("<ul id='resultList'></ul>");
 
+    // Add the count
+    $("#searchResultPanelTitle").empty();
+    $("#searchResultPanelTitle").append("Total Law Found <b><i>" + data.laws.length + "</b></i>");
     // For debugging purpose
     loaded_data = data;
 
@@ -46,8 +53,10 @@ $(document).ready(function(){
         $("#amendmentPanelBody").empty();
         $("#edgeDetailPanelBody").empty();
 
+        $("#searchResultPanelTitle").empty().append("Search Result");
         $("#searchResultPanelBody").append("<h3>Search Result Will Be Shown Here </br> <b>Enter Keywords in the Search Area to Begin</b></h3>");
         $("#amendmentPanelBody").append("<h3>Amendment Visualization Plot <b>Click On A Node to View</b>");
+        $("#amendmentPanelTitle").empty().append("Amendments");
         $("#edgeDetailPanelBody").append("<h3>The section that connects two laws will be shown here</h3>");
     });
 
