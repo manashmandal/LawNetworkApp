@@ -128,7 +128,7 @@ function drawNetwork (data, stopLoading){
         $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail', {
             id: selected_law
         }).done(function(inner_response){
-            drawInnerNetwork(inner_response);
+            drawInnerNetwork(inner_response, selected_law);
             console.log("Drew inner law network");
             loadingDone();
         });

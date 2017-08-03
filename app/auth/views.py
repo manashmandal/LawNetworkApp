@@ -22,7 +22,6 @@ def login_page():
     return render_template('login.html', form=form)
 
 
-
 # Logout
 @auth.route('/logout')
 @login_required
@@ -54,23 +53,3 @@ def register_page():
         
         flash("Invalid operation ! Username already exists")
     return render_template('register.html', form=form)
-
-    #     print("USERNAME : " + reg_username)
-
-    #     # Check the password if matched
-    #     ## TODO: If not matched show a flash message
-    #     if (reg_password == reg_password_confirm):
-    #         print("PAssword matched")
-    #         return redirect(request.args.get('next') or url_for('main.index'))
-
-    #     # If password matches then check for username if it exists or not
-    #     if (mongo.db.users.find_one({'username' : reg_username}) != None):
-    #         # TODO: Show flash message that users exists
-    #         print("USER EXISTS")
-    #         return redirect(url_for('auth.register_page'))
-    #     else:
-    #         print("Checking for username")
-    #         print(mongo.db.users.find_one({'username' : reg_username}))
-
-
-    # return render_template('register.html', form=form)

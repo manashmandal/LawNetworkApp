@@ -3,7 +3,9 @@ const SECTION_TYPE = 2;
 
 // Draws inner network
 // Entity-Phrase network 
-function drawInnerNetwork(_data){
+function drawInnerNetwork(_data, law_id){
+
+  console.log("INNER LAW: " + law_id);
 
   // console.log("Inner network viz");
 
