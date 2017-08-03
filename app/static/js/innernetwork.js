@@ -91,7 +91,47 @@ function drawInnerNetwork(_data, law_id, stopLoading){
         let node = entity_phrase_nodes.get(params.nodes[0]);
         console.log(node.label);
 
+        console.log(node);
+
+        $("#sectionTableBody").empty();
+
         if (node.type === ENTITY_TYPE){
+          // Append text now
+          for (k in _data.map){
+            console.log("K : " + k);
+
+            if (_data.map[k].entity === node.label){
+              console.log("FOUND ONE");
+
+              $.getJSON('/api/law_detail',{id: "" + law_id, key: 'section_details'}).done(function(response){
+
+              //       console.log("REQUESTING : ");
+              //       console.log(response);
+                      console.log(response);
+
+                      console.log("KEY : " + _data.map[k].entity);
+                      console.log("VALUE: " + response['section_details'][_data.map[k].section_key] );
+
+                      $("#sectionTableBody").prepend("<tr><td>" + _data.map[k].entity + "</td><td>" + response.section_details[_data.map[k].section_key].trim() +"</td></tr>");
+                  });
+            }
+    
+              // if (_data.map[k].entity === node.title){
+
+              //     $.getJSON('/api/law_detail',{id: "" + law_id, key: 'section_details'}).done(function(response){
+
+              //       console.log("REQUESTING : ");
+              //       console.log(response);
+
+              //         // console.log("KEY : " + _data.map[k].entity);
+              //         // console.log("VALUE: " + response.section_details[_data.map[k].entity] )
+
+              //         // $("#sectionTableBody").prepend("<tr><td>" + _data.map[k].entity + "</td><td>" + response.section_details[_data.map[k].entity].trim() +"</td></tr>");
+              //     });
+              // }
+          }
+
+
           $(".context").unmark().mark(node.label, {
             "accuracy" : {
               "value" : "exactly",
@@ -99,7 +139,10 @@ function drawInnerNetwork(_data, law_id, stopLoading){
             },
             "separateWordSearch" : false,
           });
-        } else {
+        } 
+        
+        
+        else {
           $(".context").unmark().mark(node.title, {
             "accuracy" : {
               "value" : "exactly",
