@@ -98,7 +98,7 @@ function drawInnerNetwork(_data, law_id, stopLoading){
               // Now Mark it
               $(".context").unmark().mark(node.label, {
                   "accuracy" : {
-                    "value" : "partially",
+                    "value" : "exactly",
                     "limiters" : [",", ".", ";"]
                   },
                   "separateWordSearch" : false,
@@ -109,7 +109,7 @@ function drawInnerNetwork(_data, law_id, stopLoading){
                 // Now Mark it
                 $(".context").unmark().mark(node.title, {
                     "accuracy" : {
-                      "value" : "partially",
+                      "value" : "exactly",
                       "limiters" : [",", ".", ";"]
                     },
                     "separateWordSearch" : false,

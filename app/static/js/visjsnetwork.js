@@ -103,13 +103,6 @@ function drawNetwork (data, stopLoading){
             });
 
 
-            //     for (key in response.detail.section_details){
-            //         $("#sectionTableBody").prepend("<tr><td>" + key + "</td><td>" + response.detail.section_details[key].trim() +"</td></tr>")
-            //     }
-
-                // $("#lawModal").modal('toggle');
-
-            // });
             $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail/phrase_entity', {
             id: selected_law
         }).done(function(inner_response){
@@ -227,10 +220,5 @@ function drawNetwork (data, stopLoading){
             .y("count")
             .draw();
         });
-
-
     });
-
-
-    
 }

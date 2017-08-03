@@ -29,8 +29,8 @@
 }
 .modal .modal-body {
     max-height: 500px;
-    height: 300px;
-    min-height: 200px;
+    /* height: 300px; */
+    min-height: 500px;
     overflow: auto;
 }
 
