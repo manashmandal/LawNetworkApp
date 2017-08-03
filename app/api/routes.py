@@ -58,12 +58,13 @@ Types:
 @api.route('/api/law_inner_detail/phrase_entity', methods=['GET'])
 def get_phrase_entity_network():
     _id = int(request.args.get('id', 344))
-    nodes, edges = make_section_entity_network(_id)
-    print("NODES : {}".format(nodes))
+    nodes, edges, _map = make_section_entity_network(_id)
+
     return jsonify({
         'id' : _id,
         'nodes' : nodes,
-        'edges' : edges
+        'edges' : edges,
+        'map' : _map
     })
 
 
