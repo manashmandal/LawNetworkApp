@@ -95,20 +95,25 @@ function drawNetwork (data, stopLoading){
             selected_law = params.nodes[0];
 
             // Get law text
-            $.getJSON($SCRIPT_ROOT + '/api/law_detail/all', {id: params.nodes[0]}).done(function(response){
+            // $.getJSON($SCRIPT_ROOT + '/api/law_detail/all', {id: params.nodes[0]}).done(function(response){
 
-                $("#volume").append('<span class="label label-success" style="margin-right: 10px;">Volume</span>' + response.detail.volume);
-                $("#preamble").append('<span class="label label-primary" style="margin-right: 10px;">Preamble</span>' + response.detail.preamble);
+            //     $("#volume").append('<span class="label label-success" style="margin-right: 10px;">Volume</span>' + response.detail.volume);
+            //     $("#preamble").append('<span class="label label-primary" style="margin-right: 10px;">Preamble</span>' + response.detail.preamble);
 
 
-                for (key in response.detail.section_details){
-                    $("#sectionTableBody").prepend("<tr><td>" + key + "</td><td>" + response.detail.section_details[key].trim() +"</td></tr>")
-                }
+            //     for (key in response.detail.section_details){
+            //         $("#sectionTableBody").prepend("<tr><td>" + key + "</td><td>" + response.detail.section_details[key].trim() +"</td></tr>")
+            //     }
 
-                $("#lawModal").modal('toggle');
+                // $("#lawModal").modal('toggle');
 
-            });
-            
+            // });
+            $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail/phrase_entity', {
+            id: selected_law
+        }).done(function(inner_response){
+            drawInnerNetwork(inner_response, selected_law, stopLoading);
+            console.log("Drew inner law network");
+        });
 
         }
     });
@@ -125,13 +130,16 @@ function drawNetwork (data, stopLoading){
 
 
     $("#lawModal").on('show.bs.modal', function(){
-        $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail', {
-            id: selected_law
-        }).done(function(inner_response){
-            drawInnerNetwork(inner_response, selected_law);
-            console.log("Drew inner law network");
-            loadingDone();
-        });
+
+
+        // Why not phase entity route?
+        // $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail/phrase_entity', {
+        //     id: selected_law
+        // }).done(function(inner_response){
+        //     drawInnerNetwork(inner_response, selected_law, stopLoading);
+        //     console.log("Drew inner law network");
+        //     loadingDone();
+        // });
     });
 
 

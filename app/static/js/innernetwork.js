@@ -1,9 +1,13 @@
 const ENTITY_TYPE = 1;
 const SECTION_TYPE = 2;
 
+var dat;
+
 // Draws inner network
 // Entity-Phrase network 
-function drawInnerNetwork(_data, law_id){
+function drawInnerNetwork(_data, law_id, stopLoading){
+
+  dat = _data;
 
   console.log("INNER LAW: " + law_id);
 
@@ -77,6 +81,8 @@ function drawInnerNetwork(_data, law_id){
 
       setTimeout(function(){
         network.stopSimulation();
+        $("#lawModal").modal('toggle');
+        stopLoading();
       }, 100);
 
       network.on('selectNode', function(params){
