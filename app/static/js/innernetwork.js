@@ -98,10 +98,13 @@ function drawInnerNetwork(_data, law_id, stopLoading){
         if (node.type === ENTITY_TYPE){
           // Append text now
           for (k in _data.map){
-            console.log("K : " + k);
+            
 
             if (_data.map[k].entity === node.label){
               console.log("FOUND ONE");
+              console.log("K : " + k);
+              console.log(node);
+              console.log(_data.map[k]);
 
               $.getJSON('/api/law_detail',{id: "" + law_id, key: 'section_details'}).done(function(response){
 
@@ -112,7 +115,7 @@ function drawInnerNetwork(_data, law_id, stopLoading){
                       console.log("KEY : " + _data.map[k].entity);
                       console.log("VALUE: " + response['section_details'][_data.map[k].section_key] );
 
-                      $("#sectionTableBody").prepend("<tr><td>" + _data.map[k].entity + "</td><td>" + response.section_details[_data.map[k].section_key].trim() +"</td></tr>");
+                      $("#sectionTableBody").prepend("<tr><td>" + _data.map[k].section_key + "</td><td>" + response.section_details[_data.map[k].section_key].trim() +"</td></tr>");
                   });
             }
     
