@@ -19,7 +19,7 @@ def login_page():
             return render_template('about.html')
 
         flash("Invalid username or password")
-    return render_template('login.html', form=form)
+    return render_template('login.html', form=form, title="Log In")
 
 
 # Logout
@@ -28,7 +28,7 @@ def login_page():
 def logout():
     logout_user()
     flash("Logged out successfully")
-    return render_template('about.html')
+    return render_template('about.html', title="About")
 
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -52,4 +52,4 @@ def register_page():
                 return redirect(url_for('auth.login_page'))
         
         flash("Invalid operation ! Username already exists")
-    return render_template('register.html', form=form)
+    return render_template('register.html', form=form, title="Registration")

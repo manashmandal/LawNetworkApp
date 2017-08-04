@@ -24,6 +24,10 @@
     
 }
 
+#loginButton {
+  outline: none;
+}
+
 .modal {
     overflow: hidden;
 }

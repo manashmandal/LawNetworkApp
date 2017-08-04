@@ -44,3 +44,5 @@ def load_user(username):
         return user
     return None
 
+
+# Schema
