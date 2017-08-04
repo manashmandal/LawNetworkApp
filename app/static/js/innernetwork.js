@@ -78,7 +78,7 @@ function drawInnerNetwork(_data, law_id, stopLoading){
 
         // Resize viz
         $("#viz").css('height', $(window).height() - clearance + 'px');
-        $("#viz").css('width', $(window).width() / 2 - clearance + 'px');
+        $("#viz").css('width', $(window).width() / 2.2 - clearance + 'px');
         
         // Resize modal
         $(".modal").css('min-height', $(window).height() + 'px');
