@@ -207,8 +207,6 @@ def entity_to_section_map(_id, verbose=False):
 def make_section_entity_network(_id):
     # Get map list
     _map_list = entity_to_section_map(_id)
-
-    print(_map_list)
     
     _from_nodes = []
     _to_nodes = []
