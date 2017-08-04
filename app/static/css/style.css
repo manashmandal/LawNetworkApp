@@ -28,9 +28,10 @@
     overflow: hidden;
 }
 .modal .modal-body {
-    max-height: 500px;
-    /* height: 300px; */
-    min-height: 500px;
+     max-height: 500px; 
+     min-height: 300px;
+         /* height: 300px; */
+     /* min-height: 300px;  */
     overflow: auto;
 }
 

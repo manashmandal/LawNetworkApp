@@ -71,9 +71,25 @@ function drawInnerNetwork(_data, law_id, stopLoading){
 
       setTimeout(function(){
         network.stopSimulation();
+        
+
+        // Calculate available area
+        let clearance = 300;
+
+        // Resize viz
+        $("#viz").css('height', $(window).height() - clearance + 'px');
+        $("#viz").css('width', $(window).width() / 2 - clearance + 'px');
+        
+        // Resize modal
+        $(".modal").css('min-height', $(window).height() + 'px');
+        $(".modal").css('max-height', $(window).height()   + 'px');
+        $(".modal-body").css('height', $(window).height() - clearance + 'px');
+        $(".modal-body").css('max-height', $(window).height() - clearance  + 'px');
+
         $("#lawModal").modal('toggle');
         stopLoading();
       }, 100);
+
 
       network.on('selectNode', function(params){
         $(".context").unmark();
