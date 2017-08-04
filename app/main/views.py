@@ -4,7 +4,7 @@ from . import main
 
 @main.route('/')
 def index():
-    return render_template('base.html', title="Hello World")
+    return render_template('base.html', title="Law Network Visualization")
 
 
 @main.route('/about')
