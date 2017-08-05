@@ -1,13 +1,14 @@
 from app import mongo
 # from . import api, AVAILABLE_LAW_KEYS, LAW_COUNT
 from . import api
-from flask_login import login_required
+from flask_login import (login_required, current_user)
 from flask import request
 from ..backend.search import (_search, build_main_network_connection, make_section_entity_network, calc_amendment)
 import json
 from flask import jsonify
 from flask_api import status
 import time
+from ..models import UserStatSchema
 
 # INNER_LAW_NETWORK = mongo.db.network # This network collection contains the relationship between named entities and sections
 # LAW_NETWORK = "" # Outer law network, which cites which one
@@ -231,6 +232,78 @@ def search_law():
         'network' : outer_network,
         'id_title_map' : id_title_map
     })
+
+
+
+# API for Saving User stat
+
+## Single click data
+@api.route('/api/userstat/law_single_click', methods=['GET'])
+def law_single_click():
+    if request.method == 'GET':
+        username = request.args.get('user')
+        node = int(request.args.get('node'))
+        res = UserStatSchema.insert_law_node_single_click(username, node)
+
+        if (res.acknowledged == True):
+            return jsonify({"success" : "updated"})
+
+    return jsonify({"error" : "update failed"}), status.HTTP_400_BAD_REQUEST
+
+## Double click data 
+@api.route('/api/userstat/law_double_click', methods=['GET'])
+def law_double_click():
+    if request.method == 'GET':
+        username = request.args.get('user')
+        node = int(request.args.get('node'))
+        res = UserStatSchema.insert_law_node_double_click(username, node)
+
+        if (res.acknowledged == True):
+            return jsonify({"success" : "updated"})
+
+    return jsonify({"error" : "update failed"}), status.HTTP_400_BAD_REQUEST
+
+## Entered search term
+@api.route('/api/userstat/law_search_term', methods=['GET'])
+def law_search_term():
+    if request.method == 'GET':
+        username = request.args.get('user')
+        term = request.args.get('term')
+        res = UserStatSchema.insert_search_terms(username, term)
+
+        if (res.acknowledged == True):
+            return jsonify({"success" : "updated" })
+
+    return jsonify({"error" : "update failed"}), status.HTTP_400_BAD_REQUEST
+
+
+## Law Edge click term
+@api.route('/api/userstat/law_edge_click', methods=['GET'])
+def law_edge_click():
+    if request.method == 'GET':
+        username = request.args.get('user')
+        edge_id = int(request.args.get('edge'))
+        res = UserStatSchema.insert_edge_click(username, edge_id)
+
+        if (res.acknowledged == True):
+            return jsonify({"success" : "updated" })
+
+    return jsonify({"error" : "update failed"}), status.HTTP_400_BAD_REQUEST
+
+## Inner node click term
+@api.route('/api/userstat/inner_node_click', methods=['GET'])
+def law_inner_node_click():
+    if request.method == 'GET':
+        username = request.args.get('user')
+        node = int(request.args.get('node'))
+        res = UserStatSchema.insert_inner_node_click(username, node)
+
+        if (res.acknowledged == True):
+            return jsonify({"success" : "updated" })
+
+    return jsonify({"error" : "update failed"}), status.HTTP_400_BAD_REQUEST
+
+
 
 
 
