@@ -61,15 +61,15 @@ class UserStatSchema(object):
 
     @staticmethod
     def insert_law_node_double_click(username, data):
-        mongo.db.userstat.update_one({'username' : username}, {'$push' : {'law_node_double_click' : data }})
+        return mongo.db.userstat.update_one({'username' : username}, {'$push' : {'law_node_double_click' : data }})
     
     @staticmethod
     def insert_search_terms(username, data):
-        mongo.db.userstat.update_one({'username' : username}, {'$push' : {'search_terms' : data }})
+        return mongo.db.userstat.update_one({'username' : username}, {'$push' : {'search_terms' : data }})
 
     @staticmethod
     def insert_edge_click(username, data):
-        mongo.db.userstat.update_one({'username' : username}, {'$push' : {'edge_click' : data}})
+        return mongo.db.userstat.update_one({'username' : username}, {'$push' : {'edge_click' : data}})
 
     @staticmethod
     def insert_inner_node_click(username, data):

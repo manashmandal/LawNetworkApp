@@ -4,6 +4,7 @@
 var selected_law;
 
 
+
 function drawNetwork (data, stopLoading){
 
     $("#edgeDetailPanelBody").empty();

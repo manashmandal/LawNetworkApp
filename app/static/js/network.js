@@ -1,5 +1,6 @@
 // </Manash>
 
+
 // Loads Ttile and Draws The Network
 
 var loadingDone = function(){
@@ -69,6 +70,12 @@ $(document).ready(function(){
 
         // Send Jquery request for searching
         let search_keywords = $("#keywordSearchInput").val();
+
+
+        // Save the keyword
+        $.getJSON('/api/userstat/law_search_term', {user: username, term: search_keywords}).done(function(res){
+            console.log("SAVED DATA");
+        });
 
         // Additional parameters
         let _ngram = $("#excludeSingleKeywordCheckBox").prop('checked') ? 1 : 0;

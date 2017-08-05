@@ -1,6 +1,14 @@
 const ENTITY_TYPE = 1;
 const SECTION_TYPE = 2;
 
+var username;
+// Get username
+
+
+$(document).ready(function(){
+  username = $("#username").text();
+});
+
 // Draws inner network
 // Entity-Phrase network 
 function drawInnerNetwork(_data, law_id, stopLoading){
