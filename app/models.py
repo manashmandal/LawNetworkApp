@@ -35,7 +35,6 @@ class User(UserMixin):
 
 @login_manager.user_loader
 def load_user(username):
-    print("CALLED USERLOADER")
     user_record = mongo.db.users.find_one({'username' : username})
     if user_record is not None:
         user = User(username)
@@ -46,3 +45,38 @@ def load_user(username):
 
 
 # Schema
+class UserStatSchema(object):
+    Schema = {
+        "username" : "",
+        "law_node_single_click" : [],
+        "law_node_double_click" : [],
+        "search_terms" : [],
+        "edge_click" : [],
+        "inner_node_click" : [],
+        "inner_edge_click" : []
+    }
+
+    @staticmethod
+    def insert_law_node_single_click(username, data):
+        mongo.db.userstat.update_one({'username' : username}, {'$push' : {'law_node_single_click' : data } })
+
+    @staticmethod
+    def insert_law_node_double_click(username, data):
+        mongo.db.userstat.update_one({'username' : username}, {'$push' : {'law_node_double_click' : data }})
+    
+    @staticmethod
+    def insert_search_terms(username, data):
+        mongo.db.userstat.update_one({'username' : username}, {'$push' : {'search_terms' : data }})
+
+    @staticmethod
+    def insert_edge_click(username, data):
+        mongo.db.userstat.update_one({'username' : username}, {'$push' : {'edge_click' : data}})
+
+    @staticmethod
+    def insert_inner_node_click(username, data):
+        mongo.db.userstat.update_one({'username' : username}, {'$push' : {'inner_node_click' : data}})
+    
+    @staticmethod
+    def insert_inner_edge_click(username, data):
+        mongo.db.userstat.update_one({'username' : username}, {'$push' : {'inner_edge_click' : data }})
+
