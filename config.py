@@ -22,6 +22,16 @@ class DevelopmentConfig(Config):
     DEBUG = True
 
 
+class ProductionConfig(Config):
+    MONGO_DBNAME = "law"
+    MONGO_HOST = "ds123311.mlab.com"
+    MONGO_PORT = 23311
+    # Load from environment variable
+    MONGO_USERNAME = "manash"
+    MONGO_PASSWORD = "manash"
+
+
 config = {
-    'development' : DevelopmentConfig
+    'development' : DevelopmentConfig,
+    'production' : ProductionConfig
 }
