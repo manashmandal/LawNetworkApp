@@ -74,7 +74,7 @@ class UserStatSchema(object):
 
     @staticmethod
     def insert_inner_node_click(data):
-        return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'inner_node_click' : {'title' : data, 'time' : datetime.now().__str__() }}})
+        return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'inner_node_click' : {'title' : data['title'], 'law_id' : data['law_id'], 'time' : datetime.now().__str__() }}})
     
 
 

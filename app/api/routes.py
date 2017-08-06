@@ -292,7 +292,8 @@ def law_edge_click():
 def law_inner_node_click():
     if request.method == 'GET':
         title = request.args.get('title')
-        res = UserStatSchema.insert_inner_node_click(title)
+        law_id = int(request.args.get('law'))
+        res = UserStatSchema.insert_inner_node_click({'title' : title, 'law_id' : law_id})
         if (res.acknowledged == True):
             return jsonify({"success" : "updated" })
 

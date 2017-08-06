@@ -1,6 +1,7 @@
 const ENTITY_TYPE = 1;
 const SECTION_TYPE = 2;
 
+
 var username;
 // Get username
 
@@ -109,7 +110,13 @@ function drawInnerNetwork(_data, law_id, stopLoading){
         $("#sectionTableBody").empty();
         var loadedData;
 
-        $.getJSON('/api/law_detail',{id: "" + law_id, key: 'section_details'}).done(function(response){
+        // Save clicked item
+        $.getJSON($SCRIPT_ROOT + '/api/userstat/inner_node_click',
+        {title : node.label, law: law_id}).done(function(){
+          console.log("SAVED INNER NODE CLICK DATA");
+        });
+
+        $.getJSON($SCRIPT_ROOT + '/api/law_detail',{id: "" + law_id, key: 'section_details'}).done(function(response){
             loadedData = response.section_details;
 
             if (node.type === ENTITY_TYPE){
