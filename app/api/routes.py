@@ -280,10 +280,9 @@ def law_search_term():
 @api.route('/api/userstat/law_edge_click', methods=['GET'])
 def law_edge_click():
     if request.method == 'GET':
-        username = request.args.get('user')
-        edge_id = int(request.args.get('edge'))
-        res = UserStatSchema.insert_edge_click(username, edge_id)
-
+        _from = int(request.args.get('f'))
+        _to = int(request.args.get('t'))
+        res = UserStatSchema.insert_edge_click({'from' : _from, 'to' : _to})
         if (res.acknowledged == True):
             return jsonify({"success" : "updated" })
 

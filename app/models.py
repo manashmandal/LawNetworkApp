@@ -57,11 +57,11 @@ class UserStatSchema(object):
     }
 
     @staticmethod
-    def insert_law_node_single_click(username, data):
+    def insert_law_node_single_click(data):
         return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'law_node_single_click' : {'law_id' : data, 'time' : datetime.now().__str__() } } })
 
     @staticmethod
-    def insert_law_node_double_click(username, data):
+    def insert_law_node_double_click(data):
         return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'law_node_double_click' : { 'law_id' : data, } }})
     
     @staticmethod
@@ -69,11 +69,11 @@ class UserStatSchema(object):
         return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'search_terms' : {'term' : data, 'time' : datetime.now().__str__() } }})
 
     @staticmethod
-    def insert_edge_click(username, data):
+    def insert_edge_click(data):
         return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'edge_click' : {'from' : data['from'], 'to' : data['to'], 'time' : datetime.now().__str__() }}})
 
     @staticmethod
-    def insert_inner_node_click(username, data):
+    def insert_inner_node_click(data):
         return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'inner_node_click' : {'title' : data, 'time' : datetime.now().__str__() }}})
     
 

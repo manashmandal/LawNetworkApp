@@ -165,6 +165,14 @@ function drawNetwork (data, stopLoading){
                 $("#edgeDetailPanelBody").prepend("<p>" + dat.section_detail + "</p>");
                 $("#edgeDetailPanelBody").prepend("<p><b>" + dat.section_title + "</b></p>");
             });
+
+            // Add selected edge data to database
+            $.getJSON($SCRIPT_ROOT + '/api/userstat/law_edge_click', 
+            {f: selected_edge.from, t: selected_edge.to}).done(function(){
+                console.log("SAVED EDGE DATA");
+            });
+
+
             
         }).fail(function(){
             $("#edgeDetailPanelBody").empty();
