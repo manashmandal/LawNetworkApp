@@ -267,9 +267,8 @@ def law_double_click():
 @api.route('/api/userstat/law_search_term', methods=['GET'])
 def law_search_term():
     if request.method == 'GET':
-        username = request.args.get('user')
         term = request.args.get('term')
-        res = UserStatSchema.insert_search_terms(username, term)
+        res = UserStatSchema.insert_search_terms(term)
 
         if (res.acknowledged == True):
             return jsonify({"success" : "updated" })

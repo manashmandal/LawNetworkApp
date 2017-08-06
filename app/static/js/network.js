@@ -73,7 +73,7 @@ $(document).ready(function(){
 
 
         // Save the keyword
-        $.getJSON('/api/userstat/law_search_term', {user: username, term: search_keywords}).done(function(res){
+        $.getJSON('/api/userstat/law_search_term', {term: search_keywords}).done(function(res){
             console.log("SAVED DATA");
         });
 

@@ -1,7 +1,8 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import login_manager
 from . import mongo
-from flask_login import UserMixin
+from datetime import datetime
+from flask_login import (UserMixin, current_user)
 
 
 class User(UserMixin):
@@ -57,23 +58,23 @@ class UserStatSchema(object):
 
     @staticmethod
     def insert_law_node_single_click(username, data):
-        return mongo.db.userstat.update_one({'username' : username}, {'$push' : {'law_node_single_click' : data } })
+        return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'law_node_single_click' : {'law_id' : data, 'time' : datetime.now().__str__() } } })
 
     @staticmethod
     def insert_law_node_double_click(username, data):
-        return mongo.db.userstat.update_one({'username' : username}, {'$push' : {'law_node_double_click' : data }})
+        return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'law_node_double_click' : { 'law_id' : data, } }})
     
     @staticmethod
-    def insert_search_terms(username, data):
-        return mongo.db.userstat.update_one({'username' : username}, {'$push' : {'search_terms' : data }})
+    def insert_search_terms(data):
+        return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'search_terms' : {'term' : data, 'time' : datetime.now().__str__() } }})
 
     @staticmethod
     def insert_edge_click(username, data):
-        return mongo.db.userstat.update_one({'username' : username}, {'$push' : {'edge_click' : data}})
+        return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'edge_click' : {'from' : data['from'], 'to' : data['to'], 'time' : datetime.now().__str__() }}})
 
     @staticmethod
     def insert_inner_node_click(username, data):
-        mongo.db.userstat.update_one({'username' : username}, {'$push' : {'inner_node_click' : data}})
+        return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'inner_node_click' : {'title' : data, 'time' : datetime.now().__str__() }}})
     
 
 
