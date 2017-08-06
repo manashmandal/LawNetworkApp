@@ -254,9 +254,8 @@ def law_single_click():
 @api.route('/api/userstat/law_double_click', methods=['GET'])
 def law_double_click():
     if request.method == 'GET':
-        username = request.args.get('user')
         node = int(request.args.get('node'))
-        res = UserStatSchema.insert_law_node_double_click(username, node)
+        res = UserStatSchema.insert_law_node_double_click(node)
 
         if (res.acknowledged == True):
             return jsonify({"success" : "updated"})
@@ -292,10 +291,8 @@ def law_edge_click():
 @api.route('/api/userstat/inner_node_click', methods=['GET'])
 def law_inner_node_click():
     if request.method == 'GET':
-        username = request.args.get('user')
-        node = int(request.args.get('node'))
-        res = UserStatSchema.insert_inner_node_click(username, node)
-
+        title = request.args.get('title')
+        res = UserStatSchema.insert_inner_node_click(title)
         if (res.acknowledged == True):
             return jsonify({"success" : "updated" })
 

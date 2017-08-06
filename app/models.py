@@ -62,7 +62,7 @@ class UserStatSchema(object):
 
     @staticmethod
     def insert_law_node_double_click(data):
-        return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'law_node_double_click' : { 'law_id' : data, } }})
+        return mongo.db.userstat.update_one({'username' : current_user.username }, {'$push' : {'law_node_double_click' : { 'law_id' : data, 'time' : datetime.now().__str__() } }})
     
     @staticmethod
     def insert_search_terms(data):

@@ -95,6 +95,16 @@ function drawNetwork (data, stopLoading){
 
             selected_law = params.nodes[0];
 
+            console.log("DOUBLE CLICKED");
+
+            // Save double click node
+            $.getJSON($SCRIPT_ROOT + '/api/userstat/law_double_click', {
+                node: params.nodes[0]   
+            }).done(function(){
+                console.log("DOUBLE CLICKED LAW " + params.nodes[0] + " SAVED");
+            });
+
+
             // Get law text
             $.getJSON($SCRIPT_ROOT + '/api/law_detail/all', {id: params.nodes[0]}).done(function(response){
 
@@ -106,10 +116,10 @@ function drawNetwork (data, stopLoading){
 
             $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail/phrase_entity', {
                 id: selected_law
-        }).done(function(inner_response){
-            drawInnerNetwork(inner_response, selected_law, stopLoading);
-            console.log("Drew inner law network");
-        });
+            }).done(function(inner_response){
+                drawInnerNetwork(inner_response, selected_law, stopLoading);
+                console.log("Drew inner law network");
+            });
 
         }
     });
