@@ -215,6 +215,7 @@ def get_connection_detail():
 @api.route('/api/search_law', methods=['GET'])
 def search_law():
     query = request.args.get('q')
+    print("THE QUERY: " + query)
     ngram = bool(int(request.args.get('ngram', default=False)))
     exclude_unigram = bool(int(request.args.get('exclude_unigram', default=True)))
 

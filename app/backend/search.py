@@ -6,6 +6,8 @@ from bson.objectid import ObjectId
 
 
 def _search(text, only_ngram_search=True, exclude_unigram=True):
+
+    # print("SEARCHING : " + str(text))
     # Ids
     _ids = []
 
@@ -40,8 +42,11 @@ def _search(text, only_ngram_search=True, exclude_unigram=True):
 
         for search_words in search_combinations:
             for _id in range(1, LAW_COUNT):
+                # print("GETTING BIGRAM")
                 bigram_text = mongo.db.bigrams.find_one({'law_id' : _id })['text']
                 trigram_text = mongo.db.trigrams.find_one({'law_id' : _id})['text']
+
+                # print(bigram_text)
 
                 for btoken, ttoken in zip(bigram_text.split(' '), trigram_text.split(' ')):
                     if '_' in btoken or '_' in ttoken:
@@ -92,6 +97,9 @@ def search_database(text, ngram_search=True, delimiter='_'):
         for _id in range(1, LAW_COUNT):
             law_bigram = mongo.db.bigrams.find_one({'law_id' : _id})['text']
             law_trigram = mongo.db.trigrams.find_one({'law_id' : _id})['text']
+
+            # print("LAW BIGRAM " + law_bigram)
+            
             if text in law_bigram or text in law_trigram:
                 _ids.append(_id)
     else:
@@ -149,6 +157,9 @@ def entity_to_section_map(_id, verbose=False):
 
     # Get sections
     sections = mongo.db.laws.find_one({'law_id' : _id})['section_details']
+
+    # print(sections)
+
     # Get entities
     entities = list(set(filter_entity(_id)))
     
