@@ -17,7 +17,7 @@ function drawNetwork (data, stopLoading){
     }
 
     for (var i = 0; i < data.network.length; i++){
-        edges.push({from : data.network[i].from, to : data.network[i].to, color: { color : 'rgba(255, 0, 0, 0.1)'} });
+        edges.push({from : data.network[i].from, to : data.network[i].to, color: { color : 'rgba(255, 0, 0, 0.1)'}, id: data.network[i].from + "-" + data.network[i].to });
     }
 
     // Create data

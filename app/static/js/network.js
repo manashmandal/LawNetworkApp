@@ -3,6 +3,8 @@
 
 // Loads Ttile and Draws The Network
 
+var net;
+
 var loadingDone = function(){
     $("#loadingIcon").removeClass("loading");
 }
@@ -32,12 +34,11 @@ var loadLawTitlesAndDrawNetwork = function(data){
     }
 
 
-    let net = drawNetwork(data, loadingDone);
+    net = drawNetwork(data, loadingDone);
 
     // Bind network and search result prop
     $(".lawResult").click(function(params){
-        console.log(this.id);
-        console.log(net);
+        net.setSelection({'nodes' : [+this.id]}, {});
     });
 
     // loadingDone();
