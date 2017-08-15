@@ -38,7 +38,9 @@ var loadLawTitlesAndDrawNetwork = function(data){
 
     // Bind network and search result prop
     $(".lawResult").click(function(params){
+        $("#resultList>li").removeClass("highlight");
         net.setSelection({'nodes' : [+this.id]}, {});
+        $("#" + this.id).addClass("highlight");
     });
 
     // loadingDone();
