@@ -28,11 +28,17 @@ var loadLawTitlesAndDrawNetwork = function(data){
     loaded_data = data;
 
     for (var i = 0; i < data.laws.length; i++){
-        $("#resultList").append("<li id=" + data.laws[i] + ">" +  "<b>" + data.laws[i] + "</b> - <i>" + data.id_title_map[data.laws[i]] + "</i>");
+        $("#resultList").append("<li id=" + data.laws[i] + " class='lawResult'>" +  "<b>" + data.laws[i] + "</b> - <i>" + data.id_title_map[data.laws[i]] + "</i>");
     }
 
 
-    drawNetwork(data, loadingDone);
+    let net = drawNetwork(data, loadingDone);
+
+    // Bind network and search result prop
+    $(".lawResult").click(function(params){
+        console.log(this.id);
+        console.log(net);
+    });
 
     // loadingDone();
 }

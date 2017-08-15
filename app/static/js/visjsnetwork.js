@@ -55,7 +55,12 @@ function drawNetwork (data, stopLoading){
             "max": 73
             },
             "smooth": {
-            "forceDirection": "none"
+                "enabled": true,
+                "forceDirection": "none"
+            },
+            "color": {
+                "hover" : "#D84315",
+                "highlight" : "#1B5E20"
             }
         },
         "interaction": {
@@ -240,4 +245,7 @@ function drawNetwork (data, stopLoading){
             .draw();
         });
     });
+
+
+    return network;
 }

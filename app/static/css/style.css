@@ -2,7 +2,12 @@
     overflow-y: scroll;
 }
 
-
+/* CSS Style for Search Result On Hover */ 
+li.lawResult:hover {
+  cursor: pointer; 
+  background-color: bisque;
+  color: black;
+}
 
 
 #resultList li {
