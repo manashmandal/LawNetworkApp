@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-
+import os
 
 
 class Config:
@@ -9,7 +9,8 @@ class Config:
     MONGO_DBNAME = "law"
     MONGO_HOST = "localhost"
     MONGO_PORT = 27017
-
+    MONGO_USERNAME = os.environ.get('MONGO_USERNAME')
+    MONGO_PASSWORD = os.environ.get('MONGO_PASSWORD')
 
     TEMPLATES_AUTO_RELOAD = True
 
@@ -32,6 +33,6 @@ class ProductionConfig(Config):
 
 
 config = {
-    'development' : DevelopmentConfig,
-    'production' : ProductionConfig
+    'development': DevelopmentConfig,
+    'production': ProductionConfig
 }
