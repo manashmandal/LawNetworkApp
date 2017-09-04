@@ -1,8 +1,18 @@
 //TODO: Optimize
 // check if same node was clicked twice
+/**
+ *  Contents:
+ * 
+ *  1. Amendment plot
+ *  2. Main Network Graph
+ * 
+ * 
+ * 
+ */
+
 
 var selected_law;
-
+var netwrk;
 
 
 function drawNetwork (data, stopLoading){
@@ -36,9 +46,35 @@ function drawNetwork (data, stopLoading){
 
 
     var options = {
+        "layout" : {
+            "randomSeed": 1,
+            "improvedLayout": false,
+
+            "hierarchical": {
+                "enabled": true,
+                "levelSeparation": 100,
+                "nodeSpacing": 50,
+                "treeSpacing": 100,
+                "blockShifting": false,
+                "edgeMinimization": false,
+                "parentCentralization": false,
+                "direction": 'UD',        // UD, DU, LR, RL
+                "sortMethod": 'hubsize'   // hubsize, directed
+            }
+        },
         "nodes": {
             "borderWidthSelected": 8
         },
+        "physics" : {
+            "enabled" : true,
+                
+            "stabilization" : {
+                "iterations" : 2,
+                "enabled" : true, 
+                "fit" : true
+            }
+        },
+        
         "edges": {
             "arrows": {
             "to": {
@@ -73,7 +109,7 @@ function drawNetwork (data, stopLoading){
 
 
     var network = new vis.Network(container, _data, options);
-
+    netwrk = network;
 
     network.on('stabilized', function(){
         stopLoading();
@@ -84,6 +120,11 @@ function drawNetwork (data, stopLoading){
     setTimeout(function(){
         network.stopSimulation();
     }, 2000);
+
+    network.on('dragEnd', function(params){
+        console.log("drag end");
+        network.stopSimulation();
+    });
 
     // On Double click initiate a modal to show the law text and inner graph 
     network.on('doubleClick', function(params){
@@ -142,19 +183,6 @@ function drawNetwork (data, stopLoading){
 
     $("#lawModal").on('show.bs.modal', function(){
 
-
-        // Fix Size Here
-        // $("#lawModalBody").css('height', '500px');
-
-
-        // Why not phase entity route?
-        // $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail/phrase_entity', {
-        //     id: selected_law
-        // }).done(function(inner_response){
-        //     drawInnerNetwork(inner_response, selected_law, stopLoading);
-        //     console.log("Drew inner law network");
-        //     loadingDone();
-        // });
     });
 
 
@@ -237,7 +265,7 @@ function drawNetwork (data, stopLoading){
             var visualization = d3plus.viz()
             .container("#amendmentPanelBody")
             .data(amendment_data)
-            .type("line")
+            .type("bar")
             .id("name")
             .x("year")
             .height($("#amendmentPanelBody").height())
