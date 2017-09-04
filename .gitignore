@@ -6,7 +6,7 @@ __pycache__/
 
 # C extensions
 *.so
-config.py
+
 
 # Distribution / packaging
 .Python
@@ -152,3 +152,7 @@ _testmain.go
 #*.png
 #*.jpeg
 *.psd
+
+
+
+config.py
