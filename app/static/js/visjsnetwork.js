@@ -169,10 +169,10 @@ function drawNetwork (data, stopLoading){
             // });
 
             // Tag cloud generation
-            $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail/phrase_entity', {
+            $.getJSON($SCRIPT_ROOT + '/api/section_titles', {
                 id: selected_law
             }).done(function(inner_response){
-                drawInnerNetwork(inner_response, selected_law, stopLoading);
+                drawTagCloud(inner_response, selected_law, stopLoading);
                 console.log("Drew inner law network");
                 stopLoading();
             });
