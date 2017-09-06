@@ -283,3 +283,9 @@ def calc_amendment(_id):
         return None
     else:
         return count_dict, the_law['title']
+
+
+
+    
+
+    

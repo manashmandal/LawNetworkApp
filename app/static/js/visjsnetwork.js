@@ -5,7 +5,7 @@
  * 
  *  1. Amendment plot
  *  2. Main Network Graph
- * 
+ *  3. Calls InnerNetwork 
  * 
  * 
  */
@@ -159,12 +159,22 @@ function drawNetwork (data, stopLoading){
 
             });
 
+            // For drawing network
+            // $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail/phrase_entity', {
+            //     id: selected_law
+            // }).done(function(inner_response){
+            //     drawInnerNetwork(inner_response, apselected_law, stopLoading);
+            //     console.log("Drew inner law network");
+            //     stopLoading();
+            // });
 
+            // Tag cloud generation
             $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail/phrase_entity', {
                 id: selected_law
             }).done(function(inner_response){
                 drawInnerNetwork(inner_response, selected_law, stopLoading);
                 console.log("Drew inner law network");
+                stopLoading();
             });
 
         }

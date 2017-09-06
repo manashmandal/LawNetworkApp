@@ -323,4 +323,26 @@ def testapi():
 
 
 
+# WordCloud API
+@api.route('/api/wordcloud', methods=['GET'])
+def get_word_cloud():
+    section_key = str(request.args.get('key'))
+    law_id = str(request.args.get('id', '1'))
+    try:
+        cld = mongo.db.wordcloud.find_one({'law_id' : law_id })[law_id][section_key]
+    except:
+        cld = None
+    print(cld)
+    return {
+        "info" : cld
+    }
 
+# Get list of sections
+@api.route('/api/section_titles', methods=['GET'])
+def get_section_keys():
+    _id = int(request.args.get('id', 1))
+    section_keys = [key for key in mongo.db.laws.find_one({'law_id' : _id})['section_details']]
+    return {
+        'section_keys' : section_keys
+    }
+    
