@@ -9,6 +9,9 @@ li.lawResult:hover {
   color: black;
 }
 
+#sections {
+  overflow-y: scroll;
+}
 
 #resultList li {
   margin-bottom: 2px;
@@ -19,7 +22,7 @@ li.lawResult:hover {
 }
 
 #viz {
-  border: 1px dashed grey;
+  /* border: 1px dashed grey; */
   
       top: 0;
       bottom: 0;
