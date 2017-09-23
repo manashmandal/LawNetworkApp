@@ -1,14 +1,15 @@
 var DAT;
-
+var threshold_frequency = 2;
 
 function draw(words_map){
 
     $("#tagcloud").empty();
+    var current_hover_tag = "";
 
     var fill = d3.scale.category20();
     // var words = ;
 
-    d3.layout.cloud().size([300, 300])
+    d3.layout.cloud().size([500, 500])
                      .words(words_map.map(function(d){
                         return {text: d.word, size: d.freq};
                       }))
@@ -21,14 +22,14 @@ function draw(words_map){
 
     function draw(words){
         d3.select('#tagcloud').append('svg')
-                .attr('width', 300)
-                .attr('height', 300)
+                .attr('width', 500)
+                .attr('height', 500)
             .append('g')
-                .attr('transform', "translate(150, 150)")
+                .attr('transform', "translate(250, 250)")
             .selectAll('text')
                 .data(words)
             .enter().append('text')
-                .style('font-size', function(d) { return d.size + 'px'; })
+                .style('font-size', function(d) { return 5+d.size + 'px'; })
                 .style('font-family', "Impact")
                 .style('fill', function(d, i) { return fill(i); })
                 .attr('text-anchor', 'middle')
@@ -38,7 +39,16 @@ function draw(words_map){
                 .text(function(d) { return d.text; });
 
     }
-    
+
+
+    // Shows tooltip
+    $("text").each(function() { 
+        $(this).qtip({ 
+            content: {
+                text: $(this).text() 
+            }
+        });
+    });
     
 }
 
