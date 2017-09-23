@@ -9,6 +9,12 @@ li.lawResult:hover {
   color: black;
 }
 
+li.section_keys:hover {
+  cursor: pointer; 
+  background-color: bisque;
+  color: black;
+}
+
 #sections {
   overflow-y: scroll;
 }

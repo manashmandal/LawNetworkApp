@@ -3,8 +3,6 @@ var DAT;
 
 function drawTagCloud(_data, law_id, stopLoading){
 
-
-
         // Calculate available area
         let clearance = 50;
 
@@ -30,7 +28,7 @@ function drawTagCloud(_data, law_id, stopLoading){
 
             let value = _data['section_keys'][i];
             if (value !== ""){
-                $("#sections").append("<li class='section_keys'>" + value + "</li>");
+                $("#sections").append("<li class='section_keys' id='section_" + i + "'>" + value + "</li>");
             }
                 // </br></br>
         }
@@ -43,7 +41,18 @@ function drawTagCloud(_data, law_id, stopLoading){
 
         // Add event listener to list items 
         $(".section_keys").on('click', function(){
-            console.log(this);
+            console.log(this.id);
+            
+            let section_key = $("#" + this.id).text();
+
+            // Send get request for data
+            $.getJSON("/api/wordcloud", {
+                id: law_id,
+                key: section_key
+            }).done(function(response){
+                console.log(response);
+            });
+            
         });
 
         $("#lawModal").modal('toggle');
