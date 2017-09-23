@@ -184,16 +184,19 @@ function drawNetwork (data, stopLoading){
         // Empty texts
         $("#volume").empty();
         $("#preamble").empty();
-        $("#sectionTableBody").empty();
-        $("#viz").empty();
-        $("#amendmentPanelBody").empty();
-        $("#edgeDetailPanelBody").empty();
+
+        // Hide this when tagcloud is used
+        $("#sections").empty();
+
+
+        // Hide this when network is used 
+        // $("#sectionTableBody").empty();
+        // $("#viz").empty();
+        // $("#amendmentPanelBody").empty();
+        // $("#edgeDetailPanelBody").empty();
     });
 
 
-    $("#lawModal").on('show.bs.modal', function(){
-
-    });
 
 
 
