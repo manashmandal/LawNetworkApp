@@ -95,6 +95,8 @@ function drawTagCloud(_data, law_id, stopLoading) {
     $(".section_keys").on('click', function () {
         // Remove all highlights 
         $(".section_keys").removeClass('highlight');
+        $("#sectionTableBody").empty();
+
         $(this).addClass('highlight');
         let section_key = $("#" + this.id).text();
 
@@ -104,6 +106,9 @@ function drawTagCloud(_data, law_id, stopLoading) {
             key: section_key
         }).done(function (response) {
             draw(response.info.words);
+
+            //Populate section details and section title 
+            $("#sectionTableBody").prepend("<tr><td>" + section_key + "</td><td>" + response.info.section.trim() +"</td></tr>");
             console.log(response);
         });
 
