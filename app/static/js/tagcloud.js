@@ -1,6 +1,7 @@
 var DAT;
 var temp;
 
+
 function draw(words_map) {
 
     $("#tagcloud").empty();
@@ -48,6 +49,16 @@ function draw(words_map) {
                 text: $(this).text()
             }
         });
+    });
+
+    $("text").on('click', function(){
+        $(".context").unmark().mark($(this).text(), {
+            "accuracy" : {
+              "value" : "exactly",
+              "limiters" : [",", ".", ";"]
+            },
+            "separateWordSearch" : false,
+          });
     });
 
 }
@@ -114,8 +125,16 @@ function drawTagCloud(_data, law_id, stopLoading) {
 
     });
 
+
+
+
     $("#lawModal").modal('toggle');
     // console.log(_data);
     // console.log("SELECTED LAW ID " + law_id);
     // stopLoading();
 }
+
+
+
+
+
