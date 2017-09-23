@@ -152,5 +152,3 @@ _testmain.go
 #*.png
 #*.jpeg
 *.psd
-
-manage.py
