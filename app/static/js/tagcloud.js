@@ -5,7 +5,7 @@ function drawTagCloud(_data, law_id, stopLoading){
 
 
         // Calculate available area
-        let clearance = 300;
+        let clearance = 50;
 
         // Resize viz
         $("#viz").css('height', $(window).height() - clearance + 'px');
@@ -22,19 +22,26 @@ function drawTagCloud(_data, law_id, stopLoading){
 
 
         // Append the sections
+        $("#sections").append("<ul>")
         for (let i = 0; i < _data['section_keys'].length; i++){
             // $("#sections").append("<span class='label label-default>'" + _data['section_keys'][i] + "</label>");
             // $("#sections").append(data['section_keys'][i]);
-            $("#sections").append(_data['section_keys'][i] + "</br></br>");
-            
+            let value = _data['section_keys'][i];
+            if (value !== "")
+                $("#sections").append("<li class='section_keys'>" + value + "</li>");
+            // </br></br>
         }
+        $("#sections").append("</ul>");
 
         $("#sections").css('max-height', $('.modal-body').height() + 'px');
 
         DAT = _data;
  
 
-
+        // Add event listener to list items 
+        $(".section_keys").on('click', function(){
+            console.log(this);
+        });
     // console.log(_data);
     // console.log("SELECTED LAW ID " + law_id);
     // stopLoading();
