@@ -346,3 +346,12 @@ def get_section_keys():
         'section_keys' : section_keys
     }
     
+
+# Returns entity group of a given law id 
+@api.route('/api/entity', methods=['GET'])
+def get_entity():
+    _id = int(request.args.get('id', 1))
+    entity_group = mongo.db.entities.find_one({'law_id' : _id})['entity_group']
+    return {
+        'entities' : entity_group
+    }
