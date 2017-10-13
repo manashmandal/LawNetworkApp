@@ -49,9 +49,10 @@ function drawNetwork (data, stopLoading){
         "layout" : {
             "randomSeed": 1,
             "improvedLayout": false,
-
+            
+            // Enable hierarchical to enable tree like layout
             "hierarchical": {
-                "enabled": true,
+                "enabled": false,
                 "levelSeparation": 100,
                 "nodeSpacing": 50,
                 "treeSpacing": 100,
@@ -76,6 +77,7 @@ function drawNetwork (data, stopLoading){
         },
         
         "edges": {
+
             "arrows": {
             "to": {
                 "enabled": true,
@@ -86,10 +88,14 @@ function drawNetwork (data, stopLoading){
                 "scaleFactor" : 0.7
             }
             },
+
+            /* // Turn on scaling to reverse back to tree layout
             "scaling": {
             "min": 39,
             "max": 73
             },
+            */
+
             "smooth": {
                 "enabled": true,
                 "forceDirection": "none"
