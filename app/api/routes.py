@@ -224,6 +224,14 @@ def search_law():
 
     id_title_map = { id : mongo.db.laws.find_one({'law_id' : id})['title'] for id in laws }
 
+    # Add coordinates 
+    all_coordinates = mongo.db.law_embeddings.find_one()
+
+    # print(all_coordinates)
+    coords = []
+
+    for law in laws:
+        coords.append({'x' : all_coordinates[str(law)]['x'], 'y' : all_coordinates[str(law)]['y'], 'law_id' : str(law) })
 
     if (len(laws) == 0):
         return {"error" : "Nothing found"}, status.HTTP_404_NOT_FOUND
@@ -231,7 +239,8 @@ def search_law():
     return jsonify({
         'laws' : laws,
         'network' : outer_network,
-        'id_title_map' : id_title_map
+        'id_title_map' : id_title_map,
+        'coords' : coords
     })
 
 
