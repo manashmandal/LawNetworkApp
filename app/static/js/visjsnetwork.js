@@ -22,8 +22,12 @@ function drawNetwork (data, stopLoading){
     let nodes = [];
     let edges = [];
 
+    console.log("PRINTING DATA ");
+    console.log(data);
+
+    // Added embedding
     for (var i = 0; i < data.laws.length; i++){
-        nodes.push({id : data.laws[i], label: "" + data.laws[i], title: data.id_title_map[data.laws[i]]});
+        nodes.push({id : data.laws[i], label: "" + data.laws[i], title: data.id_title_map[data.laws[i]], x: data.coords[i].x, y: data.coords[i].y});
     }
 
     for (var i = 0; i < data.network.length; i++){
