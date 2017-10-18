@@ -169,6 +169,14 @@ function drawNetwork (data, stopLoading){
 
             });
 
+            // Get entites
+            $.getJSON($SCRIPT_ROOT + "/api/entity", {
+                id: params.nodes[0]
+            }).done(function(response){
+                console.log("Entity data");
+                console.log(response);
+            });
+
             // For drawing network
             // $.getJSON($SCRIPT_ROOT + '/api/law_inner_detail/phrase_entity', {
             //     id: selected_law
