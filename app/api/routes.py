@@ -9,6 +9,7 @@ from flask import jsonify
 from flask_api import status
 import time
 from ..models import UserStatSchema
+from spacy.en.language_data import STOP_WORDS
 
 # INNER_LAW_NETWORK = mongo.db.network # This network collection contains the relationship between named entities and sections
 # LAW_NETWORK = "" # Outer law network, which cites which one
@@ -342,6 +343,14 @@ def get_word_cloud():
     except:
         cld = None
     print(cld)
+
+    # Clean up the data [removing stop words]
+    for word_dict in cld['words']:
+        if word_dict['word'] in STOP_WORDS:
+            cld['words'].remove(word_dict)
+
+    # print(len(cld))
+
     return {
         "info" : cld
     }

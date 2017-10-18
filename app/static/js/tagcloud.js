@@ -4,13 +4,16 @@ var temp;
 
 function draw(words_map) {
 
+    var cloud_height = 700;
+    var cloud_width = 700;
+
     $("#tagcloud").empty();
     var current_hover_tag = "";
 
     var fill = d3.scale.category20();
     // var words = ;
 
-    d3.layout.cloud().size([500, 500])
+    d3.layout.cloud().size([cloud_height, cloud_width])
         .words(words_map.map(function (d) {
             return { text: d.word, size: d.freq };
         }))
