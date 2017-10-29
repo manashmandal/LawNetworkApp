@@ -173,8 +173,13 @@ function drawNetwork (data, stopLoading){
             $.getJSON($SCRIPT_ROOT + "/api/entity", {
                 id: params.nodes[0]
             }).done(function(response){
-                console.log("Entity data");
+                console.log("entity response");
                 console.log(response);
+
+                // Remove duplicate version
+                // _.uniq(response.entities, function(dat){
+                //     console.log("DAT : " + dat[0]);
+                // });
             });
 
             // For drawing network

@@ -370,6 +370,14 @@ def get_section_keys():
 def get_entity():
     _id = int(request.args.get('id', 1))
     entity_group = mongo.db.entities.find_one({'law_id' : _id})['entity_group']
+
+    entity_token_group_dict = {}
+
+    for ent in entity_group:
+        entity_token_group_dict[ent[0]] = ent[1]
+    
+    print(entity_token_group_dict)
+
     return {
-        'entities' : entity_group
+        'entities' : entity_token_group_dict
     }
