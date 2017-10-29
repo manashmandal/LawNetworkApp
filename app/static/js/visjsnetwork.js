@@ -175,11 +175,11 @@ function drawNetwork (data, stopLoading){
             }).done(function(response){
                 console.log("entity response");
                 console.log(response);
-
-                // Remove duplicate version
-                // _.uniq(response.entities, function(dat){
-                //     console.log("DAT : " + dat[0]);
-                // });
+                
+                // Update location
+                _.each(response.organizations, function(org){
+                    $("#lawModalNamedEntities").append("<span class='label label-default'>" + org + "</span>");
+                });
             });
 
             // For drawing network

@@ -376,16 +376,18 @@ def get_entity():
     for ent in entity_group:
         entity_token_group_dict[ent[0]] = ent[1]
 
-    organizations = [ent[0] for ent in entity_group if ent[1] == 'ORGANIZATION']
-    locations = [ent[0] for ent in entity_group if ent[1] == 'LOCATION']
-    dates = [ent[0] for ent in entity_group if ent[1] == 'DATE']
+    organizations = list(set([ent[0] for ent in entity_group if ent[1] == 'ORGANIZATION']))
+    locations = list(set([ent[0] for ent in entity_group if ent[1] == 'LOCATION']))
+    dates = list(set([ent[0] for ent in entity_group if ent[1] == 'DATE']))
+    persons = list(set([ent[0] for ent in entity_group if ent[1] == 'PERSON']))
     
     print(entity_token_group_dict)
 
     return {
         "organizations" : organizations,
         "locations" : locations,
-        "dates" : dates
+        "dates" : dates,
+        "persons" : persons
     }
     # return {
     #     'entities' : entity_token_group_dict
