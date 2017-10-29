@@ -178,7 +178,19 @@ function drawNetwork (data, stopLoading){
                 
                 // Update location
                 _.each(response.organizations, function(org){
-                    $("#lawModalNamedEntities").append("<span class='label label-default'>" + org + "</span>");
+                    $("#lawModalNamedEntities").append("<span class='label entity-label label-primary'>" + org + "</span>");
+                });
+
+                _.each(response.persons, function(person){
+                    $("#lawModalNamedEntities").append("<span class='label entity-label label-success'>" + person + "</span>");
+                });
+
+                _.each(response.locations, function(location){
+                    $("#lawModalNamedEntities").append("<span class='label entity-label label-danger'>" + location + "</span>");
+                });
+
+                _.each(response.dates, function(date){
+                    $("#lawModalNamedEntities").append("<span class='label entity-label label-warning'>" + date + "</span>");
                 });
             });
 
