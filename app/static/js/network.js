@@ -25,7 +25,7 @@ var loadLawTitlesAndDrawNetwork = function(data){
 
     // Add the count
     $("#searchResultPanelTitle").empty();
-    $("#searchResultPanelTitle").append("Total Law Found <b><i>" + data.laws.length + "</b></i>");
+    $("#searchResultPanelTitle").append("Laws Found <b><i>" + data.laws.length + "</b></i>");
     // For debugging purpose
     loaded_data = data;
 
