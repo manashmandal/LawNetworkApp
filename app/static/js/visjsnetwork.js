@@ -177,21 +177,36 @@ function drawNetwork (data, stopLoading){
                 console.log(response);
                 
                 // Update location
-                _.each(response.organizations, function(org){
-                    $("#lawModalNamedEntities").append("<span class='label entity-label label-primary'>" + org + "</span>");
-                });
+                if (response.organizations.length > 0) {
+                    console.log("ORGANIZATION");
+                    _.each(response.organizations, function(org){
+                        $("#lawModalNamedEntities").append("<span class='label entity-label label-primary'>" + org + "</span>");
+                    });
+                    $("#lawModalNamedEntities").append("</br></br>");
+                }
+                
+                if (response.persons.length > 0) {
+                    console.log("PERSON");
+                    _.each(response.persons, function(person){
+                        $("#lawModalNamedEntities").append("<span class='label entity-label label-success'>" + person + "</span>");
+                    });
+                    $("#lawModalNamedEntities").append("</br></br>");
+                }
 
-                _.each(response.persons, function(person){
-                    $("#lawModalNamedEntities").append("<span class='label entity-label label-success'>" + person + "</span>");
-                });
+                if (response.locations.length > 0) {
+                    console.log("LOCATION");
+                    _.each(response.locations, function(location){
+                        $("#lawModalNamedEntities").append("<span class='label entity-label label-danger'>" + location + "</span>");
+                    });
+                    $("#lawModalNamedEntities").append("</br></br>");
+                }
 
-                _.each(response.locations, function(location){
-                    $("#lawModalNamedEntities").append("<span class='label entity-label label-danger'>" + location + "</span>");
-                });
-
-                _.each(response.dates, function(date){
-                    $("#lawModalNamedEntities").append("<span class='label entity-label label-warning'>" + date + "</span>");
-                });
+                if (response.dates.length > 0) {
+                    console.log("DATE");
+                    _.each(response.dates, function(date){
+                        $("#lawModalNamedEntities").append("<span class='label entity-label label-warning'>" + date + "</span>");
+                    });
+                }
             });
 
             // For drawing network
