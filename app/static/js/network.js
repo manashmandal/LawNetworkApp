@@ -13,7 +13,6 @@ var startLoading = function(){
     $("#loadingIcon").addClass("loading");
 }
 
-
 // 
 var loadLawTitlesAndDrawNetwork = function(data){
 
