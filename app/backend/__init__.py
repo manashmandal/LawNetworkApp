@@ -1,20 +1,18 @@
 from nltk.stem.porter import PorterStemmer
 import spacy
 from gensim.models.phrases import Phraser, Phrases
-
-
-
-
-
 import itertools
 import numpy as np
-
 nlp = spacy.load('en')
+
+BIGRAM_MODEL_PATH = "../gensim_models/"
+
+
 stemmer = PorterStemmer()
 
 LAW_COUNT = 705
 
-
+BIGRAM_MODEL = None
 
 STOP_WORDS = set("""
 a about above across after afterwards again against all almost alone along
