@@ -30,8 +30,6 @@ def search(query, max_result=10, use_bigram=False):
     if use_bigram == True:
         query = Bigram[query]
 
-        print("Bigram query: {}".format(query))
-
         query_tfidf = tfidf_bigram_model[vocabulary_bigram.doc2bow(query)]
         indices = index_bigram_dense[query_tfidf]
         # If no indices nothing found
