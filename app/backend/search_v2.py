@@ -6,6 +6,8 @@ Instructions:
 3. Prepare a dynamic graph using citation details
 
 """
+from . import Bigram, tfidf_model, tfidf_bigram_model, index_bigram_dense, index_dense, vocabulary_bigram, vocabulary
+import numpy as np
 
 # Process using this function when someone enters query
 # Process text v2
@@ -13,11 +15,40 @@ def process_text_v2(input_text, tokenize=False):
     valid_list = list("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ কখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহড়ঢ়য়ৎংঅআইঈউঊঋএঐওঔৌোৈেৃূুীিা")
     filter_text = [l for l in input_text if l in valid_list]
     if tokenize == True:
-        return filter_text
+        return "".join(filter_text).lower().split()
     else:
-        return "".join(filter_text)
+        return "".join(filter_text).lower()
 
     return filter_text
+
+
+# Search using bigram
+def search(query, max_result=10, use_bigram=False):
+
+    query = process_text_v2(query, tokenize=True)
+
+    if use_bigram == True:
+        query = Bigram[query]
+
+        print("Bigram query: {}".format(query))
+
+        query_tfidf = tfidf_bigram_model[vocabulary_bigram.doc2bow(query)]
+        indices = index_bigram_dense[query_tfidf]
+        # If no indices nothing found
+        if (len(indices) == 0):
+            return -1
+        # Clipping the result
+        indices = np.argsort(-indices)[:max_result]
+        return indices
+
+    else:
+        query_tfidf = tfidf_model[vocabulary.doc2bow(query)]
+        indices = index_dense[query_tfidf]
+        if (len(indices) == 0):
+            return -1
+        indices = np.argsort(-indices)[:max_result]
+        return indices
+
 
 
 

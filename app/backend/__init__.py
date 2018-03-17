@@ -1,18 +1,55 @@
 from nltk.stem.porter import PorterStemmer
-import spacy
-from gensim.models.phrases import Phraser, Phrases
-import itertools
-import numpy as np
-nlp = spacy.load('en')
+# import spacy
+from gensim.models.phrases import Phrases
+from gensim.corpora.mmcorpus import MmCorpus
+from gensim.similarities import MatrixSimilarity, SparseMatrixSimilarity
+from gensim.models.tfidfmodel import TfidfModel
+from gensim.corpora import Dictionary
+import pickle
 
-BIGRAM_MODEL_PATH = "../gensim_models/"
+# nlp = spacy.load('en')
 
+# Change the path when running from top
+GENSIM_MODEL_PATH = "./backend/gensim_models/"
+
+BIGRAM_MODEL_PATH = GENSIM_MODEL_PATH + "law_corpus_bigram"
+LAW_MMCORPUS_PATH = GENSIM_MODEL_PATH + "law_corpus.mm"
+TFIDF_MODEL_PATH = GENSIM_MODEL_PATH + "law_tfidf_model"
+TFIDF_BIGRAM_MODEL_PATH = GENSIM_MODEL_PATH + "law_bigram_tfidf_model"
+LAW_BIGRAM_MMCORPUS_PATH = GENSIM_MODEL_PATH + "law_corpus_bigram.mm"
+LAW_SECTION_ID = GENSIM_MODEL_PATH + "law_section_tuple_id.txt"
+VOCABULARY = GENSIM_MODEL_PATH + "law_dictionary"
+VOCABULARY_BIGRAM = GENSIM_MODEL_PATH  + "law_bigram_dictionary"
 
 stemmer = PorterStemmer()
 
 LAW_COUNT = 705
 
-BIGRAM_MODEL = None
+# Load bigram model
+Bigram = Phrases.load(BIGRAM_MODEL_PATH)
+
+# Load the corpus first
+corpus = MmCorpus(LAW_MMCORPUS_PATH)
+bigram_corpus = MmCorpus(LAW_BIGRAM_MMCORPUS_PATH)
+
+# Indices
+index_dense = MatrixSimilarity(corpus, num_features=corpus.num_terms)
+index_sparse = SparseMatrixSimilarity(corpus, num_features=corpus.num_terms)
+index_bigram_dense = MatrixSimilarity(bigram_corpus, num_features=bigram_corpus.num_terms)
+index_bigram_sparse = SparseMatrixSimilarity(bigram_corpus, num_features=bigram_corpus.num_terms)
+
+# Tfidf models
+tfidf_model = TfidfModel.load(TFIDF_MODEL_PATH)
+tfidf_bigram_model = TfidfModel.load(TFIDF_BIGRAM_MODEL_PATH)
+
+# vocabularies
+vocabulary = Dictionary.load(VOCABULARY)
+vocabulary_bigram = Dictionary.load(VOCABULARY_BIGRAM)
+
+with open(LAW_SECTION_ID, 'rb') as f:
+    LAW_SECTION_ID_LIST = pickle.load(f)
+
+
 
 STOP_WORDS = set("""
 a about above across after afterwards again against all almost alone along
