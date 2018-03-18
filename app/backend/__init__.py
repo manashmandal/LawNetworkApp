@@ -7,10 +7,13 @@ from gensim.models.tfidfmodel import TfidfModel
 from gensim.corpora import Dictionary
 import pickle
 
+
 # nlp = spacy.load('en')
 
 # Change the path when running from top
-GENSIM_MODEL_PATH = "./backend/gensim_models/"
+# GENSIM_MODEL_PATH = "./backend/gensim_models/"
+
+GENSIM_MODEL_PATH = "./app/backend/gensim_models/"
 
 BIGRAM_MODEL_PATH = GENSIM_MODEL_PATH + "law_corpus_bigram"
 LAW_MMCORPUS_PATH = GENSIM_MODEL_PATH + "law_corpus.mm"
