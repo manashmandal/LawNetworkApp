@@ -9,7 +9,8 @@ from flask import jsonify
 from flask_api import status
 import time
 from ..models import UserStatSchema
-from spacy.en.language_data import STOP_WORDS
+from spacy.lang.en.stop_words import STOP_WORDS
+
 
 # INNER_LAW_NETWORK = mongo.db.network # This network collection contains the relationship between named entities and sections
 # LAW_NETWORK = "" # Outer law network, which cites which one

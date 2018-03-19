@@ -3,7 +3,7 @@ from app import mongo
 from bisect import bisect
 from textblob import TextBlob
 from bson.objectid import ObjectId
-
+import itertools
 
 def _search(text, only_ngram_search=True, exclude_unigram=True):
 

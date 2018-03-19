@@ -1,5 +1,5 @@
 from nltk.stem.porter import PorterStemmer
-# import spacy
+import spacy
 from gensim.models.phrases import Phrases
 from gensim.corpora.mmcorpus import MmCorpus
 from gensim.similarities import MatrixSimilarity, SparseMatrixSimilarity
@@ -8,7 +8,8 @@ from gensim.corpora import Dictionary
 import pickle
 
 
-# nlp = spacy.load('en')
+
+nlp = spacy.load('en')
 
 # Change the path when running from top
 # GENSIM_MODEL_PATH = "./backend/gensim_models/"
