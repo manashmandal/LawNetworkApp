@@ -1,6 +1,8 @@
 import os
 from app import *
 from flask_script import Manager, Shell
+from flask import Flask
+
 
 app = create_app('development')
 

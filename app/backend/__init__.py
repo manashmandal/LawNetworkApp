@@ -8,7 +8,7 @@ from gensim.corpora import Dictionary
 import pickle
 
 
-
+print("Loading spacy")
 nlp = spacy.load('en')
 
 # Change the path when running from top
@@ -29,27 +29,35 @@ stemmer = PorterStemmer()
 
 LAW_COUNT = 705
 
+print("Loading bigram")
 # Load bigram model
 Bigram = Phrases.load(BIGRAM_MODEL_PATH)
 
+print("Loading Corpus")
 # Load the corpus first
 corpus = MmCorpus(LAW_MMCORPUS_PATH)
 bigram_corpus = MmCorpus(LAW_BIGRAM_MMCORPUS_PATH)
 
+
+print("Loading Indices")
 # Indices
 index_dense = MatrixSimilarity(corpus, num_features=corpus.num_terms)
 index_sparse = SparseMatrixSimilarity(corpus, num_features=corpus.num_terms)
 index_bigram_dense = MatrixSimilarity(bigram_corpus, num_features=bigram_corpus.num_terms)
 index_bigram_sparse = SparseMatrixSimilarity(bigram_corpus, num_features=bigram_corpus.num_terms)
 
+
+print("Loading tfidf models")
 # Tfidf models
 tfidf_model = TfidfModel.load(TFIDF_MODEL_PATH)
 tfidf_bigram_model = TfidfModel.load(TFIDF_BIGRAM_MODEL_PATH)
 
+print("Loading vocabularies")
 # vocabularies
 vocabulary = Dictionary.load(VOCABULARY)
 vocabulary_bigram = Dictionary.load(VOCABULARY_BIGRAM)
 
+print("Loading law section id")
 with open(LAW_SECTION_ID, 'rb') as f:
     LAW_SECTION_ID_LIST = pickle.load(f)
 
