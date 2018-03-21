@@ -4,6 +4,7 @@ from . import api
 from flask_login import (login_required, current_user)
 from flask import request
 from ..backend.search import (_search, build_main_network_connection, make_section_entity_network, calc_amendment)
+from ..backend.search_v2 import search_laws
 import json
 from flask import jsonify
 from flask_api import status
@@ -214,6 +215,7 @@ def get_connection_detail():
     return jsonify(error), status.HTTP_404_NOT_FOUND
 
 
+# API Route for Searching laws
 @api.route('/api/search_law', methods=['GET'])
 def search_law():
     query = request.args.get('q')
@@ -221,7 +223,12 @@ def search_law():
     ngram = bool(int(request.args.get('ngram', default=False)))
     exclude_unigram = bool(int(request.args.get('exclude_unigram', default=True)))
 
-    laws = _search(str(query), only_ngram_search=ngram, exclude_unigram=exclude_unigram)
+    # laws = _search(str(query), only_ngram_search=ngram, exclude_unigram=exclude_unigram)
+    laws = search_laws(str(query), max_result=30)
+
+    # Filtering size
+    # TODO: REMOVE THIS WHEN WE CAN GET ALL LAWS FROM DATABASE
+    laws = [law for law in laws if law < 700]
 
     print(laws)
 

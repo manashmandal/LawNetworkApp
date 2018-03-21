@@ -23,7 +23,7 @@ def process_text_v2(input_text, tokenize=False):
 
 
 # Search using bigram
-def search(query, max_result=10, use_bigram=False):
+def search_laws(query, max_result=10, use_bigram=False):
 
     query = process_text_v2(query, tokenize=True)
 
