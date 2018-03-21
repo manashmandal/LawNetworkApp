@@ -6,7 +6,7 @@ Instructions:
 3. Prepare a dynamic graph using citation details
 
 """
-from . import Bigram, tfidf_model, tfidf_bigram_model, index_bigram_dense, index_dense, vocabulary_bigram, vocabulary
+from . import Bigram, tfidf_model, tfidf_bigram_model, index_bigram_dense, index_dense, vocabulary_bigram, vocabulary, LAW_SECTION_ID_LIST
 import numpy as np
 
 # Process using this function when someone enters query
@@ -37,7 +37,11 @@ def search(query, max_result=10, use_bigram=False):
             return -1
         # Clipping the result
         indices = np.argsort(-indices)[:max_result]
-        return indices
+        
+        # Returning the laws only 
+        law_ids = np.unique(np.array(LAW_SECTION_ID_LIST)[indices][:, 0]).tolist()
+
+        return law_ids
 
     else:
         query_tfidf = tfidf_model[vocabulary.doc2bow(query)]
@@ -45,7 +49,11 @@ def search(query, max_result=10, use_bigram=False):
         if (len(indices) == 0):
             return -1
         indices = np.argsort(-indices)[:max_result]
-        return indices
+
+        # Returning the laws only 
+        law_ids = np.unique(np.array(LAW_SECTION_ID_LIST)[indices][:, 0]).tolist()
+
+        return law_ids
 
 
 
