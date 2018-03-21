@@ -125,12 +125,13 @@ def search_database(text, ngram_search=True, delimiter='_'):
 def build_main_network_connection(search_result, exclude_self_cite=False, exclude_non_detail=False):
     list_connections = []
     for sr in search_result:
-        law = mongo.db.citations.find_one({'node' : sr})
-        connection = list(set.intersection(set(search_result), set(law['links'])))
-        for c in connection:
-            list_connections.append(
-                {'from' : law['node'], 'to' : c}
-            )
+        law = mongo.db.citations_v2.find_one({'node' : sr})
+        if law != None:
+            connection = list(set.intersection(set(search_result), set(law['links'])))
+            for c in connection:
+                list_connections.append(
+                    {'from' : law['node'], 'to' : c}
+                )
     return list_connections
 
 
