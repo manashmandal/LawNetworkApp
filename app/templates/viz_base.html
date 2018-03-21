@@ -24,6 +24,14 @@
     {% endblock %}
 
     <title> {{ title }} | Law Viz Network</title>
+
+    <style>
+        
+        #show_count {
+            padding-top: 15px;
+        }
+    
+    </style>
 </head>
 
 <body>
@@ -45,25 +53,24 @@
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav">
-      <li><a>
-            <input id="phraseOnlyCheckBox" type="checkbox">
-            <label for="phraseOnlyCheckBox">
-                            Phrase Only
-            </label>
-        </a>
-    </li>
+        <ul class="nav navbar-nav">
+        <li><a>
+                <input id="phraseOnlyCheckBox" type="checkbox">
+                <label for="phraseOnlyCheckBox">
+                                Phrase Only
+                </label>
+            </a>
+        </li>
 
-    <li><a>
-            <input id="excludeSingleKeywordCheckBox" type="checkbox">
-            <label for="excludeSingleKeywordCheckBox">
-                            Exclude Single Keyword
-            </label>
-        </a>
-    </li>
-
-
+        <li><a>
+                <input id="excludeSingleKeywordCheckBox" type="checkbox">
+                <label for="excludeSingleKeywordCheckBox">
+                                Exclude Single Keyword
+                </label>
+            </a>
+        </li>
     </ul>
+
     <div class="col-sm-4 col-md-4">
         <form class="navbar-form" role="search">
         <div class="input-group">
@@ -75,10 +82,25 @@
                 </button>
                 <p style="margin-left: 30px; margin-top: 0px;"><b id="username">{{ current_user.username }}</b></p>
             </div>
+
             <div class="" id="loadingIcon"></div>
         </div>
         </form>
     </div>
+
+    <!-- Show maximum laws -->
+    <div id="show_count">
+        <div class="input-group number-spinner" style="max-width: 150px;">
+            <span class="input-group-btn">
+                <button class="btn btn-danger" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+            </span>
+            <input type="text"  class="form-control text-center" value="1">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+            </span>
+        </div>
+    </div>
+
 
   </div><!-- /.navbar-collapse -->
 </nav>
@@ -99,6 +121,7 @@
       </div>
     </footer> -->
 </body>
+
 
 <!-- Js Files  -->
 {% block script %}
@@ -161,6 +184,24 @@
     $(window).on('resize', function(){
         resizeComps();
     });
+
+    // Limit laws
+    $(document).on('click', '.number-spinner button', function () {    
+	var btn = $(this),
+		oldValue = btn.closest('.number-spinner').find('input').val().trim(),
+		newVal = 0;
+	
+	if (btn.attr('data-dir') == 'up') {
+		newVal = parseInt(oldValue) + 1;
+	} else {
+		if (oldValue > 1) {
+			newVal = parseInt(oldValue) - 1;
+		} else {
+			newVal = 1;
+		}
+	}
+	btn.closest('.number-spinner').find('input').val(newVal);
+});
 </script>
 
 {% endblock %}

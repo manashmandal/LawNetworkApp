@@ -222,6 +222,9 @@ def search_law():
     exclude_unigram = bool(int(request.args.get('exclude_unigram', default=True)))
 
     laws = _search(str(query), only_ngram_search=ngram, exclude_unigram=exclude_unigram)
+
+    print(laws)
+
     outer_network = build_main_network_connection(laws)
 
     id_title_map = { id : mongo.db.laws.find_one({'law_id' : id})['title'] for id in laws }
