@@ -266,7 +266,9 @@ function drawNetwork (data, stopLoading){
         ).done(function(response){
 
             $("#connectionDetailsTitle").empty();
-            $("#connectionDetailsTitle").append("Connection between : <b>" + selected_edge.from + "</b> and <b>" + selected_edge.to + "</b>");
+            $("#connectionDetailsTitle").append("Law <b>" + selected_edge.from + "</b> cites <b>" + selected_edge.to + "</b> : Details") 
+            
+            //Citation Details Between : <b>" + selected_edge.from + "</b> and <b>" + selected_edge.to + "</b>");
 
             response.detail.forEach(function(dat){
                 $("#edgeDetailPanelBody").prepend("<p>" + dat.section_detail + "</p>");
@@ -286,7 +288,7 @@ function drawNetwork (data, stopLoading){
             $("#connectionDetailsTitle").empty();
             $("#edgeDetailPanel").removeClass('panel-success').addClass('panel-warning');
             $("#edgeDetailPanelBody").append("<div class='alert alert-danger'>Connection Details Not Found!</div>");
-            $("#connectionDetailsTitle").append("Connection between : <b>" + selected_edge.from + "</b> and <b>" + selected_edge.to + "</b> <i>NOT FOUND</i>");
+            $("#connectionDetailsTitle").append("Citation Details Between : <b>" + selected_edge.from + "</b> and <b>" + selected_edge.to + "</b> <i>NOT FOUND</i>");
         });
 
     });
