@@ -38,6 +38,18 @@ html {
 
 }
 
+#filterSearchResult {
+    background: inherit;
+}
+
+#filterSearchResult:focus {
+    outline: none;
+}
+
+::placeholder {
+    color: whitesmoke;
+}
+
 </style>
 
 {% endblock %}
@@ -52,7 +64,10 @@ html {
             <div class="col-md-12">
                 <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title" id="searchResultPanelTitle">Search Result</h3>
+                <div class="row container">
+                    <h3 class="panel-title" id="searchResultPanelTitle">Search Result</h3>
+                    <input type="text" id="filterSearchResult" onkeyup="filterSearchLaws()" placeholder="Filter Laws ... ">
+                </div>
             </div>
                 <div class="panel-body" id="searchResultPanelBody">  
             </div>
@@ -165,6 +180,26 @@ html {
     </div>
   </div>
 </div>
+
+<script>
+    // Search function 
+    function filterSearchLaws(){
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("filterSearchResult");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("resultList");
+        li = ul.getElementsByTagName('li');
+
+        for (i = 0; i < li.length; i++){
+            lawtitle = li[i].getElementsByTagName("i")[0];
+            if (lawtitle.innerHTML.toUpperCase().indexOf(filter) >  -1){
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+</script>
 
 
 {% endblock %}
