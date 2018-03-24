@@ -201,7 +201,8 @@ def get_law_text():
 def get_connection_detail():
     source_id = int(request.args.get('s'))
     destination_id = int(request.args.get('d'))
-    detail = mongo.db.edge_detail.find_one({'source' : source_id, 'destination' : destination_id})
+    # detail = mongo.db.edge_detail.find_one({'source' : source_id, 'destination' : destination_id})
+    detail = mongo.db.citation_details_v2.find_one({'source' : source_id, 'destination' : destination_id})
 
     if detail != None:
         return jsonify({
