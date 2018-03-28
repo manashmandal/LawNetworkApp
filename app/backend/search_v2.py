@@ -22,6 +22,8 @@ def process_text_v2(input_text, tokenize=False):
     return filter_text
 
 
+
+
 # Search using bigram
 def search_laws(query, max_result=10, use_bigram=False):
 

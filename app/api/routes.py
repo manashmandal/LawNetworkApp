@@ -229,13 +229,13 @@ def search_law():
 
     # Filtering size
     # TODO: REMOVE THIS WHEN WE CAN GET ALL LAWS FROM DATABASE
-    laws = [law for law in laws if law < 700]
+    # laws = [law for law in laws if law < 700]
 
-    print(laws)
+    # print(laws)
 
     outer_network = build_main_network_connection(laws)
 
-    id_title_map = { id : mongo.db.laws.find_one({'law_id' : id})['title'] for id in laws }
+    id_title_map = { id : mongo.db.laws_v2.find_one({'law_id' : id})['title'] for id in laws }
 
     # Add coordinates 
     all_coordinates = mongo.db.law_embeddings.find_one()
