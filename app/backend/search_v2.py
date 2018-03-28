@@ -8,8 +8,9 @@ Instructions:
 """
 from . import Bigram, tfidf_model, tfidf_bigram_model, index_bigram_dense, index_dense, vocabulary_bigram, vocabulary, LAW_SECTION_ID_LIST
 import numpy as np
+from app import mongo
 
-# Process using this function when someone enters query
+# Process using this sfunction when someone enters query
 # Process text v2
 def process_text_v2(input_text, tokenize=False):
     valid_list = list("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ কখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহড়ঢ়য়ৎংঅআইঈউঊঋএঐওঔৌোৈেৃূুীিা")
@@ -39,9 +40,13 @@ def search_laws(query, max_result=10, use_bigram=False):
             return -1
         # Clipping the result
         indices = np.argsort(-indices)[:max_result]
+
+        print(indices)
         
         # Returning the laws only 
         law_ids = np.unique(np.array(LAW_SECTION_ID_LIST)[indices][:, 0]).tolist()
+
+
 
         return law_ids
 
@@ -52,8 +57,19 @@ def search_laws(query, max_result=10, use_bigram=False):
             return -1
         indices = np.argsort(-indices)[:max_result]
 
+        print(indices)
+
         # Returning the laws only 
         law_ids = np.unique(np.array(LAW_SECTION_ID_LIST)[indices][:, 0]).tolist()
+
+        # Remove and insert
+        mongo.db.temp_search.remove()
+        mongo.db.temp_search.insert_one({ 'search_result' : 
+            {
+            'search_indices' : indices.tolist(), 
+            'law_section_id' : np.array(LAW_SECTION_ID_LIST)[indices].tolist()
+            }
+        })
 
         return law_ids
 
