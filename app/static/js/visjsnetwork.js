@@ -220,11 +220,20 @@ function drawNetwork (data, stopLoading){
             // });
 
             // Tag cloud generation
-            $.getJSON($SCRIPT_ROOT + '/api/section_titles', {
-                id: selected_law
+            // $.getJSON($SCRIPT_ROOT + '/api/section_titles', {
+            //     id: selected_law
+            // }).done(function(inner_response){
+            //     drawTagCloud(inner_response, selected_law, stopLoading);
+            //     console.log("Drew inner law network");
+            //     stopLoading();
+            // });
+
+            // Related Section Generation
+            $.getJSON($SCRIPT_ROOT + '/api/temp_search', {
+                id : selected_law
             }).done(function(inner_response){
-                drawTagCloud(inner_response, selected_law, stopLoading);
-                console.log("Drew inner law network");
+                showRelatedSections(inner_response);
+                console.log(inner_response);
                 stopLoading();
             });
 

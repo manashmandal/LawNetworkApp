@@ -40,8 +40,6 @@ def search_laws(query, max_result=10, use_bigram=False):
             return -1
         # Clipping the result
         indices = np.argsort(-indices)[:max_result]
-
-        print(indices)
         
         # Returning the laws only 
         law_ids = np.unique(np.array(LAW_SECTION_ID_LIST)[indices][:, 0]).tolist()
@@ -57,17 +55,29 @@ def search_laws(query, max_result=10, use_bigram=False):
             return -1
         indices = np.argsort(-indices)[:max_result]
 
-        print(indices)
-
         # Returning the laws only 
         law_ids = np.unique(np.array(LAW_SECTION_ID_LIST)[indices][:, 0]).tolist()
+
+        # Prepare the law related section map
+        law_related_sections = { str(law_id) : [] for law_id in law_ids  }
+
+        # Sorted law section 
+        searched_laws_sections = sorted(np.array(LAW_SECTION_ID_LIST)[indices].tolist(), key= lambda x : x[0])
+
+        
+        for law in law_ids:
+            for section in  searched_laws_sections:
+                if law == section[0]:
+                    law_related_sections[str(law)].append(section[1])
 
         # Remove and insert
         mongo.db.temp_search.remove()
         mongo.db.temp_search.insert_one({ 'search_result' : 
             {
+            'unique_law_ids' : law_ids,
             'search_indices' : indices.tolist(), 
-            'law_section_id' : np.array(LAW_SECTION_ID_LIST)[indices].tolist()
+            'law_section_id' : np.array(LAW_SECTION_ID_LIST)[indices].tolist(),
+            'law_related_section_map' : law_related_sections
             }
         })
 

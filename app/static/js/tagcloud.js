@@ -66,6 +66,39 @@ function draw(words_map) {
 
 }
 
+function showRelatedSections(_data){
+    // Calculate available area
+    let clearance = 50;
+
+    // Resize viz
+    $("#viz").css('height', $(window).height() - clearance + 'px');
+    $("#viz").css('width', $(window).width() / 2.2 - clearance + 'px');
+
+    // Resize modal
+    $(".modal").css('min-height', $(window).height() + 'px');
+    $(".modal").css('max-height', $(window).height() + 'px');
+    $(".modal-body").css('height', $(window).height() - clearance + 'px');
+    $(".modal-body").css('max-height', $(window).height() - clearance + 'px');
+
+    $("#sections").append("<ul>");
+    for (let i = 0; i < _data.length; i++) {
+        // $("#sections").append("<span class='label label-default>'" + _data['section_keys'][i] + "</label>");
+        // $("#sections").append(data['section_keys'][i]);
+
+        // $("#sections").append("<li class='section_keys' id='section_" + i + "'>" + _data[i]['title'] + "</li>");
+        console.log(_data[i]);
+
+        // let value = _data['section_keys'][i];
+        // if (value !== "") {
+        //     $("#sections").append("<li class='section_keys' id='section_" + i + "'>" + value + "</li>");
+        // }
+        // </br></br>
+    }
+    $("#sections").append("</ul>");
+
+    $("#lawModal").modal('toggle');
+
+}
 
 function drawTagCloud(_data, law_id, stopLoading) {
 
@@ -81,6 +114,8 @@ function drawTagCloud(_data, law_id, stopLoading) {
     $(".modal").css('max-height', $(window).height() + 'px');
     $(".modal-body").css('height', $(window).height() - clearance + 'px');
     $(".modal-body").css('max-height', $(window).height() - clearance + 'px');
+
+    console.log(_data);
 
 
     // stopLoading();
@@ -115,16 +150,16 @@ function drawTagCloud(_data, law_id, stopLoading) {
         let section_key = $("#" + this.id).text();
 
         // Send get request for data
-        $.getJSON("/api/wordcloud", {
-            id: law_id,
-            key: section_key
-        }).done(function (response) {
-            draw(response.info.words);
+        // $.getJSON("/api/wordcloud", {
+        //     id: law_id,
+        //     key: section_key
+        // }).done(function (response) {
+        //     draw(response.info.words);
 
-            //Populate section details and section title 
-            $("#sectionTableBody").prepend("<tr><td>" + section_key + "</td><td>" + response.info.section.trim() +"</td></tr>");
-            console.log(response);
-        });
+        //     //Populate section details and section title 
+        //     $("#sectionTableBody").prepend("<tr><td>" + section_key + "</td><td>" + response.info.section.trim() +"</td></tr>");
+        //     console.log(response);
+        // });
 
     });
 
