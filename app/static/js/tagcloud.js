@@ -81,12 +81,13 @@ function showRelatedSections(_data){
     $(".modal-body").css('max-height', $(window).height() - clearance + 'px');
 
     $("#sections").append("<ul>");
-    for (let i = 0; i < _data.length; i++) {
+
+    for (let i = 0; i < _data.related_sections.length; i++) {
         // $("#sections").append("<span class='label label-default>'" + _data['section_keys'][i] + "</label>");
         // $("#sections").append(data['section_keys'][i]);
 
-        // $("#sections").append("<li class='section_keys' id='section_" + i + "'>" + _data[i]['title'] + "</li>");
-        console.log(_data[i]);
+        $("#sections").append("<li class='section_keys' id='section_" + i + "'>" + _data.related_sections[i]['title'] + "</li>");
+        // console.log(_data.related_sections[i]);
 
         // let value = _data['section_keys'][i];
         // if (value !== "") {
