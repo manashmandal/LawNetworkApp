@@ -6,7 +6,7 @@ Instructions:
 3. Prepare a dynamic graph using citation details
 
 """
-from . import Bigram, tfidf_model, tfidf_bigram_model, index_bigram_dense, index_dense, vocabulary_bigram, vocabulary, LAW_SECTION_ID_LIST
+from . import Bigram, tfidf_model, tfidf_bigram_model, index_sparse, vocabulary_bigram, vocabulary, LAW_SECTION_ID_LIST
 import numpy as np
 from app import mongo
 
@@ -34,7 +34,7 @@ def search_laws(query, max_result=10, use_bigram=False):
         query = Bigram[query]
 
         query_tfidf = tfidf_bigram_model[vocabulary_bigram.doc2bow(query)]
-        indices = index_bigram_dense[query_tfidf]
+        indices = index_sparse[query_tfidf]
         # If no indices nothing found
         if (len(indices) == 0):
             return -1
@@ -50,7 +50,10 @@ def search_laws(query, max_result=10, use_bigram=False):
 
     else:
         query_tfidf = tfidf_model[vocabulary.doc2bow(query)]
-        indices = index_dense[query_tfidf]
+        
+        #indices = index_dense[query_tfidf]
+        indices = index_sparse[query_tfidf]
+
         if (len(indices) == 0):
             return -1
         indices = np.argsort(-indices)[:max_result]
@@ -64,7 +67,7 @@ def search_laws(query, max_result=10, use_bigram=False):
         # Sorted law section 
         searched_laws_sections = sorted(np.array(LAW_SECTION_ID_LIST)[indices].tolist(), key= lambda x : x[0])
 
-        
+
         for law in law_ids:
             for section in  searched_laws_sections:
                 if law == section[0]:

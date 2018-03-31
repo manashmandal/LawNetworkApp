@@ -1,5 +1,5 @@
 from nltk.stem.porter import PorterStemmer
-import spacy
+#import spacy
 from gensim.models.phrases import Phrases
 from gensim.corpora.mmcorpus import MmCorpus
 from gensim.similarities import MatrixSimilarity, SparseMatrixSimilarity
@@ -8,8 +8,8 @@ from gensim.corpora import Dictionary
 import pickle
 
 
-print("Loading spacy")
-nlp = spacy.load('en')
+#print("Loading spacy")
+#nlp = spacy.load('en')
 
 # Change the path when running from top
 # GENSIM_MODEL_PATH = "./backend/gensim_models/"
@@ -39,12 +39,12 @@ corpus = MmCorpus(LAW_MMCORPUS_PATH)
 bigram_corpus = MmCorpus(LAW_BIGRAM_MMCORPUS_PATH)
 
 
-print("Loading Indices")
+print("Loading Sparse Indices")
 # Indices
-index_dense = MatrixSimilarity(corpus, num_features=corpus.num_terms)
+#index_dense = MatrixSimilarity(corpus, num_features=corpus.num_terms)
 index_sparse = SparseMatrixSimilarity(corpus, num_features=corpus.num_terms)
-index_bigram_dense = MatrixSimilarity(bigram_corpus, num_features=bigram_corpus.num_terms)
-index_bigram_sparse = SparseMatrixSimilarity(bigram_corpus, num_features=bigram_corpus.num_terms)
+#index_bigram_dense = MatrixSimilarity(bigram_corpus, num_features=bigram_corpus.num_terms)
+#index_bigram_sparse = SparseMatrixSimilarity(bigram_corpus, num_features=bigram_corpus.num_terms)
 
 
 print("Loading tfidf models")

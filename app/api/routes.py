@@ -44,6 +44,10 @@ def get_law_connection():
 @api.route('/api/amendments', methods=['GET'])
 def get_amendment_detail():
     _id = int(request.args.get('id', 1))
+
+    if (_id > 704):
+        _id = 1
+
     amendments, title = calc_amendment(_id)
     return jsonify({
         'id' : _id,
