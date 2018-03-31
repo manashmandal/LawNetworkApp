@@ -357,6 +357,7 @@ def testapi():
 def get_word_cloud():
     section_key = str(request.args.get('key'))
     law_id = str(request.args.get('id', '1'))
+
     try:
         cld = mongo.db.wordcloud.find_one({'law_id' : law_id })[law_id][section_key]
     except:
@@ -388,6 +389,10 @@ def get_section_keys():
 @api.route('/api/entity', methods=['GET'])
 def get_entity():
     _id = int(request.args.get('id', 1))
+
+    if (_id > 704):
+        _id = 1
+
     entity_group = mongo.db.entities.find_one({'law_id' : _id})['entity_group']
 
     entity_token_group_dict = {}
