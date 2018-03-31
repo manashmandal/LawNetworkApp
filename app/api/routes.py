@@ -227,9 +227,12 @@ def search_law():
     print("THE QUERY: " + query)
     ngram = bool(int(request.args.get('ngram', default=False)))
     exclude_unigram = bool(int(request.args.get('exclude_unigram', default=True)))
+    max_result = int(request.args.get('max', 30))
+
+    print(max_result)
 
     # laws = _search(str(query), only_ngram_search=ngram, exclude_unigram=exclude_unigram)
-    laws = search_laws(str(query), max_result=30)
+    laws = search_laws(str(query), max_result=max_result)
 
     # Filtering size
     # TODO: REMOVE THIS WHEN WE CAN GET ALL LAWS FROM DATABASE

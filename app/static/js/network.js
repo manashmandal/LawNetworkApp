@@ -94,8 +94,7 @@ $(document).ready(function(){
 
         $.getJSON($SCRIPT_ROOT + "/api/search_law", {
             q: search_keywords,
-            ngram: _ngram,
-            exclude_unigram: _exclude_unigram
+            max: +$("#max_law_count").prop('value')
         }).done(function(response){
             $("#mynetwork").empty();
             loadLawTitlesAndDrawNetwork(response);
