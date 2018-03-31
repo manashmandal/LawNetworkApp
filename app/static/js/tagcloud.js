@@ -74,13 +74,14 @@ function showRelatedSections(_data, lawid){
     $("#viz").css('height', $(window).height() - clearance + 'px');
     $("#viz").css('width', $(window).width() / 2.2 - clearance + 'px');
 
-    // Resize modal
+
+    // // Resize modal
     $(".modal").css('min-height', $(window).height() + 'px');
     $(".modal").css('max-height', $(window).height() + 'px');
     $(".modal-body").css('height', $(window).height() - clearance + 'px');
     $(".modal-body").css('max-height', $(window).height() - clearance + 'px');
 
-    $("#sections").append("<ul>");
+    $("#sections").append("<ul class='inner_section_list'>");
 
     for (let i = 0; i < _data.related_sections.length; i++) {
         // $("#sections").append("<span class='label label-default>'" + _data['section_keys'][i] + "</label>");
@@ -90,7 +91,7 @@ function showRelatedSections(_data, lawid){
         title = _data.related_sections[i]['title'];
 
 
-        $("#sections").append("<li class='section_keys' id='" + section_id + "'>" + title + "</li>");
+        $("#sections>ul").append("<li class='section_keys' id='" + section_id + "'>" + title + "</li>");
         // console.log(_data.related_sections[i]);
 
         // let value = _data['section_keys'][i];

@@ -57,6 +57,15 @@ li.section_keys:hover {
     position: fixed;
 }  
 
+ul.inner_section_list {
+  font-size: 20px;
+}
+
+tbody#sectionTableBody {
+  font-size: 17px;
+}
+
+
 #lawModal .modal-dialog  {width:80%;}
 
   .highlight {
