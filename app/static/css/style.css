@@ -53,12 +53,21 @@ li.section_keys:hover {
     overflow: auto;
 }
 
+/* Fixing Font sizes  */ 
+ul#resultList {
+  font-size: 15px;
+}
+
+div#edgeDetailPanelBody {
+  font-size: 15px;
+}
+
 .modal .modal-fixed {
     position: fixed;
 }  
 
 ul.inner_section_list {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 tbody#sectionTableBody {
