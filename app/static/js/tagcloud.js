@@ -66,7 +66,7 @@ function draw(words_map) {
 
 }
 
-function showRelatedSections(_data){
+function showRelatedSections(_data, lawid){
     // Calculate available area
     let clearance = 50;
 
@@ -86,7 +86,11 @@ function showRelatedSections(_data){
         // $("#sections").append("<span class='label label-default>'" + _data['section_keys'][i] + "</label>");
         // $("#sections").append(data['section_keys'][i]);
 
-        $("#sections").append("<li class='section_keys' id='section_" + i + "'>" + _data.related_sections[i]['title'] + "</li>");
+        section_id = _data.related_sections[i]['section_id'];
+        title = _data.related_sections[i]['title'];
+
+
+        $("#sections").append("<li class='section_keys' id='" + section_id + "'>" + title + "</li>");
         // console.log(_data.related_sections[i]);
 
         // let value = _data['section_keys'][i];
@@ -96,6 +100,25 @@ function showRelatedSections(_data){
         // </br></br>
     }
     $("#sections").append("</ul>");
+
+    $(".section_keys").on('click', function(){
+
+        // Call the api for section title and details 
+        $.getJSON("/api/section_by_key", {
+            id: lawid,
+            section: +this.id
+        }).done(function (response) {
+            $("#sectionTableBody").empty();
+            //Populate section details and section title 
+            $("#sectionTableBody").prepend("<tr><td>" + response.title  + "</td><td>" + response.detail +"</td></tr>");
+            // console.log(response);
+        });
+    });
+
+    // Add event listener to clear modal 
+    $("#lawModal").on('hidden.bs.modal', function(event){
+        $("#sectionTableBody").empty();
+    });
 
     $("#lawModal").modal('toggle');
 

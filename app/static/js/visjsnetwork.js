@@ -232,7 +232,7 @@ function drawNetwork (data, stopLoading){
             $.getJSON($SCRIPT_ROOT + '/api/temp_search', {
                 id : selected_law
             }).done(function(inner_response){
-                showRelatedSections(inner_response);
+                showRelatedSections(inner_response, selected_law);
                 console.log(inner_response);
                 stopLoading();
             });
