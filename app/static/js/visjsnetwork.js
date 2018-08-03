@@ -266,7 +266,6 @@ function drawNetwork (data, stopLoading){
         $("#edgeDetailPanelBody").empty();
         $("#edgeDetailPanel").removeClass('panel-warning').addClass('panel-success');
      
-
         let selected_edge = _edges.get(params.edges[0]);
 
         // Now requesting the details from database
