@@ -284,8 +284,18 @@ function drawNetwork (data, stopLoading){
 
             response.detail.forEach(function(dat){
                 $("#edgeDetailPanelBody").prepend("<p>" + dat.section_detail + "</p>");
+                $("#edgeDetailPanelBody").prepend("<p><b>Details</b></p>");
+                $("#edgeDetailPanelBody").prepend("</br>");
+                dat.section_keywords.map(function(keyword){
+                    $("#edgeDetailPnaelBody").prepend("<ul>")
+                        $("#edgeDetailPanelBody").prepend("<li>" + keyword + "</li>");
+                    $("#edgeDetailPanelBoyd").prepend("</ul>");
+                })
+                $("#edgeDetailPanelBody").prepend("<p><b>Keywords</b></p>");
                 $("#edgeDetailPanelBody").prepend("<p><b>" + dat.section_title + "</b></p>");
             });
+
+            
 
             // Add selected edge data to database
             $.getJSON($SCRIPT_ROOT + '/api/userstat/law_edge_click', 
