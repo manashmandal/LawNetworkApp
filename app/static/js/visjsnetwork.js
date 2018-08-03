@@ -273,6 +273,9 @@ function drawNetwork (data, stopLoading){
         $.getJSON($SCRIPT_ROOT + '/api/edge_detail',
             {s : "" + selected_edge.from , d: "" + selected_edge.to}
         ).done(function(response){
+            
+            // Gettting the response from on edge click
+            console.log(response);
 
             $("#connectionDetailsTitle").empty();
             $("#connectionDetailsTitle").append("Law <b>" + selected_edge.from + "</b> cites <b>" + selected_edge.to + "</b> : Details") 
