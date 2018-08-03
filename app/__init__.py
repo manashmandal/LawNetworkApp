@@ -16,7 +16,7 @@ def create_app(config_name):
     app.jinja_env.auto_reload = True
 
     # Initializing the addons
-    mongo.init_app(app, config_prefix='MONGO')
+    mongo.init_app(app)
     login_manager.init_app(app)
 
 
