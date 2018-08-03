@@ -226,8 +226,11 @@ def get_connection_detail():
 # API Route for Searching laws
 @api.route('/api/search_law', methods=['GET'])
 def search_law():
-    query = request.args.get('q')
-    print("THE QUERY: " + query)
+    import codecs
+    query = str(request.args.get('q'))
+
+    #print("Type : {} - LENGTH : {}".format(type(query) , len(query) ))
+
     ngram = bool(int(request.args.get('ngram', default=False)))
     exclude_unigram = bool(int(request.args.get('exclude_unigram', default=True)))
     max_result = int(request.args.get('max', 30))
