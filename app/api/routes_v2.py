@@ -5,7 +5,7 @@ from ..backend.search_v2 import search_laws
 from ..backend.search import build_main_network_connection
 import numpy as np
 
-@api.route('/api/related_edges', methods=['GET'])
+@api.route('/api/related_edges', methods=['GET', 'POST'])
 def get_related_edges():
     # Get query
     query = str(request.args.get('q'))
@@ -39,13 +39,13 @@ def get_related_edges():
     # Find the indices to get the relevant laws
     in_key = np.array([ np.any(np.isin(key, [keyword])) for key in keywords ])
 
+    data = [
+        {'from' : d['source'], 'to' : d['destination'] } for d in np.array(citation_keywords)[in_key].tolist()
+    ]
+
     return {
-        'data' : np.array(citation_keywords)[in_key].tolist()
+        'data' : data
     } 
-
-    # print(network)
-
-    # return "Done"
 
 
 @api.route('/api/routes_v2_test', methods=['GET'])
