@@ -87,5 +87,3 @@ def search_laws(query, max_result=10, use_bigram=False):
         return law_ids
 
 
-
-

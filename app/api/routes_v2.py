@@ -1,6 +1,51 @@
 from app import mongo
 from flask import jsonify, request
 from . import api
+from ..backend.search_v2 import search_laws
+from ..backend.search import build_main_network_connection
+import numpy as np
+
+@api.route('/api/related_edges', methods=['GET'])
+def get_related_edges():
+    # Get query
+    query = str(request.args.get('q'))
+    
+    # Max result 
+    max_result = int(request.args.get('max', 30))
+    
+    # Get the keyword
+    keyword = str(request.args.get('keyword'))
+    
+    # Find out the laws 
+    laws = search_laws(str(query), max_result=max_result)
+
+    # Build the network
+    network = build_main_network_connection(laws)
+
+    # Replace the key
+    network = [ {'source' : n['from'], 'destination' : n['to']} for n in network ]
+
+    # Search through the database
+    citation_keywords = mongo.db.citation_details_with_keywords.aggregate([
+        {"$match" :  { "$or" : network } },
+        {"$project" : { "keywords" : "$details.section_keywords", "source" : "$source", "destination" : "$destination", "_id" : 0 }}
+    ])
+
+    citation_keywords = list(citation_keywords)
+
+    # Get keyword array
+    keywords = [ck['keywords'][0] for ck in citation_keywords]
+
+    # Find the indices to get the relevant laws
+    in_key = np.array([ np.any(np.isin(key, [keyword])) for key in keywords ])
+
+    return {
+        'data' : np.array(citation_keywords)[in_key].tolist()
+    } 
+
+    # print(network)
+
+    # return "Done"
 
 
 @api.route('/api/routes_v2_test', methods=['GET'])
