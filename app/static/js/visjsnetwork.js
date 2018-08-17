@@ -320,6 +320,12 @@ function drawNetwork (data, stopLoading){
             // ))
 
             console.log("Section keywords", _section_keywords)
+
+
+            function getKeywordCount(){
+                console.log("calling get keyword count", this);
+            }
+
             
             $.post($SCRIPT_ROOT + '/api/keywords_edge_count', JSON.stringify(
                 {
@@ -329,9 +335,13 @@ function drawNetwork (data, stopLoading){
                     response.data.map((element) => {
                         console.log(element.keyword)
                         // Add the capsules
-                        $("#citation_keywords").prepend(
-                            "<button class='btn btn-primary' type='button'>" + element.keyword + "<span class='badge'>" + element.count + '</span></button>'
-                        )
+                        // $("#citation_keywords").prepend(
+                        //     "<button class='btn btn-primary law_keyword' type='button'>" + element.keyword + " <span class='badge'>" + element.count + '</span></button>'
+                        // )
+
+                        $("#edgeDetailPanelBody").prepend("<ul>")
+                    $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + element.keyword + " <span class='badge'>" + element.count + "</span></li>");
+                $("#edgeDetailPanelBody").prepend("</ul>");
                     })
                 }
             )
@@ -343,9 +353,11 @@ function drawNetwork (data, stopLoading){
             // })
 
            
-
+            
             // Search on clicking the keyword
             $('.law_keyword').on('click', function(){
+                console.log("CLCIKED, ", this);
+
                 let keyword = this.innerHTML;
 
                 // Clear other temp edges
