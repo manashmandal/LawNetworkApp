@@ -275,7 +275,8 @@ function drawNetwork (data, stopLoading){
         $("#edgeDetailPanelBody").empty();
         $("#edgeDetailPanel").removeClass('panel-warning').addClass('panel-success');
      
-        let selected_edge = _edges.get(params.edges[0]);
+        // let selected_edge = _edges.get(params.edges[0]);
+        let selected_edge = global_edges.get(params.edges[0]);
 
         // Now requesting the details from database
         $.getJSON($SCRIPT_ROOT + '/api/edge_detail',
@@ -314,6 +315,12 @@ function drawNetwork (data, stopLoading){
                 }).then(function(response){
                     // Draw the network here
                     console.log(response.data);
+
+                    response.data.map((edge) => {
+                        // console.log(edge);
+                        
+                    })
+                    
                 })
             })
 
