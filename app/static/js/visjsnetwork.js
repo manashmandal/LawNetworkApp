@@ -277,6 +277,8 @@ function drawNetwork (data, stopLoading){
 
         $("#edgeDetailPanelBody").empty();
         $("#edgeDetailPanel").removeClass('panel-warning').addClass('panel-success');
+
+        $("#edgeDetailPanelBody").prepend("<div id='citation_keywords'></div>");
      
         // let selected_edge = _edges.get(params.edges[0]);
         let selected_edge = global_edges.get(params.edges[0]);
@@ -325,17 +327,20 @@ function drawNetwork (data, stopLoading){
                     'query' : search_query
                 }), function(response){
                     response.data.map((element) => {
+                        console.log(element.keyword)
                         // Add the capsules
-                        
+                        $("#citation_keywords").prepend(
+                            "<button class='btn btn-primary' type='button'>" + element.keyword + "<span class='badge'>" + element.count + '</span></button>'
+                        )
                     })
                 }
             )
 
-            _section_keywords.map(function(keyword){
-                $("#edgeDetailPnaelBody").prepend("<ul>")
-                    $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + keyword + "</li>");
-                $("#edgeDetailPanelBoyd").prepend("</ul>");
-            })
+            // _section_keywords.map(function(keyword){
+            //     $("#edgeDetailPanelBody").prepend("<ul>")
+            //         $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + keyword + "</li>");
+            //     $("#edgeDetailPanelBody").prepend("</ul>");
+            // })
 
            
 
