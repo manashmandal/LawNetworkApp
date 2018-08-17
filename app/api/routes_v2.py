@@ -10,39 +10,48 @@ from app import csrf
 @api.route('/api/keywords_edge_count', methods=['POST'])
 @csrf.exempt
 def get_edge_counts_by_keywords():
-    data = request.get_json(force=True)
-    keywords = data['keywords']
+    data = request.get_json()
+
+    _keywords = data['keywords']
     query = data['query']
+
     try:
         max_result = data['max_result']
     except:
         max_result = 30
 
-    # # Find out the laws 
-    # laws = search_laws(str(query), max_result=max_result)
 
-    # # Build the network
-    # network = build_main_network_connection(laws)
+    # Find out the laws 
+    laws = search_laws(str(query), max_result=max_result)
 
-    # # Replace the key
-    # network = [ {'source' : n['from'], 'destination' : n['to']} for n in network ]
+    # Build the network
+    network = build_main_network_connection(laws)
 
-    # # Search through the database
-    # citation_keywords = mongo.db.citation_details_with_keywords.aggregate([
-    #     {"$match" :  { "$or" : network } },
-    #     {"$project" : { "keywords" : "$details.section_keywords", "source" : "$source", "destination" : "$destination", "_id" : 0 }}
-    # ])
+    # Replace the key
+    network = [ {'source' : n['from'], 'destination' : n['to']} for n in network ]
 
-    # citation_keywords = list(citation_keywords)
+    # Search through the database
+    citation_keywords = mongo.db.citation_details_with_keywords.aggregate([
+        {"$match" :  { "$or" : network } },
+        {"$project" : { "keywords" : "$details.section_keywords", "source" : "$source", "destination" : "$destination", "_id" : 0 }}
+    ])
 
-    # print(citation_keywords)
+    citation_keywords = list(citation_keywords)
 
-    # print(keywords)
-    # print(request.data)
-    print(request.get_json(force=True))
-    resp = make_response("{'test' : 'ok'}")
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    return resp
+    # Get keyword array
+    keywords = [ck['keywords'][0] for ck in citation_keywords]
+
+    # Keyword by count data
+    count_by_keyword = {}
+
+    # Find the indices to get the relevant laws
+    for _key in _keywords:
+        key_occurance_other_laws = np.where(np.array([ np.any(np.isin(key, [_key])) for key in keywords ]) == True)[0].shape[0]
+        count_by_keyword[_key] = key_occurance_other_laws
+
+    return {
+        'data' : count_by_keyword
+    }
 
 
 
@@ -80,6 +89,8 @@ def get_related_edges():
 
     # Find the indices to get the relevant laws
     in_key = np.array([ np.any(np.isin(key, [keyword])) for key in keywords ])
+
+    print(in_key)
 
     data = [
         {'from' : d['source'], 'to' : d['destination'] } for d in np.array(citation_keywords)[in_key].tolist()
