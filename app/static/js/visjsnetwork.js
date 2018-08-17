@@ -318,7 +318,8 @@ function drawNetwork (data, stopLoading){
 
                     response.data.map((edge) => {
                         // console.log(edge);
-                        
+                        // global_edges.update({ id: "" })
+                        global_edges.update({from : edge.from, to : edge.to, color: { color : 'rgba(50, 50, 50, 0.8)'}, id: edge.from + "-" + edge.to,  })
                     })
                     
                 })
