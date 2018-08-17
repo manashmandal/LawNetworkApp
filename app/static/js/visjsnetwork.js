@@ -14,6 +14,7 @@
 var selected_law;
 var netwrk;
 var network_citation; 
+var global_edges = [];
 
 
 function drawNetwork (data, stopLoading){
@@ -40,15 +41,20 @@ function drawNetwork (data, stopLoading){
     // Create data
 
     let _nodes = new vis.DataSet(nodes);
-    let _edges = new vis.DataSet(edges);
+    // let _edges = new vis.DataSet(edges);
+    global_edges = new vis.DataSet(edges);
 
-
+    // Add listeners
+    global_edges.on('*', function(event, properties, senderId){
+        console.log('event', event, 'properties', properties, 'senderId', senderId);
+    });
 
     var container = document.getElementById("mynetwork");
 
     var _data = {
         nodes: _nodes,
-        edges: _edges
+        // edges: _edges
+        edges: global_edges
     };
 
 
