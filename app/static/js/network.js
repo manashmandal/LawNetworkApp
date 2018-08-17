@@ -4,6 +4,7 @@
 // Loads Ttile and Draws The Network
 
 var net;
+var search_query;
 
 var loadingDone = function(){
     $("#loadingIcon").removeClass("loading");
@@ -78,6 +79,7 @@ $(document).ready(function(){
 
         // Send Jquery request for searching
         let search_keywords = $("#keywordSearchInput").val();
+        search_query = search_keywords;
 
 
         // Save the keyword

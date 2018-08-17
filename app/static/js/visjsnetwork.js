@@ -290,14 +290,26 @@ function drawNetwork (data, stopLoading){
                 $("#edgeDetailPanelBody").prepend("</br>");
                 dat.section_keywords.map(function(keyword){
                     $("#edgeDetailPnaelBody").prepend("<ul>")
-                        $("#edgeDetailPanelBody").prepend("<li>" + keyword + "</li>");
+                        $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + keyword + "</li>");
                     $("#edgeDetailPanelBoyd").prepend("</ul>");
                 })
                 $("#edgeDetailPanelBody").prepend("<p><b>Keywords</b></p>");
                 $("#edgeDetailPanelBody").prepend("<p><b>" + dat.section_title + "</b></p>");
             });
 
-            
+            // Search on clicking the keyword
+            $('.law_keyword').on('click', function(){
+                let keyword = this.innerHTML;
+                
+                // Send request to get the related edges
+                $.getJSON($SCRIPT_ROOT + '/api/related_edges', {
+                    q: search_query,
+                    keyword: keyword
+                }).then(function(response){
+                    // Draw the network here
+                    console.log(response.data);
+                })
+            })
 
             // Add selected edge data to database
             $.getJSON($SCRIPT_ROOT + '/api/userstat/law_edge_click', 
