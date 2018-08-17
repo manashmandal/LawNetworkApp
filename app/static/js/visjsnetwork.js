@@ -17,7 +17,6 @@ var network_citation;
 var global_edges = [];
 var temp_edges = [];
 
-
 function drawNetwork (data, stopLoading){
 
     $("#edgeDetailPanelBody").empty();
@@ -309,16 +308,25 @@ function drawNetwork (data, stopLoading){
                 $("#edgeDetailPanelBody").prepend("<p><b>" + dat.section_title + "</b></p>");
             });
 
+
             // Get keyword counts then draw the keywords
+            // $.post($SCRIPT_ROOT + '/api/keywords_edge_count', JSON.stringify(
+            //     {
+            //         'keywords' : _section_keywords,
+            //         'query' : search_query
+            //     }
+            // ))
+
+            console.log("Section keywords", _section_keywords)
+            
             $.post($SCRIPT_ROOT + '/api/keywords_edge_count', JSON.stringify(
                 {
-                    keywords : _section_keywords,
-                    query : search_query 
+                    'keywords' : _section_keywords,
+                    'query' : search_query
                 }
             )).then(function(response){
                 console.log(response);
             })
-            
 
             _section_keywords.map(function(keyword){
                 $("#edgeDetailPnaelBody").prepend("<ul>")

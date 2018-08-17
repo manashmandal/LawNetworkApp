@@ -10,7 +10,9 @@ from app import csrf
 @api.route('/api/keywords_edge_count', methods=['POST'])
 @csrf.exempt
 def get_edge_counts_by_keywords():
-    data = request.get_json()
+    data = dict(request.get_json(force=True))
+
+    print(data)
 
     _keywords = data['keywords']
     query = data['query']
@@ -111,7 +113,7 @@ def routes_v2_testing():
 
 @api.route('/api/test/post', methods=['POST'])
 def test_post_request():
-    data = request.data
+    data = request.get_json(force=True)
     print(data)
     return "done"
 
