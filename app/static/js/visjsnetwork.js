@@ -273,6 +273,9 @@ function drawNetwork (data, stopLoading){
     // Edge click show why it is connected 
     // Add the text to edgeDetailsPanelBody
     network.on('selectEdge', function(params){
+        // store section keywords for later use
+        var _section_keywords = [];
+
         $("#edgeDetailPanelBody").empty();
         $("#edgeDetailPanel").removeClass('panel-warning').addClass('panel-success');
      
@@ -283,9 +286,6 @@ function drawNetwork (data, stopLoading){
         $.getJSON($SCRIPT_ROOT + '/api/edge_detail',
             {s : "" + selected_edge.from , d: "" + selected_edge.to}
         ).done(function(response){
-            
-            // Gettting the response from on edge click
-            console.log(response);
 
             $("#connectionDetailsTitle").empty();
             $("#connectionDetailsTitle").append("Law <b>" + selected_edge.from + "</b> cites <b>" + selected_edge.to + "</b> : Details") 
@@ -296,14 +296,35 @@ function drawNetwork (data, stopLoading){
                 $("#edgeDetailPanelBody").prepend("<p>" + dat.section_detail + "</p>");
                 $("#edgeDetailPanelBody").prepend("<p><b>Details</b></p>");
                 $("#edgeDetailPanelBody").prepend("</br>");
-                dat.section_keywords.map(function(keyword){
-                    $("#edgeDetailPnaelBody").prepend("<ul>")
-                        $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + keyword + "</li>");
-                    $("#edgeDetailPanelBoyd").prepend("</ul>");
-                })
+
+                // dat.section_keywords.map(function(keyword){
+                //     $("#edgeDetailPnaelBody").prepend("<ul>")
+                //         $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + keyword + "</li>");
+                //     $("#edgeDetailPanelBoyd").prepend("</ul>");
+                // })
+
+                _section_keywords = dat.section_keywords;
+
                 $("#edgeDetailPanelBody").prepend("<p><b>Keywords</b></p>");
                 $("#edgeDetailPanelBody").prepend("<p><b>" + dat.section_title + "</b></p>");
             });
+
+            // Get keyword counts then draw the keywords
+            $.post($SCRIPT_ROOT + '/api/keywords_edge_count', JSON.stringify(
+                {
+                    keywords : _section_keywords,
+                    query : search_query 
+                }
+            )).then(function(response){
+                console.log(response);
+            })
+            
+
+            _section_keywords.map(function(keyword){
+                $("#edgeDetailPnaelBody").prepend("<ul>")
+                    $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + keyword + "</li>");
+                $("#edgeDetailPanelBoyd").prepend("</ul>");
+            })
 
            
 
@@ -318,6 +339,8 @@ function drawNetwork (data, stopLoading){
                 
                 console.log("temp edges");
                 console.log(temp_edges);
+
+                
 
                 // Send request to get the related edges
                 $.getJSON($SCRIPT_ROOT + '/api/related_edges', {

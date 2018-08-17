@@ -4,6 +4,47 @@ from . import api
 from ..backend.search_v2 import search_laws
 from ..backend.search import build_main_network_connection
 import numpy as np
+from flask import make_response
+from app import csrf
+
+@api.route('/api/keywords_edge_count', methods=['POST'])
+@csrf.exempt
+def get_edge_counts_by_keywords():
+    data = request.get_json(force=True)
+    keywords = data['keywords']
+    query = data['query']
+    try:
+        max_result = data['max_result']
+    except:
+        max_result = 30
+
+    # # Find out the laws 
+    # laws = search_laws(str(query), max_result=max_result)
+
+    # # Build the network
+    # network = build_main_network_connection(laws)
+
+    # # Replace the key
+    # network = [ {'source' : n['from'], 'destination' : n['to']} for n in network ]
+
+    # # Search through the database
+    # citation_keywords = mongo.db.citation_details_with_keywords.aggregate([
+    #     {"$match" :  { "$or" : network } },
+    #     {"$project" : { "keywords" : "$details.section_keywords", "source" : "$source", "destination" : "$destination", "_id" : 0 }}
+    # ])
+
+    # citation_keywords = list(citation_keywords)
+
+    # print(citation_keywords)
+
+    # print(keywords)
+    # print(request.data)
+    print(request.get_json(force=True))
+    resp = make_response("{'test' : 'ok'}")
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+
 
 @api.route('/api/related_edges', methods=['GET', 'POST'])
 def get_related_edges():
