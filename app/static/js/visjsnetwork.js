@@ -15,6 +15,7 @@ var selected_law;
 var netwrk;
 var network_citation; 
 var global_edges = [];
+var temp_edges = [];
 
 
 function drawNetwork (data, stopLoading){
@@ -304,10 +305,20 @@ function drawNetwork (data, stopLoading){
                 $("#edgeDetailPanelBody").prepend("<p><b>" + dat.section_title + "</b></p>");
             });
 
+           
+
             // Search on clicking the keyword
             $('.law_keyword').on('click', function(){
                 let keyword = this.innerHTML;
+
+                // Clear other temp edges
+                temp_edges.map((edge) => {
+                    global_edges.update({from : edge.from, to : edge.to, color: { color : 'rgba(255, 0, 0, 0.1)'}, id: edge.from + "-" + edge.to,  })
+                });
                 
+                console.log("temp edges");
+                console.log(temp_edges);
+
                 // Send request to get the related edges
                 $.getJSON($SCRIPT_ROOT + '/api/related_edges', {
                     q: search_query,
@@ -315,6 +326,8 @@ function drawNetwork (data, stopLoading){
                 }).then(function(response){
                     // Draw the network here
                     console.log(response.data);
+
+                    temp_edges = response.data;
 
                     response.data.map((edge) => {
                         // console.log(edge);
