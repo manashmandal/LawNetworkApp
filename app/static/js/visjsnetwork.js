@@ -323,10 +323,13 @@ function drawNetwork (data, stopLoading){
                 {
                     'keywords' : _section_keywords,
                     'query' : search_query
+                }), function(response){
+                    response.data.map((element) => {
+                        // Add the capsules
+                        
+                    })
                 }
-            )).then(function(response){
-                console.log(response);
-            })
+            )
 
             _section_keywords.map(function(keyword){
                 $("#edgeDetailPnaelBody").prepend("<ul>")

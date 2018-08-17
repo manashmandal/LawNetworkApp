@@ -44,12 +44,15 @@ def get_edge_counts_by_keywords():
     keywords = [ck['keywords'][0] for ck in citation_keywords]
 
     # Keyword by count data
-    count_by_keyword = {}
+    count_by_keyword = []
 
     # Find the indices to get the relevant laws
     for _key in _keywords:
         key_occurance_other_laws = np.where(np.array([ np.any(np.isin(key, [_key])) for key in keywords ]) == True)[0].shape[0]
-        count_by_keyword[_key] = key_occurance_other_laws
+        count_by_keyword.append({
+            'keyword' : _key,
+            'count' : key_occurance_other_laws
+        })
 
     return {
         'data' : count_by_keyword
