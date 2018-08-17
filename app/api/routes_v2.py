@@ -7,6 +7,7 @@ import numpy as np
 
 @api.route('/api/related_edges', methods=['GET', 'POST'])
 def get_related_edges():
+    print("GETTING RELATD EDGES")
     # Get query
     query = str(request.args.get('q'))
     
@@ -43,6 +44,8 @@ def get_related_edges():
         {'from' : d['source'], 'to' : d['destination'] } for d in np.array(citation_keywords)[in_key].tolist()
     ]
 
+    print("DONE FINDING")
+
     return {
         'data' : data
     } 
@@ -53,6 +56,14 @@ def routes_v2_testing():
     return jsonify({
         'success' : 'jsonify done'
     })
+
+@api.route('/api/test/post', methods=['POST'])
+def test_post_request():
+    data = request.data
+    print(data)
+    return "done"
+
+
 
 # Get a specific section based on law and section key
 @api.route('/api/section_by_key', methods=['GET'])

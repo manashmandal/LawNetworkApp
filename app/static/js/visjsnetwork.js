@@ -13,6 +13,7 @@
 
 var selected_law;
 var netwrk;
+var network_citation; 
 
 
 function drawNetwork (data, stopLoading){
@@ -23,12 +24,14 @@ function drawNetwork (data, stopLoading){
     let edges = [];
 
     console.log("PRINTING DATA ");
-    console.log(data);
+    console.log(data.network);
+    network_citation = data.network;
 
     // Added embedding
     for (var i = 0; i < data.laws.length; i++){
         nodes.push({id : data.laws[i], label: "" + data.laws[i], title: data.id_title_map[data.laws[i]], x: data.coords[i].x, y: data.coords[i].y});
     }
+
 
     for (var i = 0; i < data.network.length; i++){
         edges.push({from : data.network[i].from, to : data.network[i].to, color: { color : 'rgba(255, 0, 0, 0.1)'}, id: data.network[i].from + "-" + data.network[i].to, arrows: 'to' });
