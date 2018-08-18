@@ -213,11 +213,42 @@ def get_connection_detail():
     # Upgrade with citation keywords
     detail = mongo.db.citation_details_with_keywords.find_one({ 'source' : source_id, 'destination' : destination_id })
 
+
+    # Get the titles
+    source_law_title = ""
+    destination_law_title = ""
+
+    cited_laws = list(mongo.db.laws.find({
+        "law_id" : {
+            "$in" : [source_id, destination_id]
+        }
+    },
+        {
+            "law_id" : 1,
+            "title" : 1,
+            "_id" : 0
+        }
+    ).sort("law_id"))
+
+    # Sorted array returns in ascending order
+    if destination_id > source_id:
+        try:
+            source_law_title = cited_laws[0]['title']
+            destination_law_title = cited_laws[1]['title']
+        except:
+            pass
+    else:
+        source_law_title = cited_laws[1]['title']
+        destination_law_title = cited_laws[0]['title']
+
+
     if detail != None:
         return jsonify({
             'source' : source_id,
             'destination' : destination_id,
-            'detail' : detail['details']
+            'detail' : detail['details'],
+            'source_title' : source_law_title,
+            'destination_title' : destination_law_title
         })
 
     error = {"error" : "connection does not exist"}
