@@ -311,6 +311,9 @@ function drawNetwork (data, stopLoading){
             // });
             response.detail.forEach(function(dat){
                 $("#edgeDetailPanelBody").append("<p><b>" + dat.section_title + "</b></p>");
+                $("#edgeDetailPanelBody").append("<ul>");
+                $("#edgeDetailPanelBody>ul").append("<li>this is an itme</li>");
+                $("#edgeDetailPanelBody").append("</ul>");
             })
 
 
