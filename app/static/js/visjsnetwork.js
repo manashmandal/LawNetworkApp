@@ -328,7 +328,7 @@ function drawNetwork (data, stopLoading){
                     response.data.map((element) => {
                         console.log(element);
                         
-                        $("#keywords>ul").append("<li class='.law_keyword'>"+ element.keyword +"</li>");
+                        $("#keywords>ul").append("<li class='law_keyword'>"+ element.keyword +"</li>");
                         
                         // Add the capsules
                         // $("#citation_keywords").prepend(
@@ -340,34 +340,50 @@ function drawNetwork (data, stopLoading){
 
                     })
                 }
-            )
+            ).done(function(){
+            // On done requesting attach the functions
 
-            
+            // Search on clicking the keyword
+            $('.law_keyword').on('click', function(){
+                
+                console.log("CLCIKED, ", this);
 
+                let keyword = this.innerHTML;
 
+                // Clear other temp edges
+                temp_edges.map((edge) => {
+                    global_edges.update({from : edge.from, to : edge.to, color: { color : 'rgba(255, 0, 0, 0.1)'}, id: edge.from + "-" + edge.to,  })
+                });
+                
+                console.log("temp edges");
+                console.log(temp_edges);
 
+                
 
-            // Get keyword counts then draw the keywords
-            // $.post($SCRIPT_ROOT + '/api/keywords_edge_count', JSON.stringify(
-            //     {
-            //         'keywords' : _section_keywords,
-            //         'query' : search_query
-            //     }
-            // ))
+                // Send request to get the related edges
+                $.getJSON($SCRIPT_ROOT + '/api/related_edges', {
+                    q: search_query,
+                    keyword: keyword
+                }).then(function(response){
+                    // Draw the network here
+                    console.log(response.data);
 
+                    temp_edges = response.data;
 
-            
-
-            // _section_keywords.map(function(keyword){
-            //     $("#edgeDetailPanelBody").prepend("<ul>")
-            //         $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + keyword + "</li>");
-            //     $("#edgeDetailPanelBody").prepend("</ul>");
-            // })
-
+                    response.data.map((edge) => {
+                        // console.log(edge);
+                        // global_edges.update({ id: "" })
+                        global_edges.update({from : edge.from, to : edge.to, color: { color : 'rgba(50, 50, 50, 0.8)'}, id: edge.from + "-" + edge.to,  })
+                    })
+                    
+                })
+            })
+            })
            
             
             // Search on clicking the keyword
             $('.law_keyword').on('click', function(){
+                
                 console.log("CLCIKED, ", this);
 
                 let keyword = this.innerHTML;
