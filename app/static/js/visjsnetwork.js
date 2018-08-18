@@ -312,8 +312,12 @@ function drawNetwork (data, stopLoading){
             response.detail.forEach(function(dat){
                 $("#edgeDetailPanelBody").append("<p><b>" + dat.section_title + "</b></p>");
                 // Add div for keywords
-                $("#edgeDetailPanelBody").append("<div id='keywords'><ul></ul></div>");
-
+                $("#edgeDetailPanelBody").append("<b><i>Keywords</i></b>");
+                $("#edgeDetailPanelBody").append("<div id='keywords'><ul style='list-style-type: none'></ul></div>");
+                
+                $("#edgeDetailPanelBody").append("<br/>");
+                $("#edgeDetailPanelBody").append("<p><b>Details</b></p>");
+                $("#edgeDetailPanelBody").append("<p>" + dat.section_detail + "</p>");
                 // Get section keywords
                 _section_keywords = dat.section_keywords;
             })
@@ -328,7 +332,7 @@ function drawNetwork (data, stopLoading){
                     response.data.map((element) => {
                         console.log(element);
                         
-                        $("#keywords>ul").append("<li class='law_keyword'><button class='btn btn-primary'>"+ element.keyword + " <span class='badge'>" + element.count + "</span></button></li>");
+                        $("#keywords>ul").append("<li style='margin-bottom: 3px' class='law_keyword'><button class='btn btn-primary'>"+ element.keyword + " <span class='badge'>" + String(element.count - 1) + "</span></button></li>");
                         
                         // Add the capsules
                         // $("#citation_keywords").prepend(
