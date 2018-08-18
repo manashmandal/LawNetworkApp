@@ -24,9 +24,9 @@ function drawNetwork (data, stopLoading){
     let nodes = [];
     let edges = [];
 
-    console.log("PRINTING DATA ");
-    console.log(data.network);
     network_citation = data.network;
+
+    console.log('start');
 
     // Added embedding
     for (var i = 0; i < data.laws.length; i++){
@@ -311,27 +311,24 @@ function drawNetwork (data, stopLoading){
             // });
             response.detail.forEach(function(dat){
                 $("#edgeDetailPanelBody").append("<p><b>" + dat.section_title + "</b></p>");
-                $("#edgeDetailPanelBody").append("<ul>");
-                $("#edgeDetailPanelBody>ul").append("<li>this is an itme</li>");
-                $("#edgeDetailPanelBody").append("</ul>");
+                // Add div for keywords
+                $("#edgeDetailPanelBody").append("<div id='keywords'><ul></ul></div>");
+
+                // Get section keywords
+                _section_keywords = dat.section_keywords;
             })
 
-
-            // Get keyword counts then draw the keywords
-            // $.post($SCRIPT_ROOT + '/api/keywords_edge_count', JSON.stringify(
-            //     {
-            //         'keywords' : _section_keywords,
-            //         'query' : search_query
-            //     }
-            // ))
-
-
+            // Send request for keyword
+            console.log("requesting for keyword counts ", _section_keywords, search_query)
             $.post($SCRIPT_ROOT + '/api/keywords_edge_count', JSON.stringify(
                 {
                     'keywords' : _section_keywords,
                     'query' : search_query
                 }), function(response){
                     response.data.map((element) => {
+                        console.log(element);
+                        
+                        $("#keywords>ul").append("<li class='.law_keyword'>"+ element.keyword +"</li>");
                         
                         // Add the capsules
                         // $("#citation_keywords").prepend(
@@ -344,6 +341,22 @@ function drawNetwork (data, stopLoading){
                     })
                 }
             )
+
+            
+
+
+
+
+            // Get keyword counts then draw the keywords
+            // $.post($SCRIPT_ROOT + '/api/keywords_edge_count', JSON.stringify(
+            //     {
+            //         'keywords' : _section_keywords,
+            //         'query' : search_query
+            //     }
+            // ))
+
+
+            
 
             // _section_keywords.map(function(keyword){
             //     $("#edgeDetailPanelBody").prepend("<ul>")
