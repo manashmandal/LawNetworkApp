@@ -328,7 +328,7 @@ function drawNetwork (data, stopLoading){
                     response.data.map((element) => {
                         console.log(element);
                         
-                        $("#keywords>ul").append("<li class='law_keyword'>"+ element.keyword +"</li>");
+                        $("#keywords>ul").append("<li class='law_keyword'><button class='btn btn-primary'>"+ element.keyword + " <span class='badge'>" + element.count + "</span></button></li>");
                         
                         // Add the capsules
                         // $("#citation_keywords").prepend(
@@ -345,34 +345,20 @@ function drawNetwork (data, stopLoading){
 
             // Search on clicking the keyword
             $('.law_keyword').on('click', function(){
-                
-                console.log("CLCIKED, ", this);
-
-                let keyword = this.innerHTML;
-
+                // Extract text from button
+                let keyword = this.textContent.split(' ').slice(0, -1).join("");
                 // Clear other temp edges
                 temp_edges.map((edge) => {
                     global_edges.update({from : edge.from, to : edge.to, color: { color : 'rgba(255, 0, 0, 0.1)'}, id: edge.from + "-" + edge.to,  })
                 });
-                
-                console.log("temp edges");
-                console.log(temp_edges);
-
-                
 
                 // Send request to get the related edges
                 $.getJSON($SCRIPT_ROOT + '/api/related_edges', {
                     q: search_query,
                     keyword: keyword
                 }).then(function(response){
-                    // Draw the network here
-                    console.log(response.data);
-
                     temp_edges = response.data;
-
                     response.data.map((edge) => {
-                        // console.log(edge);
-                        // global_edges.update({ id: "" })
                         global_edges.update({from : edge.from, to : edge.to, color: { color : 'rgba(50, 50, 50, 0.8)'}, id: edge.from + "-" + edge.to,  })
                     })
                     
