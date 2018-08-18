@@ -289,26 +289,8 @@ function drawNetwork (data, stopLoading){
         ).done(function(response){
 
             $("#connectionDetailsTitle").empty();
-            $("#connectionDetailsTitle").append("Law <b>" + selected_edge.from + "</b> cites <b>" + selected_edge.to + "</b> : Details") 
+            $("#connectionDetailsTitle").append("<b><i>" + response.source_title + "</i></b> (<b>"+ selected_edge.from + "</b>)" + " ⟶ <b><i>" + response.destination_title + "</i></b> (<b>"+ selected_edge.to + "</b>)" );
             
-            //Citation Details Between : <b>" + selected_edge.from + "</b> and <b>" + selected_edge.to + "</b>");
-
-            // response.detail.forEach(function(dat){
-            //     $("#edgeDetailPanelBody").prepend("<p>" + dat.section_detail + "</p>");
-            //     $("#edgeDetailPanelBody").prepend("<p><b>Details</b></p>");
-            //     $("#edgeDetailPanelBody").prepend("</br>");
-
-            //     $("#edgeDetailPanelBody").prepend("</ul>")
-            //     dat.section_keywords.map(function(keyword){
-            //         $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + keyword + "</li>");
-            //     })
-            //     $("#edgeDetailPanelBody").prepend("<ul>");
-
-            //     _section_keywords = dat.section_keywords;
-
-            //     $("#edgeDetailPanelBody").prepend("<p><b>Keywords</b></p>");
-            //     $("#edgeDetailPanelBody").prepend("<p><b>" + dat.section_title + "</b></p>");
-            // });
             response.detail.forEach(function(dat){
                 $("#edgeDetailPanelBody").append("<p><b>" + dat.section_title + "</b></p>");
                 // Add div for keywords
@@ -333,15 +315,7 @@ function drawNetwork (data, stopLoading){
                         console.log(element);
                         
                         $("#keywords>ul").append("<li style='margin-bottom: 3px' class='law_keyword'><button class='btn btn-primary'>"+ element.keyword + " <span class='badge'>" + String(element.count - 1) + "</span></button></li>");
-                        
-                        // Add the capsules
-                        // $("#citation_keywords").prepend(
-                        //     "<button class='btn btn-primary law_keyword' type='button'>" + element.keyword + " <span class='badge'>" + element.count + '</span></button>'
-                        // )
-                        
-                    // $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + element.keyword + " <span class='badge'>" + element.count + "</span></li>");
-                    // })
-
+                    
                     })
                 }
             ).done(function(){
