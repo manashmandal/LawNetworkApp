@@ -293,22 +293,25 @@ function drawNetwork (data, stopLoading){
             
             //Citation Details Between : <b>" + selected_edge.from + "</b> and <b>" + selected_edge.to + "</b>");
 
+            // response.detail.forEach(function(dat){
+            //     $("#edgeDetailPanelBody").prepend("<p>" + dat.section_detail + "</p>");
+            //     $("#edgeDetailPanelBody").prepend("<p><b>Details</b></p>");
+            //     $("#edgeDetailPanelBody").prepend("</br>");
+
+            //     $("#edgeDetailPanelBody").prepend("</ul>")
+            //     dat.section_keywords.map(function(keyword){
+            //         $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + keyword + "</li>");
+            //     })
+            //     $("#edgeDetailPanelBody").prepend("<ul>");
+
+            //     _section_keywords = dat.section_keywords;
+
+            //     $("#edgeDetailPanelBody").prepend("<p><b>Keywords</b></p>");
+            //     $("#edgeDetailPanelBody").prepend("<p><b>" + dat.section_title + "</b></p>");
+            // });
             response.detail.forEach(function(dat){
-                $("#edgeDetailPanelBody").prepend("<p>" + dat.section_detail + "</p>");
-                $("#edgeDetailPanelBody").prepend("<p><b>Details</b></p>");
-                $("#edgeDetailPanelBody").prepend("</br>");
-
-                // dat.section_keywords.map(function(keyword){
-                //     $("#edgeDetailPnaelBody").prepend("<ul>")
-                //         $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + keyword + "</li>");
-                //     $("#edgeDetailPanelBoyd").prepend("</ul>");
-                // })
-
-                _section_keywords = dat.section_keywords;
-
-                $("#edgeDetailPanelBody").prepend("<p><b>Keywords</b></p>");
-                $("#edgeDetailPanelBody").prepend("<p><b>" + dat.section_title + "</b></p>");
-            });
+                $("#edgeDetailPanelBody").append("<p><b>" + dat.section_title + "</b></p>");
+            })
 
 
             // Get keyword counts then draw the keywords
@@ -319,29 +322,22 @@ function drawNetwork (data, stopLoading){
             //     }
             // ))
 
-            console.log("Section keywords", _section_keywords)
 
-
-            function getKeywordCount(){
-                console.log("calling get keyword count", this);
-            }
-
-            
             $.post($SCRIPT_ROOT + '/api/keywords_edge_count', JSON.stringify(
                 {
                     'keywords' : _section_keywords,
                     'query' : search_query
                 }), function(response){
                     response.data.map((element) => {
-                        console.log(element.keyword)
+                        
                         // Add the capsules
                         // $("#citation_keywords").prepend(
                         //     "<button class='btn btn-primary law_keyword' type='button'>" + element.keyword + " <span class='badge'>" + element.count + '</span></button>'
                         // )
+                        
+                    // $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + element.keyword + " <span class='badge'>" + element.count + "</span></li>");
+                    // })
 
-                        $("#edgeDetailPanelBody").prepend("<ul>")
-                    $("#edgeDetailPanelBody").prepend("<li class='law_keyword'>" + element.keyword + " <span class='badge'>" + element.count + "</span></li>");
-                $("#edgeDetailPanelBody").prepend("</ul>");
                     })
                 }
             )
