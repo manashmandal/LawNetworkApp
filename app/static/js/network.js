@@ -79,7 +79,7 @@ $(document).ready(function(){
 
         // Send Jquery request for searching
         // For prototyping use a fixed keyword
-        let search_keywords =  'army'; // $("#keywordSearchInput").val();
+        let search_keywords =  $("#keywordSearchInput").val();
         search_query = search_keywords;
 
 
