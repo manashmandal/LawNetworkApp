@@ -1,12 +1,6 @@
 # Law Network App
-Flask App
+Flask Application for Law Network Visualization
 
+## Publication
+[A visual search engine for Bangladeshi laws](https://arxiv.org/abs/1711.05233) published at NIPS 2017 ML4D conference.
 
-# Mongo Collections Used
-1. `users`
-2. `bigrams`
-3. `trigrams`
-4. `citations`
-5. `edge_detail`
-6. `laws`
-7. `network`
